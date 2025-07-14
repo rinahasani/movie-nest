@@ -1,0 +1,18 @@
+import { API_ENDPOINTS } from "../constants/api";
+import { ERROR_MESSAGES } from "../constants/strings";
+
+export async function getAllMovies() {
+  try {
+    const response = await fetch(API_ENDPOINTS.DISCOVER,{
+      next: {revalidate: 3600}
+    });
+    if (!response.ok) {
+      throw new Error(ERROR_MESSAGES.API_FETCH_FAILED(response.status));
+    }
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error('Error fetching all movies:', error);
+    return [];
+  }
+}
