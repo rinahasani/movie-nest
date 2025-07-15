@@ -1,4 +1,4 @@
-import { ref, set, remove } from "firebase/database";
+import { ref, set, remove, get } from "firebase/database";
 import { db } from "./firebase";
 import { ERROR_MESSAGES } from "../constants/strings";
 
@@ -19,6 +19,13 @@ export async function removeFavoriteMovie(uid, movie) {
   if (!uid || !movie?.id) {
     throw new Error(ERROR_MESSAGES.INVALID_UID_OR_MOVIE);
   }
+
   const movieRef = ref(db, `users/${uid}/favoriteMovies/${movie.id}`);
+  const snapshot = await get(movieRef);
+
+  if (!snapshot.exists()) {
+    throw new Error(ERROR_MESSAGES.MOVIE_NOT_FOUND);
+  }
+
   return remove(movieRef);
 }

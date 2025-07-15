@@ -1,12 +1,26 @@
 import { removeFavoriteMovie } from "../../../../public/lib/favoriteMovies";
 import { ERROR_MESSAGES } from "../../../../public/constants/strings";
+import { adminAuth } from "../../../../public/lib/firebaseAdmin";
 
 export async function POST(req) {
   try {
-    const body = await req.json();
-    const { uid, movie } = body;
+    const authHeader = req.headers.get("authorization") || "";
+    const token = authHeader.split(" ")[1];
 
-    if (!uid || !movie?.id) {
+    if (!token) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized: Missing token" }),
+        { status: 401 }
+      );
+    }
+
+    const decodedToken = await adminAuth.verifyIdToken(token);
+    const uid = decodedToken.uid;
+
+    const body = await req.json();
+    const { movie } = body;
+
+    if (!movie?.id) {
       return new Response(
         JSON.stringify({ error: ERROR_MESSAGES.MISSING_UID_OR_MOVIE_ID }),
         { status: 400 }

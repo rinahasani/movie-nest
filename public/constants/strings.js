@@ -26,4 +26,5 @@ export const ERROR_MESSAGES = {
   INVALID_UID_OR_MOVIE: "Invalid UID or movie.",
   MISSING_UID_OR_MOVIE: "Missing uid or movie.",
   MISSING_UID_OR_MOVIE_ID: "Missing uid or movie.id.",
+  MOVIE_NOT_FOUND: "Movie not found in favorites.",
 };
