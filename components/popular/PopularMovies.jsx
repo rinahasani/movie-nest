@@ -35,7 +35,7 @@ const PopularMovies = (props) => {
 
   return (
     <div
-      className="max-w-full md:max-w-[48rem] mx-auto"
+      className="max-w-full x mx-auto px-4"
       style={{
         "--slide-height": "19rem",
         "--slide-spacing": "1rem",
