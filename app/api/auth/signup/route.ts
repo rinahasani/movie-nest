@@ -1,4 +1,4 @@
-import { registerUser } from '@/lib/firebaseAuth';
+import { registerUser } from '../../../../lib/firebaseAuth';
 
 export async function POST(req: Request) {
   try {

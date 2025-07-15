@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { AuthSlider } from "../../../components/AuthSlider";
 
-
 export default function LoginPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -22,36 +21,26 @@ export default function LoginPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
-    const data = await res.json();
 
+    const data = await res.json();
     if (!data.success) setError(data.error || "Login failed");
     else setSuccess("Successfully logged in! 🎉");
   };
 
-  const pics = [
-    "/assets/movies/movie1.jpg",
-    "/assets/movies/movie2.png",
-    "/assets/movies/movie3.png",
-    "/assets/movies/movie4.jpg",
-    "/assets/movies/movie5.png",
-    "/assets/movies/movie6.png",
-    "/assets/movies/movie7.jpg",
-  ];
-
   return (
     <div className="bg-black flex flex-col md:flex-row w-full min-h-screen">
       {/* LEFT: LOGIN FORM */}
-      <div className="w-full md:w-1/2 flex items-center justify-center p-6 bg-black">
-        <div className="w-full max-w-sm space-y-6">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-white">
+      <div className="w-full md:w-1/2 flex items-center justify-center px-4 sm:px-6 py-12 md:py-0 bg-black">
+        <div className="w-full max-w-sm sm:max-w-md space-y-6">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
             Welcome back!
           </h1>
-          <p className="text-gray-300">
+          <p className="text-gray-300 text-sm sm:text-base">
             Please login with your email and password to continue.
           </p>
-          <form id="login-form" className="space-y-4" onSubmit={handleSubmit}>
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="block mb-1 text-white">
+              <label htmlFor="email" className="block mb-1 text-white text-sm sm:text-base">
                 Email
               </label>
               <input
@@ -64,7 +53,7 @@ export default function LoginPage() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="block mb-1 text-white">
+              <label htmlFor="password" className="block mb-1 text-white text-sm sm:text-base">
                 Password
               </label>
               <input
@@ -78,7 +67,7 @@ export default function LoginPage() {
             </div>
             <button
               type="submit"
-              className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 rounded-lg"
+              className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg text-sm sm:text-base"
             >
               LOG IN
             </button>
@@ -95,10 +84,10 @@ export default function LoginPage() {
       </div>
 
       <AuthSlider
-      title="Welcome back to Movie Nest"
-      subtitle="Login and continue exploring your favorite movies!"
-      emoji="🎬"
-    />
+        title="Welcome back to Movie Nest"
+        subtitle="Login and continue exploring your favorite movies!"
+        emoji="🎬"
+      />
     </div>
   );
 }

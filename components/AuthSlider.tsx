@@ -74,10 +74,10 @@ export function AuthSlider({ title, subtitle, emoji = "🎬" }: AuthSliderProps)
       <SliderColumn images={pics} direction="down" />
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/80" />
-      <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 bg-black/60 backdrop-blur-sm p-8 rounded-xl text-center w-4/5 md:w-3/4 lg:w-2/3">
-        <h2 className="text-xl md:text-2xl font-semibold text-white">{title}</h2>
-        <p className="mt-4 text-base md:text-lg text-gray-100">{subtitle}</p>
-        <div className="mt-4 text-3xl">{emoji}</div>
+      <div className="hidden sm:block absolute top-1/3 left-1/2 transform -translate-x-1/2 bg-black/60 backdrop-blur-sm p-6 md:p-8 rounded-xl text-center w-11/12 sm:w-4/5 md:w-3/4 lg:w-2/3">
+        <h2 className="text-lg md:text-2xl font-semibold text-white">{title}</h2>
+        <p className="mt-2 md:mt-4 text-sm md:text-lg text-gray-100">{subtitle}</p>
+        <div className="mt-3 md:mt-4 text-2xl md:text-3xl">{emoji}</div>
       </div>
     </div>
   );
