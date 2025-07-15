@@ -21,4 +21,9 @@ export const ERROR_MESSAGES = {
   USER_NOT_FOUND: "No user found with this email.",
   WRONG_PASSWORD: "Incorrect password.",
   WEAK_PASSWORD: "Password is too weak.",
+
+  // Add/Remove favorite movie errors
+  INVALID_UID_OR_MOVIE: "Invalid UID or movie.",
+  MISSING_UID_OR_MOVIE: "Missing uid or movie.",
+  MISSING_UID_OR_MOVIE_ID: "Missing uid or movie.id.",
 };
