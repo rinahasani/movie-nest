@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { AuthSlider } from "../../../components/AuthSlider";
+import { ERROR_MESSAGES } from "../../../public/constants/strings";
 
 export default function LoginPage() {
   const [error, setError] = useState("");
@@ -16,15 +17,23 @@ export default function LoginPage() {
     const email = (form.email as HTMLInputElement).value;
     const password = (form.password as HTMLInputElement).value;
 
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await res.json();
-    if (!data.success) setError(data.error || "Login failed");
-    else setSuccess("Successfully logged in! 🎉");
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setError(data.error || ERROR_MESSAGES.LOGIN_FAILED);
+      } else {
+        setSuccess("Successfully logged in! 🎉");
+      }
+    } catch (err) {
+      setError(ERROR_MESSAGES.NETWORK_ERROR);
+    }
   };
 
   return (

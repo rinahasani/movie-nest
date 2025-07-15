@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { AuthSlider } from "../../../components/AuthSlider";
+import { ERROR_MESSAGES } from "../../../public/constants/strings";
 
 export default function SignupPage() {
   const [error, setError] = useState("");
@@ -19,21 +20,26 @@ export default function SignupPage() {
     const confirmPassword = (form.confirm_password as HTMLInputElement).value;
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(ERROR_MESSAGES.PASSWORD_MISMATCH);
       return;
     }
 
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      body: JSON.stringify({ name, email, password }),
-      headers: { "Content-Type": "application/json" },
-    });
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        body: JSON.stringify({ name, email, password }),
+        headers: { "Content-Type": "application/json" },
+      });
 
-    const data = await res.json();
-    if (!data.success) {
-      setError(data.error);
-    } else {
-      setSuccess("Successfully registered! 🎉");
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setError(data.error || ERROR_MESSAGES.SIGNUP_FAILED);
+      } else {
+        setSuccess("Successfully registered! 🎉");
+      }
+    } catch (err) {
+      setError(ERROR_MESSAGES.NETWORK_ERROR);
     }
   };
 
