@@ -1,7 +1,7 @@
 // app/popular/page.tsx
 import React from "react";
 import { getAllMovies } from "../../public/lib/getAllMovies";
-import PopularMovies from "@/components/popular/PopularMovies"; // '@' means root directory if configured, otherwise use relative path
+import PopularMovies from "@/components/popular/PopularMovies";
 import { ERROR_MESSAGES } from "@/public/constants/strings";
 
 export const metadata = {
@@ -19,7 +19,6 @@ export default async function PopularMoviesPage() {
   return (
     <>
       <main>
-        <h1>Popular Movies</h1>
         {hasMovies ? (
           <PopularMovies slides={slides} options={OPTIONS} movies={movies}/>
         ) : (

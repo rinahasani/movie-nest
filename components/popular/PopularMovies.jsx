@@ -42,16 +42,10 @@ const PopularMovies = (props) => {
         "--slide-size": "100%",
       }}
     >
-      <div
-        className="mt-[var(--thumbs-slide-spacing,0.8rem)]"
-        style={{
-          "--thumbs-slide-spacing": "0.8rem",
-          "--thumbs-slide-height": "6rem",
-        }}
-      >
+      <div className="mt-[var(--thumbs-slide-spacing,0.8rem)]">
         <div className="overflow-hidden" ref={emblaThumbsRef}>
           <div
-            className="flex flex-row"
+            className="flex flex-row w-full"
             style={{ marginLeft: "calc(var(--thumbs-slide-spacing) * -1)" }}
           >
             {slides.map((index) => (
