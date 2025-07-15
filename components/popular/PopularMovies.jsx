@@ -1,0 +1,94 @@
+"use client";
+import React, { useState, useEffect, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { Thumb } from "./Thumb";
+
+const PopularMovies = (props) => {
+  const { slides, options, movies } = props;
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
+  const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
+    containScroll: "keepSnaps",
+    dragFree: true,
+  });
+
+  const onThumbClick = useCallback(
+    (index) => {
+      if (!emblaMainApi || !emblaThumbsApi) return;
+      emblaMainApi.scrollTo(index);
+    },
+    [emblaMainApi, emblaThumbsApi]
+  );
+
+  const onSelect = useCallback(() => {
+    if (!emblaMainApi || !emblaThumbsApi) return;
+    setSelectedIndex(emblaMainApi.selectedScrollSnap());
+    emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap());
+  }, [emblaMainApi, emblaThumbsApi, setSelectedIndex]);
+
+  useEffect(() => {
+    if (!emblaMainApi) return;
+    onSelect();
+
+    emblaMainApi.on("select", onSelect).on("reInit", onSelect);
+  }, [emblaMainApi, onSelect]);
+
+  return (
+    <div
+      className="max-w-full x mx-auto px-4"
+      style={{
+        "--slide-height": "19rem",
+        "--slide-spacing": "1rem",
+        "--slide-size": "100%",
+      }}
+    >
+      <div className="mt-[var(--thumbs-slide-spacing,0.8rem)]">
+        <div className="overflow-hidden" ref={emblaThumbsRef}>
+          <div
+            className="flex flex-row w-full"
+            style={{ marginLeft: "calc(var(--thumbs-slide-spacing) * -1)" }}
+          >
+            {slides.map((index) => (
+              <Thumb
+                key={movies[index].id}
+                onClick={() => onThumbClick(index)}
+                selected={index === selectedIndex}
+                movie={movies[index]}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="overflow-hidden" ref={emblaMainRef}>
+        <div
+          className="flex touch-pan-y touch-pinch-zoom"
+          style={{ marginLeft: "calc(var(--slide-spacing) * -1)" }}
+        >
+          {slides.map((index) => (
+            <div
+              className="flex-none min-w-0"
+              key={index}
+              style={{
+                transform: "translate3d(0, 0, 0)",
+                flex: "0 0 var(--slide-size)",
+                paddingLeft: "var(--slide-spacing)",
+              }}
+            >
+              <div
+                className="
+                  shadow-[inset_0_0_0_0.2rem_var(--detail-medium-contrast)]
+                  rounded-[1.8rem] text-4xl font-semibold flex items-center justify-center select-none
+                  h-[var(--slide-height)]
+                "
+              >
+                <p>{movies[index].title}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PopularMovies;
