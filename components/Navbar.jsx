@@ -16,7 +16,7 @@ const navLinks = [
 function LoginButton({ className = '' }) {
   return (
     <Link
-      href="/login"
+      href="/pages/login"
       className={`text-base uppercase tracking-wider px-6 py-2.5 rounded bg-yellow-500 text-white font-medium hover:bg-yellow-400 transition-colors ${className}`}
     >
       Log In
