@@ -3,4 +3,5 @@ export const ERROR_MESSAGES = {
   API_FETCH_FAILED: (status) => `Failed to fetch data from the API. Status: ${status}.`,
   UNKNOWN_ERROR: 'An unknown error occurred. Please try again later.',
   NO_MOVIES_FOUND: 'No movies found at the moment.',
+  ERROR_FETCHING_MOVIES:'Error fetching all movies: '
 };

@@ -12,7 +12,7 @@ export async function getAllMovies() {
     const data = await response.json();
     return data.results;
   } catch (error) {
-    console.error('Error fetching all movies:', error);
+    console.error(ERROR_MESSAGES.ERROR_FETCHING_MOVIES, error);
     return [];
   }
 }
