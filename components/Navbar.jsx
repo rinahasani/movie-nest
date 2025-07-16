@@ -8,7 +8,7 @@ const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Movies', href: '/movies' },
   { name: 'TV Shows', href: '/tv-shows' },
-  { name: 'My Favorite', href: '/favorites' },
+  { name: 'My Favorite', href: '/pages/favoriteMovies' },
   { name: 'About', href: '/about' },
 ];
 
@@ -16,7 +16,7 @@ const navLinks = [
 function LoginButton({ className = '' }) {
   return (
     <Link
-      href="/login"
+      href="/pages/login"
       className={`text-base uppercase tracking-wider px-6 py-2.5 rounded bg-yellow-500 text-white font-medium hover:bg-yellow-400 transition-colors ${className}`}
     >
       Log In
