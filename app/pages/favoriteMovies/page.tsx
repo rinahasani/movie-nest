@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useAuth } from "../../contexts/AuthContext";
-import { getUserFavorites } from "../../../public/lib/favoriteMovies";
-import { getMovieDetails } from "../../../public/lib/getMovieDetails";
-import { ERROR_MESSAGES } from "../../../public/constants/strings";
+import { getUserFavorites } from "../../../lib/favoriteMovies";
+import { getMovieDetails } from "../../../lib/getMovieDetails";
+import { ERROR_MESSAGES } from "../../../constants/strings";
 
 // TMDB movie type
 type TMDBMovie = {

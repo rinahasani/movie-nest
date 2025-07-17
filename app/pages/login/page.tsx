@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import { AuthSlider } from "../../../components/AuthSlider";
-import { ERROR_MESSAGES } from "../../../public/constants/strings";
+import { ERROR_MESSAGES } from "../../../constants/strings";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../public/lib/firebase";            // adjust path to your firebase.ts
+import { auth } from "../../../lib/firebase";            // adjust path to your firebase.ts
 
 export default function LoginPage() {
   const [error, setError]   = useState("");

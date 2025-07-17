@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { AuthSlider } from "../../../components/AuthSlider";
-import { ERROR_MESSAGES } from "../../../public/constants/strings";
+import { ERROR_MESSAGES } from "../../../constants/strings";
 
 export default function SignupPage() {
   const [error, setError] = useState("");
