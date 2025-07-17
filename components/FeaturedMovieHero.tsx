@@ -1,6 +1,6 @@
-import { getRandomMovie } from "../public/lib/getRandomMovie";
+import { getRandomMovie } from "../lib/getRandomMovie";
 import MovieHero from "./MovieHero";
-import convertOriginalImageUrl from "../public/lib/utils/convertOriginalImage";
+import convertOriginalImageUrl from "../lib/utils/convertOriginalImage";
 
 export default async function FeaturedMovieHero() {
   const movie = await getRandomMovie();
