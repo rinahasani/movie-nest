@@ -4,4 +4,5 @@
   const imageUrl = path ? `${TMDB_IMAGE_BASE_URL}${THUMBNAIL_SIZE}${path}` : "";
   return imageUrl;
 }
-export default convertImageUrl;
+export default convertImageUrl
+
