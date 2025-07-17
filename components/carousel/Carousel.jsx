@@ -1,9 +1,10 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { Thumb } from "./Thumb";
+import { Thumb } from "../popular/Thumb";
+import { useRouter } from "next/navigation";
 
-const PopularMovies = (props) => {
+const Carousel = (props) => {
   const { slides, options, movies } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
@@ -11,13 +12,19 @@ const PopularMovies = (props) => {
     containScroll: "keepSnaps",
     dragFree: true,
   });
+  const router = useRouter();
 
   const onThumbClick = useCallback(
     (index) => {
+      setSelectedIndex(index);
       if (!emblaMainApi || !emblaThumbsApi) return;
       emblaMainApi.scrollTo(index);
+      const clickedMovie = movies[index];
+      if (clickedMovie && clickedMovie.id) {
+        router.push(`/pages/details?id=${clickedMovie.id}`);
+      }
     },
-    [emblaMainApi, emblaThumbsApi]
+    [emblaMainApi, emblaThumbsApi, movies, router]
   );
 
   const onSelect = useCallback(() => {
@@ -32,7 +39,6 @@ const PopularMovies = (props) => {
 
     emblaMainApi.on("select", onSelect).on("reInit", onSelect);
   }, [emblaMainApi, onSelect]);
-
   return (
     <div
       className="max-w-full x mx-auto px-4"
@@ -54,42 +60,19 @@ const PopularMovies = (props) => {
                 onClick={() => onThumbClick(index)}
                 selected={index === selectedIndex}
                 movie={movies[index]}
-                type = "details"
+                type="carousel"
               />
             ))}
           </div>
         </div>
       </div>
       <div className="overflow-hidden" ref={emblaMainRef}>
-        <div
-          className="flex touch-pan-y touch-pinch-zoom"
-          style={{ marginLeft: "calc(var(--slide-spacing) * -1)" }}
-        >
-          {slides.map((index) => (
-            <div
-              className="flex-none min-w-0"
-              key={index}
-              style={{
-                transform: "translate3d(0, 0, 0)",
-                flex: "0 0 var(--slide-size)",
-                paddingLeft: "var(--slide-spacing)",
-              }}
-            >
-              <div
-                className="
-                  shadow-[inset_0_0_0_0.2rem_var(--detail-medium-contrast)]
-                  rounded-[1.8rem] text-4xl font-semibold flex items-center justify-center select-none
-                  h-[var(--slide-height)]
-                "
-              >
-                <p>{movies[index].title}</p>
-              </div>
-            </div>
-          ))}
+        <div className="flex">
+          {slides.length > 0 && <div className="min-w-full h-1 hidden" />}
         </div>
       </div>
     </div>
   );
 };
 
-export default PopularMovies;
+export default Carousel;
