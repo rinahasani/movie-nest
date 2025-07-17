@@ -5,11 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Movies", href: "/movies" },
-  { name: "TV Shows", href: "/tv-shows" },
-  { name: "My Favorite", href: "/favorites" },
-  { name: "About", href: "/about" },
+  { name: 'Home', href: '/' },
+  { name: 'Movies', href: '/movies' },
+  { name: 'TV Shows', href: '/tv-shows' },
+  { name: 'My Favorite', href: '/favorites' },
+  { name: 'About', href: '/about' },
 ];
 
 const allowedPaths = ["/", "/movies", "/tv-shows", "/favorites", "/about"];
