@@ -1,14 +1,10 @@
 "use client";
 import React from "react";
-import Image from "next/image";
+import convertImageUrl from "../../public/lib/utils/imageUrlHelper";
 
 export const Thumb = (props) => {
   const { selected, onClick, movie } = props;
-  const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
-  const THUMBNAIL_SIZE = "w500";
-  const imageUrl = movie?.backdrop_path
-    ? `${TMDB_IMAGE_BASE_URL}${THUMBNAIL_SIZE}${movie.backdrop_path}`
-    : "";
+  const imageUrl = convertImageUrl(movie?.backdrop_path)
   return (
     <div
       className={`
