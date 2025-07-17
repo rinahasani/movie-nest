@@ -1,19 +1,21 @@
-'use client';
-import { useState } from 'react';
-import { usePathname } from 'next/navigation';
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Movies', href: '/movies' },
   { name: 'TV Shows', href: '/tv-shows' },
-  { name: 'My Favorite', href: '/pages/favoriteMovies' },
+  { name: 'My Favorite', href: '/favorites' },
   { name: 'About', href: '/about' },
 ];
 
+const allowedPaths = ["/", "/movies", "/tv-shows", "/favorites", "/about"];
+
 // Login button
-function LoginButton({ className = '' }) {
+function LoginButton({ className = "" }: { className?: string }) {
   return (
     <Link
       href="/pages/login"
@@ -25,7 +27,7 @@ function LoginButton({ className = '' }) {
 }
 
 // Search icon button
-function SearchIconButton({ onClick = () => { }, className = '' }) {
+function SearchIconButton({ onClick = () => {}, className = "" }: { onClick?: () => void; className?: string }) {
   return (
     <button
       onClick={onClick}
@@ -54,6 +56,8 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
+  if (!allowedPaths.includes(pathname)) return null;
+
   return (
     <nav className="bg-black w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,8 +84,8 @@ export default function Navbar() {
                 <Link key={link.name} href={link.href}>
                   <span
                     className={`text-base uppercase tracking-wider font-medium px-3 py-2 cursor-pointer transition-colors ${pathname === link.href
-                        ? 'text-white border-b-2 border-yellow-500'
-                        : 'text-gray-400 hover:text-white'
+                        ? "text-white border-b-2 border-yellow-500"
+                        : "text-gray-400 hover:text-white"
                       }`}
                   >
                     {link.name}
@@ -117,8 +121,8 @@ export default function Navbar() {
                   strokeWidth={2}
                   d={
                     mobileOpen
-                      ? 'M6 18L18 6M6 6l12 12'
-                      : 'M4 6h16M4 12h16M4 18h16'
+                      ? "M6 18L18 6M6 6l12 12"
+                      : "M4 6h16M4 12h16M4 18h16"
                   }
                 />
               </svg>
@@ -142,8 +146,8 @@ export default function Navbar() {
             <Link key={link.name} href={link.href}>
               <span
                 className={`text-2xl uppercase tracking-wider font-light cursor-pointer ${pathname === link.href
-                    ? 'text-white'
-                    : 'text-gray-300 hover:text-white'
+                    ? "text-white"
+                    : "text-gray-300 hover:text-white"
                   } transition-colors`}
                 onClick={() => setMobileOpen(false)}
               >
@@ -157,4 +161,4 @@ export default function Navbar() {
       )}
     </nav>
   );
-}
+} 
