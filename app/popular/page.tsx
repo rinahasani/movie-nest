@@ -1,8 +1,8 @@
 // app/popular/page.tsx
 import React from "react";
-import { getAllMovies } from "../../public/lib/getAllMovies";
+import { getAllMovies } from "../../lib/getAllMovies";
 import PopularMovies from "@/components/popular/PopularMovies";
-import { ERROR_MESSAGES } from "@/public/constants/strings";
+import { ERROR_MESSAGES } from "@/constants/strings";
 
 export const metadata = {
   title: "Popular Movies",
