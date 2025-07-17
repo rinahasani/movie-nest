@@ -3,7 +3,5 @@ const API_KEY = "fdb91272c3f95e9e093b31f73184bd5c"; //your api key here
 export const API_ENDPOINTS = {
   DISCOVER: `${BASE_URL}/discover/movie?api_key=${API_KEY}`,
   GENRES: `${BASE_URL}/genre/movie/list`,
-  //   MOVIE_DETAILS: `${BASE_URL}/movie/${movie_id}`,
-  MOVIE_DETAILS: (movieId) =>
-    `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US`,
+  MOVIE_DETAILS: (movieId) => `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`,
 };
