@@ -21,7 +21,7 @@ const Carousel = (props) => {
       emblaMainApi.scrollTo(index);
       const clickedMovie = movies[index];
       if (clickedMovie && clickedMovie.id) {
-        router.push(`/pages/details?id=${clickedMovie.id}`);
+        router.push(`/pages/details/${clickedMovie.id}`);
       }
     },
     [emblaMainApi, emblaThumbsApi, movies, router]
@@ -41,7 +41,7 @@ const Carousel = (props) => {
   }, [emblaMainApi, onSelect]);
   return (
     <div
-      className="max-w-full x mx-auto px-4"
+      className="max-w-full x mx-auto px-4 "
       style={{
         "--slide-height": "19rem",
         "--slide-spacing": "1rem",

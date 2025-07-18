@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Thumb } from "./Thumb";
+import MovieHero from "../MovieHero";
 
 const PopularMovies = (props) => {
   const { slides, options, movies } = props;
@@ -54,7 +55,7 @@ const PopularMovies = (props) => {
                 onClick={() => onThumbClick(index)}
                 selected={index === selectedIndex}
                 movie={movies[index]}
-                type = "details"
+                type="details"
               />
             ))}
           </div>
@@ -80,9 +81,19 @@ const PopularMovies = (props) => {
                   shadow-[inset_0_0_0_0.2rem_var(--detail-medium-contrast)]
                   rounded-[1.8rem] text-4xl font-semibold flex items-center justify-center select-none
                   h-[var(--slide-height)]
+                  my-8
                 "
               >
-                <p>{movies[index].title}</p>
+                <MovieHero
+                  id={movies[index].id}
+                  title={movies[index].title}
+                  vote_average={movies[index].vote_average}
+                  release_date={movies[index].release_date}
+                  overview={movies[index].overview}
+                  backdrop_path={movies[index].backdrop_path}
+                  homepage={movies[index].homepage}
+                  moreInfo={true}
+                />
               </div>
             </div>
           ))}

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import convertImageUrl from "../../public/lib/utils/imageUrlHelper";
+import convertImageUrl from "@/lib/utils/imageUrlHelper";
 
 export const Thumb = (props) => {
   const { selected, onClick, movie, type } = props;
@@ -33,7 +33,7 @@ export const Thumb = (props) => {
       >
         <img
           src={imageUrl}
-          alt=""
+          alt="Movie"
           className={`rounded-xl object-cover w-full ${height} object-center`}
         />
       </button>
