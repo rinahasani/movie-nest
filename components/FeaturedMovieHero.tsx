@@ -11,6 +11,7 @@ export default async function FeaturedMovieHero() {
 
   return (
     <MovieHero
+      id={movie.id}
       title={movie.title}
       rating={movie.vote_average}
       year={movie.release_date?.slice(0, 4) || ""}

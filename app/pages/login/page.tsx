@@ -6,10 +6,12 @@ import { ERROR_MESSAGES } from "../../../constants/strings";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../lib/firebase";            // adjust path to your firebase.ts
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [error, setError]   = useState("");
   const [success, setSuccess] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,6 +26,7 @@ export default function LoginPage() {
       const credential = await signInWithEmailAndPassword(auth, email, password);
       console.log("Signed in:", credential.user.uid);
       setSuccess("Successfully logged in! 🎉");
+      router.push("/");
     } catch (err: any) {
       console.error(err);
       setError(err.message || ERROR_MESSAGES.LOGIN_FAILED);

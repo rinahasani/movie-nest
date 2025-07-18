@@ -1,8 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useAuth } from "@/app/contexts/AuthContext";
+import { useRouter } from "next/navigation";
+// @ts-ignore: No types for react-blockies
+import Blockies from "react-blockies";
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -54,7 +58,28 @@ function SearchIconButton({ onClick = () => {}, className = "" }: { onClick?: ()
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
+  const avatarMenuRef = useRef<HTMLDivElement>(null);
+  const avatarButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
+  const { user, signOut } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!avatarMenuOpen) return;
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        avatarMenuRef.current &&
+        !avatarMenuRef.current.contains(event.target as Node) &&
+        avatarButtonRef.current &&
+        !avatarButtonRef.current.contains(event.target as Node)
+      ) {
+        setAvatarMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [avatarMenuOpen]);
 
   if (!allowedPaths.includes(pathname)) return null;
 
@@ -80,25 +105,62 @@ export default function Navbar() {
           {/* Nav Links (Desktop) */}
           <div className="hidden md:flex flex-1 justify-center">
             <div className="flex items-center space-x-8">
-              {navLinks.map((link) => (
-                <Link key={link.name} href={link.href}>
-                  <span
-                    className={`text-base uppercase tracking-wider font-medium px-3 py-2 cursor-pointer transition-colors ${pathname === link.href
-                        ? "text-white border-b-2 border-yellow-500"
-                        : "text-gray-400 hover:text-white"
-                      }`}
-                  >
-                    {link.name}
-                  </span>
-                </Link>
-              ))}
+              {navLinks
+                .filter(link => link.name !== 'My Favorite' || user)
+                .map((link) => (
+                  <Link key={link.name} href={link.href}>
+                    <span
+                      className={`text-base uppercase tracking-wider font-medium px-3 py-2 cursor-pointer transition-colors ${pathname === link.href
+                          ? "text-white border-b-2 border-yellow-500"
+                          : "text-gray-400 hover:text-white"
+                        }`}
+                    >
+                      {link.name}
+                    </span>
+                  </Link>
+                ))}
             </div>
           </div>
 
-          {/* Desktop Actions (Search + Login) */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Desktop Actions (Search + Login/Avatar) */}
+          <div className="hidden md:flex items-center gap-4 relative">
             <SearchIconButton />
-            <LoginButton />
+            {user ? (
+              <div className="relative">
+                <button
+                  ref={avatarButtonRef}
+                  className="flex items-center focus:outline-none"
+                  onClick={() => setAvatarMenuOpen((open) => !open)}
+                  aria-label="User menu"
+                >
+                  <Blockies
+                    seed={user.email || user.uid}
+                    size={10}
+                    scale={4}
+                    className="rounded-full border-2 border-yellow-400 bg-black"
+                  />
+                </button>
+                {avatarMenuOpen && (
+                  <div
+                    ref={avatarMenuRef}
+                    className="absolute right-0 mt-2 w-40 bg-black border border-gray-800 rounded-lg shadow-lg z-50"
+                  >
+                    <button
+                      className="w-full text-left px-4 py-2 text-white hover:bg-yellow-400 hover:text-black rounded-lg transition-colors"
+                      onClick={async () => {
+                        setAvatarMenuOpen(false);
+                        await signOut();
+                        router.push("/");
+                      }}
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <LoginButton />
+            )}
           </div>
 
           {/* Hamburger Icon (Mobile) */}
@@ -142,21 +204,46 @@ export default function Navbar() {
             &times;
           </button>
 
-          {navLinks.map((link) => (
-            <Link key={link.name} href={link.href}>
-              <span
-                className={`text-2xl uppercase tracking-wider font-light cursor-pointer ${pathname === link.href
-                    ? "text-white"
-                    : "text-gray-300 hover:text-white"
-                  } transition-colors`}
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.name}
-              </span>
-            </Link>
-          ))}
+          {user && (
+            <div className="flex flex-col items-center mb-4">
+              <Blockies
+                seed={user.email || user.uid}
+                size={10}
+                scale={4}
+                className="rounded-full border-2 border-yellow-400 bg-black"
+              />
+            </div>
+          )}
 
-          <LoginButton />
+          {/* Nav links */}
+          {navLinks
+            .filter(link => link.name !== 'My Favorite' || user)
+            .map((link) => (
+              <Link key={link.name} href={link.href}>
+                <span
+                  className={`text-2xl uppercase tracking-wider font-light cursor-pointer ${pathname === link.href
+                      ? "text-white"
+                      : "text-gray-300 hover:text-white"
+                    } transition-colors`}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.name}
+                </span>
+              </Link>
+            ))}
+
+          {user ? (
+            <button
+              className="text-base uppercase tracking-wider px-6 py-2.5 rounded bg-yellow-500 text-white font-medium hover:bg-yellow-400 transition-colors mt-6"
+              onClick={signOut}
+            >
+              Sign Out
+            </button>
+          ) : (
+            <div className="mt-6">
+              <LoginButton />
+            </div>
+          )}
         </div>
       )}
     </nav>

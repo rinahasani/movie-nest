@@ -1,5 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useAuth } from "@/app/contexts/AuthContext";
+import { handleAddFavorite, handleRemoveFavorite } from "../lib/handlers/favoritesHandler";
+import { ERROR_MESSAGES } from "../constants/strings";
+import { getUserFavorites } from "../lib/favoriteMovies";
 
 interface MovieHeroProps {
   title: string;
@@ -7,6 +11,7 @@ interface MovieHeroProps {
   year: string | number;
   description: string;
   backgroundImage: string;
+  id: number; // Add id prop for the movie
 }
 
 const getStarIcons = (rating: number) => {
@@ -53,21 +58,61 @@ const MovieHero: React.FC<MovieHeroProps> = ({
   year,
   description,
   backgroundImage,
+  id,
 }) => {
+  const { user } = useAuth();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMsg, setPopupMsg] = useState("");
+
+  // Check if this movie is in user's favorites
+  useEffect(() => {
+    async function checkFavorite() {
+      if (!user) {
+        setIsFavorite(false);
+        return;
+      }
+      const favs = await getUserFavorites();
+      setIsFavorite(favs.some((m) => m.id === id));
+    }
+    checkFavorite();
+  }, [user, id]);
+
   const handleTrailerClick = () => {
     alert("Play trailer!");
   };
   const handleInfoClick = () => {
     alert("Show more info!");
   };
+  const handleFavoriteClick = async () => {
+    if (!user) return;
+    if (isFavorite) {
+      await handleRemoveFavorite(id, user, undefined, setErrorMsg, ERROR_MESSAGES);
+      setIsFavorite(false);
+      setPopupMsg("Removed from favorites!");
+      setShowPopup(true);
+    } else {
+      await handleAddFavorite({ id, title }, user, undefined, setErrorMsg, ERROR_MESSAGES);
+      setIsFavorite(true);
+      setPopupMsg("Added to favorites!");
+      setShowPopup(true);
+    }
+  };
+
+  useEffect(() => {
+    if (showPopup) {
+      const timer = setTimeout(() => setShowPopup(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [showPopup]);
 
   return (
     <section
-      className="relative w-full min-h-[60vh] flex items-center justify-start bg-black text-white overflow-hidden"
+      className="relative bg-cover bg-center bg-no-repeat bg-fixed text-white px-6 py-12 min-h-[65vh] flex flex-col justify-center"
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "center 30%",
       }}
     >
       {/* Overlay */}
@@ -97,19 +142,37 @@ const MovieHero: React.FC<MovieHeroProps> = ({
           >
             MORE INFO
           </button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="50px"
-            viewBox="0 -960 960 960"
-            width="50px"
-            className="ml-2 text-yellow-400 transition-colors duration-200 hover:text-yellow-300 cursor-pointer"
-            fill="currentColor"
-            onClick={handleInfoClick}
-          >
-            <path d="M480-388q51-47 82.5-77.5T611-518q17-22 23-38.5t6-35.5q0-36-26-62t-62-26q-21 0-40.5 8.5T480-648q-12-15-31-23.5t-41-8.5q-36 0-62 26t-26 62q0 19 5.5 35t22.5 38q17 22 48 52.5t84 78.5ZM200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z" />
-          </svg>
+          {user && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="50px"
+              width="50px"
+              viewBox="0 -960 960 960"
+              className={`ml-2 transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-0 ${isFavorite ? "text-red-500" : "text-yellow-400 hover:text-yellow-300"
+                }`}
+              onClick={handleFavoriteClick}
+              tabIndex={0}
+              aria-label={isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+              style={{ filter: "drop-shadow(0 0 2px #000)" }}
+              fill="currentColor"
+            >
+              <title>{isFavorite ? "Remove from Favorites" : "Add to Favorites"}</title>
+              <path
+                d="M480-388q51-47 82.5-77.5T611-518q17-22 23-38.5t6-35.5q0-36-26-62t-62-26q-21 0-40.5 8.5T480-648q-12-15-31-23.5t-41-8.5q-36 0-62 26t-26 62q0 19 5.5 35t22.5 38q17 22 48 52.5t84 78.5ZM200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"
+                stroke="currentColor"
+                strokeWidth="2"
+              />
+            </svg>
+
+          )}
         </div>
       </div>
+      {/* Popup for added/removed from favorites */}
+      {showPopup && (
+        <div className="fixed left-1/2 bottom-8 transform -translate-x-1/2 z-50 px-6 py-3 bg-yellow-400 text-black font-bold rounded-full shadow-lg animate-jump-in">
+          {popupMsg}
+        </div>
+      )}
     </section >
   );
 };

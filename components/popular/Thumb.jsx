@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import convertImageUrl from "../../public/lib/utils/imageUrlHelper";
+import convertImageUrl from "../../lib/utils/imageUrlHelper";
 
 export const Thumb = (props) => {
   const { selected, onClick, movie } = props;

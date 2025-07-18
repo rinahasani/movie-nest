@@ -3,10 +3,14 @@
 import React, { useState } from "react";
 import { AuthSlider } from "../../../components/AuthSlider";
 import { ERROR_MESSAGES } from "../../../constants/strings";
+import { useRouter } from "next/navigation";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../lib/firebase";
 
 export default function SignupPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +41,9 @@ export default function SignupPage() {
         setError(data.error || ERROR_MESSAGES.SIGNUP_FAILED);
       } else {
         setSuccess("Successfully registered! 🎉");
+        // Auto-login after signup
+        await signInWithEmailAndPassword(auth, email, password);
+        router.push("/");
       }
     } catch (err) {
       setError(ERROR_MESSAGES.NETWORK_ERROR);
