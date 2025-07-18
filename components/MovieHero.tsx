@@ -2,22 +2,11 @@
 import { MovieHeroProps } from "@/constants/types/MovieInfo";
 import convertOriginalImageUrl from "@/lib/utils/convertOriginalImage";
 import { useRouter } from "next/navigation";
-import React from "react";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/app/contexts/AuthContext";
 import { handleAddFavorite, handleRemoveFavorite } from "../lib/handlers/favoritesHandler";
 import { ERROR_MESSAGES } from "../constants/strings";
 import { getUserFavorites } from "../lib/favoriteMovies";
-
-interface MovieHeroProps {
-  title: string;
-  rating: number;
-  year: string | number;
-  description: string;
-  backgroundImage: string;
-  id: number; // Add id prop for the movie
-}
-
 const getStarIcons = (rating: number) => {
   const stars = [];
   const starValue = rating / 2; // Convert 0-10 scale to 0-5
@@ -95,7 +84,6 @@ const MovieHero: React.FC<MovieHeroProps> = ({
   backdrop_path,
   homepage,
   moreInfo,
-  id,
 }) => {
   const router = useRouter();
   const { user } = useAuth();
@@ -121,7 +109,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({
     window.open(homepage, "_blank");
   };
   const handleInfoClick = () => {
-      router.push(`/pages/details/${id}}`);
+    router.push(`/pages/details/${id}}`);
   };
   const handleFavoriteClick = async () => {
     if (!user) return;
@@ -147,10 +135,11 @@ const MovieHero: React.FC<MovieHeroProps> = ({
 
   return (
     <section
-      className="relative bg-cover bg-center bg-no-repeat bg-fixed text-white px-6 py-12 min-h-[65vh] flex flex-col justify-center"
+      className="relative w-full min-h-[60vh] flex items-center justify-start bg-black text-white overflow-hidden"
       style={{
         backgroundImage: `url(${convertOriginalImageUrl(backdrop_path)})`,
-        backgroundPosition: "center 30%",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       {/* Overlay */}
