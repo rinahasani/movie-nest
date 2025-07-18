@@ -27,7 +27,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         await setPersistence(auth, browserLocalPersistence);
         unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-          console.log("onAuthStateChanged triggered:", firebaseUser);
           setUser(firebaseUser);
           setLoading(false);
         });

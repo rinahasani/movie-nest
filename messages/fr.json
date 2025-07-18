@@ -1,0 +1,83 @@
+{
+  "navbar": {
+    "home": "Accueil",
+    "movies": "Films",
+    "tvShows": "Séries",
+    "myFavorite": "Mes favoris",
+    "about": "À propos",
+    "login": "Connexion"
+  },
+  "errors": {
+    "network": "Une erreur réseau est survenue. Veuillez vérifier votre connexion Internet.",
+    "apiFetchFailed": "Échec de la récupération des données API. Statut : {{status}}.",
+    "unknown": "Une erreur inconnue est survenue. Veuillez réessayer plus tard.",
+    "noMoviesFound": "Aucun film trouvé pour le moment.",
+    "errorFetchingMovies": "Erreur lors de la récupération de tous les films.",
+    "loginFailed": "Échec de la connexion. Veuillez vérifier vos identifiants.",
+    "passwordMismatch": "Les mots de passe ne correspondent pas.",
+    "signupFailed": "Échec de l'inscription. Veuillez réessayer.",
+    "nameRequired": "Le nom est requis.",
+    "invalidEmail": "Format d'e-mail invalide.",
+    "passwordShort": "Le mot de passe doit contenir au moins 8 caractères.",
+    "uidRequired": "UID requis.",
+    "emailInUse": "L'adresse e-mail est déjà utilisée.",
+    "userNotFound": "Aucun utilisateur trouvé avec cet e-mail.",
+    "wrongPassword": "Mot de passe incorrect.",
+    "weakPassword": "Le mot de passe est trop faible.",
+    "invalidUidOrMovie": "UID ou film invalide.",
+    "missingUidOrMovie": "UID ou film manquant.",
+    "missingUidOrMovieId": "UID ou ID de film manquant.",
+    "movieNotFound": "Film introuvable dans les favoris."
+  },
+
+  "login": {
+    "title": "Bon retour !",
+    "description": "Veuillez vous connecter avec votre e-mail et votre mot de passe.",
+    "emailLabel": "E‑mail",
+    "emailPlaceholder": "vous@exemple.com",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "••••••••",
+    "button": "Se connecter",
+    "noAccount": "Pas de compte ?",
+    "signUp": "S’inscrire",
+    "success": "Connexion réussie ! 🎉",
+    "error": "Échec de la connexion. {{message}}"
+  },
+
+  "signup": {
+    "title": "Prêt à rejoindre la communauté ?",
+    "description": "Remplissez le formulaire ci-dessous pour commencer à profiter de Movie Nest !",
+    "usernameLabel": "Nom d’utilisateur",
+    "usernamePlaceholder": "Entrez votre nom d’utilisateur",
+    "emailLabel": "E‑mail",
+    "emailPlaceholder": "vous@exemple.com",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "••••••••",
+    "confirmPasswordLabel": "Confirmez le mot de passe",
+    "confirmPasswordPlaceholder": "••••••••",
+    "button": "S’inscrire",
+    "success": "Inscription réussie ! 🎉",
+    "errorMismatch": "Les mots de passe ne correspondent pas.",
+    "errorNetwork": "Erreur réseau. Veuillez réessayer.",
+    "errorDefault": "Échec de l’inscription. Veuillez réessayer.",
+    "haveAccount": "Vous avez déjà un compte ?",
+    "loginLink": "Connectez-vous ici"
+  },
+
+  "favorites": {
+    "title": "Les films que vous avez marqués comme favoris.",
+    "emptyTitle": "Il semble que votre liste de favoris soit encore vide pour l’instant.",
+    "loading": "Chargement…",
+    "seeMore": "Voir plus",
+    "error": "Échec du chargement des favoris. Veuillez réessayer.",
+    "moreInfo": "Plus d’infos",
+    "remove": "Retirer des favoris"
+  },
+
+  "movieHero": {
+    "playTrailer": "Lire la bande-annonce !",
+    "moreInfo": "Afficher plus d'informations !",
+    "playTrailerButton": "LIRE LA BANDE-ANNONCE",
+    "moreInfoButton": "PLUS D'INFOS"
+  }
+}

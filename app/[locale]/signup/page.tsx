@@ -1,10 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
+import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 import { AuthSlider } from "../../../components/AuthSlider";
-import { ERROR_MESSAGES } from "../../../constants/strings";
 
 export default function SignupPage() {
+  const t = useTranslations("signup");
+  const tErrors = useTranslations("errors");
+  const { locale } = useParams() as { locale: string };
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -20,7 +25,7 @@ export default function SignupPage() {
     const confirmPassword = (form.confirm_password as HTMLInputElement).value;
 
     if (password !== confirmPassword) {
-      setError(ERROR_MESSAGES.PASSWORD_MISMATCH);
+      setError(tErrors("passwordMismatch"));
       return;
     }
 
@@ -30,16 +35,15 @@ export default function SignupPage() {
         body: JSON.stringify({ name, email, password }),
         headers: { "Content-Type": "application/json" },
       });
-
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        setError(data.error || ERROR_MESSAGES.SIGNUP_FAILED);
+        setError(data.error || tErrors("signupFailed"));
       } else {
-        setSuccess("Successfully registered! 🎉");
+        setSuccess(t("success"));
       }
-    } catch (err) {
-      setError(ERROR_MESSAGES.NETWORK_ERROR);
+    } catch {
+      setError(tErrors("network"));
     }
   };
 
@@ -49,94 +53,101 @@ export default function SignupPage() {
       <div className="w-full md:w-1/2 flex items-center justify-center p-6 bg-black">
         <div className="w-full max-w-sm space-y-6">
           <h1 className="text-3xl md:text-4xl font-extrabold text-white">
-            Ready to join the community?
+            {t("title")}
           </h1>
-          <p className="text-gray-300">
-            Fill in the form below to start chilling with Movie Nest today!
-          </p>
+          <p className="text-gray-300">{t("description")}</p>
+
           <form id="signup-form" className="space-y-4" onSubmit={handleSubmit}>
             {/* Username */}
             <div>
               <label htmlFor="username" className="block mb-1 text-white">
-                Username
+                {t("usernameLabel")}
               </label>
               <input
                 id="username"
                 name="username"
                 type="text"
-                placeholder="Enter your username"
+                placeholder={t("usernamePlaceholder")}
                 className="w-full bg-transparent border border-gray-700 rounded-lg px-4 py-2 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 required
               />
             </div>
+
             {/* Email */}
             <div>
               <label htmlFor="email" className="block mb-1 text-white">
-                Email
+                {t("emailLabel")}
               </label>
               <input
                 id="email"
                 name="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder={t("emailPlaceholder")}
                 className="w-full bg-transparent border border-gray-700 rounded-lg px-4 py-2 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 required
               />
             </div>
+
             {/* Password */}
             <div>
               <label htmlFor="password" className="block mb-1 text-white">
-                Password
+                {t("passwordLabel")}
               </label>
               <input
                 id="password"
                 name="password"
                 type="password"
-                placeholder="••••••••"
+                placeholder={t("passwordPlaceholder")}
                 minLength={8}
                 className="w-full bg-transparent border border-gray-700 rounded-lg px-4 py-2 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 required
               />
             </div>
+
             {/* Confirm Password */}
             <div>
-              <label htmlFor="confirm_password" className="block mb-1 text-white">
-                Confirm Password
+              <label
+                htmlFor="confirm_password"
+                className="block mb-1 text-white"
+              >
+                {t("confirmPasswordLabel")}
               </label>
               <input
                 id="confirm_password"
                 name="confirm_password"
                 type="password"
-                placeholder="••••••••"
+                placeholder={t("confirmPasswordPlaceholder")}
                 minLength={8}
                 className="w-full bg-transparent border border-gray-700 rounded-lg px-4 py-2 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 required
               />
             </div>
+
             <button
               type="submit"
               className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg"
             >
-              SIGN UP
+              {t("button")}
             </button>
           </form>
+
           {error && <p className="text-red-400 text-sm">{error}</p>}
           {success && <p className="text-green-400 text-sm">{success}</p>}
+
           <p className="text-center text-gray-500 text-sm">
-            Already have an account?{" "}
-            <a href="/pages/login" className="text-yellow-400 hover:underline">
-              Log in here
-            </a>
+            {t("haveAccount")}{" "}
+            <Link
+              href={`/${locale}/login`}
+              className="text-yellow-400 hover:underline"
+            >
+              {t("loginLink")}
+            </Link>
           </p>
         </div>
       </div>
 
       {/* RIGHT: AUTH SLIDER */}
-      <AuthSlider
-        title="Join the Movie Nest community"
-        subtitle="Dive into a cinematic universe of endless entertainment!"
-        emoji="😊"
-      />
+      <AuthSlider title={t("title")} subtitle={t("description")} emoji="😊" />
     </div>
   );
 }

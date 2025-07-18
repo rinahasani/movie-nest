@@ -1,0 +1,83 @@
+{
+  "navbar": {
+    "home": "Home",
+    "movies": "Movies",
+    "tvShows": "TV Shows",
+    "myFavorite": "My Favorites",
+    "about": "About",
+    "login": "Log In"
+  },
+  "errors": {
+    "network": "A network error occurred. Please check your internet connection.",
+    "apiFetchFailed": "Failed to fetch data from the API. Status: {{status}}.",
+    "unknown": "An unknown error occurred. Please try again later.",
+    "noMoviesFound": "No movies found at the moment.",
+    "errorFetchingMovies": "Error fetching all movies.",
+    "loginFailed": "Login failed. Please check your credentials.",
+    "passwordMismatch": "Passwords do not match.",
+    "signupFailed": "Signup failed. Please try again.",
+    "nameRequired": "Name is required.",
+    "invalidEmail": "Invalid email format.",
+    "passwordShort": "Password must be at least 8 characters.",
+    "uidRequired": "UID is required.",
+    "emailInUse": "Email is already in use.",
+    "userNotFound": "No user found with this email.",
+    "wrongPassword": "Incorrect password.",
+    "weakPassword": "Password is too weak.",
+    "invalidUidOrMovie": "Invalid UID or movie.",
+    "missingUidOrMovie": "Missing UID or movie.",
+    "missingUidOrMovieId": "Missing UID or movie ID.",
+    "movieNotFound": "Movie not found in favorites."
+  },
+
+  "login": {
+    "title": "Welcome back!",
+    "description": "Please log in with your email and password.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "button": "Log In",
+    "noAccount": "Don’t have an account?",
+    "signUp": "Sign up",
+    "success": "Successfully logged in! 🎉",
+    "error": "Login failed. {{message}}"
+  },
+
+  "signup": {
+    "title": "Ready to join the community?",
+    "description": "Fill in the form below to start chilling with Movie Nest today!",
+    "usernameLabel": "Username",
+    "usernamePlaceholder": "Enter your username",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "confirmPasswordLabel": "Confirm Password",
+    "confirmPasswordPlaceholder": "••••••••",
+    "button": "Sign Up",
+    "success": "Successfully registered! 🎉",
+    "errorMismatch": "Passwords do not match.",
+    "errorNetwork": "Network error. Please try again.",
+    "errorDefault": "Signup failed. Please try again.",
+    "haveAccount": "Already have an account?",
+    "loginLink": "Log in here"
+  },
+
+  "favorites": {
+    "title": "The movies you’ve marked as favorites.",
+    "emptyTitle": "It seems like your list of favorite movies is still empty for the moment.",
+    "loading": "Loading…",
+    "seeMore": "See More",
+    "error": "Failed to load favorites. Please try again.",
+    "moreInfo": "More Info",
+    "remove": "Remove from Favorites"
+  },
+
+  "movieHero": {
+    "playTrailer": "Play trailer!",
+    "moreInfo": "Show more info!",
+    "playTrailerButton": "PLAY THE TRAILER",
+    "moreInfoButton": "MORE INFO"
+  }
+}

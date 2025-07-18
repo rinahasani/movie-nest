@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 interface MovieHeroProps {
   title: string;
@@ -16,15 +17,35 @@ const getStarIcons = (rating: number) => {
     if (starValue >= i + 1) {
       // Full star
       stars.push(
-        <svg key={i} className="w-5 h-5 inline text-yellow-400" fill="currentColor" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
-          <polygon stroke="currentColor" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        <svg
+          key={i}
+          className="w-5 h-5 inline text-yellow-400"
+          fill="currentColor"
+          stroke="currentColor"
+          strokeWidth={1}
+          viewBox="0 0 24 24"
+        >
+          <polygon
+            stroke="currentColor"
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+          />
         </svg>
       );
     } else if (starValue > i && starValue < i + 1) {
       stars.push(
-        <svg key={i} className="w-5 h-5 inline text-yellow-400" viewBox="0 0 24 24">
+        <svg
+          key={i}
+          className="w-5 h-5 inline text-yellow-400"
+          viewBox="0 0 24 24"
+        >
           <defs>
-            <linearGradient id={`half-gradient-${i}`} x1="0" x2="1" y1="0" y2="0">
+            <linearGradient
+              id={`half-gradient-${i}`}
+              x1="0"
+              x2="1"
+              y1="0"
+              y2="0"
+            >
               <stop offset="50%" stopColor="currentColor" />
               <stop offset="50%" stopColor="transparent" />
             </linearGradient>
@@ -38,8 +59,18 @@ const getStarIcons = (rating: number) => {
       );
     } else {
       stars.push(
-        <svg key={i} className="w-5 h-5 inline text-yellow-400" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
-          <polygon stroke="currentColor" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        <svg
+          key={i}
+          className="w-5 h-5 inline text-yellow-400"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1}
+          viewBox="0 0 24 24"
+        >
+          <polygon
+            stroke="currentColor"
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+          />
         </svg>
       );
     }
@@ -54,11 +85,13 @@ const MovieHero: React.FC<MovieHeroProps> = ({
   description,
   backgroundImage,
 }) => {
+  const t = useTranslations();
+
   const handleTrailerClick = () => {
-    alert("Play trailer!");
+    alert(t("movieHero.playTrailer"));
   };
   const handleInfoClick = () => {
-    alert("Show more info!");
+    alert(t("movieHero.moreInfo"));
   };
 
   return (
@@ -89,13 +122,13 @@ const MovieHero: React.FC<MovieHeroProps> = ({
             className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-lg text-base transition-colors shadow-lg"
             onClick={handleTrailerClick}
           >
-            PLAY THE TRAILER
+            {t("movieHero.playTrailerButton")}
           </button>
           <button
             className="border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold py-3 px-8 rounded-lg text-base transition-colors shadow-lg"
             onClick={handleInfoClick}
           >
-            MORE INFO
+            {t("movieHero.moreInfoButton")}
           </button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -110,8 +143,8 @@ const MovieHero: React.FC<MovieHeroProps> = ({
           </svg>
         </div>
       </div>
-    </section >
+    </section>
   );
 };
 
-export default MovieHero; 
+export default MovieHero;
