@@ -99,7 +99,7 @@ export default function FavoritesPage() {
 
   if (movies.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center text-center py-24 bg-black text-white min-h-[80vh]">
+      <div className="flex flex-col items-center justify-center text-center py-24 bg-black text-white min-h-screen">
         <Image
           src="/assets/empty-favorites.png"
           alt="No favorites"
