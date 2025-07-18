@@ -1,4 +1,8 @@
 "use client";
+import { MovieHeroProps } from "@/constants/types/MovieInfo";
+import convertOriginalImageUrl from "@/lib/utils/convertOriginalImage";
+import { useRouter } from "next/navigation";
+import React from "react";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/app/contexts/AuthContext";
 import { handleAddFavorite, handleRemoveFavorite } from "../lib/handlers/favoritesHandler";
@@ -21,15 +25,35 @@ const getStarIcons = (rating: number) => {
     if (starValue >= i + 1) {
       // Full star
       stars.push(
-        <svg key={i} className="w-5 h-5 inline text-yellow-400" fill="currentColor" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
-          <polygon stroke="currentColor" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        <svg
+          key={i}
+          className="w-5 h-5 inline text-yellow-400"
+          fill="currentColor"
+          stroke="currentColor"
+          strokeWidth={1}
+          viewBox="0 0 24 24"
+        >
+          <polygon
+            stroke="currentColor"
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+          />
         </svg>
       );
     } else if (starValue > i && starValue < i + 1) {
       stars.push(
-        <svg key={i} className="w-5 h-5 inline text-yellow-400" viewBox="0 0 24 24">
+        <svg
+          key={i}
+          className="w-5 h-5 inline text-yellow-400"
+          viewBox="0 0 24 24"
+        >
           <defs>
-            <linearGradient id={`half-gradient-${i}`} x1="0" x2="1" y1="0" y2="0">
+            <linearGradient
+              id={`half-gradient-${i}`}
+              x1="0"
+              x2="1"
+              y1="0"
+              y2="0"
+            >
               <stop offset="50%" stopColor="currentColor" />
               <stop offset="50%" stopColor="transparent" />
             </linearGradient>
@@ -43,8 +67,18 @@ const getStarIcons = (rating: number) => {
       );
     } else {
       stars.push(
-        <svg key={i} className="w-5 h-5 inline text-yellow-400" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
-          <polygon stroke="currentColor" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        <svg
+          key={i}
+          className="w-5 h-5 inline text-yellow-400"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1}
+          viewBox="0 0 24 24"
+        >
+          <polygon
+            stroke="currentColor"
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+          />
         </svg>
       );
     }
@@ -53,13 +87,17 @@ const getStarIcons = (rating: number) => {
 };
 
 const MovieHero: React.FC<MovieHeroProps> = ({
+  id,
   title,
-  rating,
-  year,
-  description,
-  backgroundImage,
+  vote_average,
+  release_date,
+  overview,
+  backdrop_path,
+  homepage,
+  moreInfo,
   id,
 }) => {
+  const router = useRouter();
   const { user } = useAuth();
   const [isFavorite, setIsFavorite] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -80,10 +118,10 @@ const MovieHero: React.FC<MovieHeroProps> = ({
   }, [user, id]);
 
   const handleTrailerClick = () => {
-    alert("Play trailer!");
+    window.open(homepage, "_blank");
   };
   const handleInfoClick = () => {
-    alert("Show more info!");
+      router.push(`/pages/details/${id}}`);
   };
   const handleFavoriteClick = async () => {
     if (!user) return;
@@ -111,7 +149,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({
     <section
       className="relative bg-cover bg-center bg-no-repeat bg-fixed text-white px-6 py-12 min-h-[65vh] flex flex-col justify-center"
       style={{
-        backgroundImage: `url(${backgroundImage})`,
+        backgroundImage: `url(${convertOriginalImageUrl(backdrop_path)})`,
         backgroundPosition: "center 30%",
       }}
     >
@@ -122,26 +160,32 @@ const MovieHero: React.FC<MovieHeroProps> = ({
           {title}
         </h1>
         <div className="flex items-center gap-4 text-lg font-semibold">
-          <span>{getStarIcons(rating)}</span>
-          <span className="ml-2 text-yellow-400">{rating.toFixed(1)}</span>
-          <span className="ml-2 text-white/80">{year}</span>
+          <span>{getStarIcons(vote_average)}</span>
+          <span className="ml-2 text-yellow-400">
+            {vote_average?.toFixed(1)}
+          </span>
+          <span className="ml-2 text-white/80">{release_date}</span>
         </div>
         <p className="max-w-2xl text-white/90 text-base md:text-lg line-clamp-4">
-          {description}
+          {overview}
         </p>
         <div className="flex gap-4 mt-4 items-center">
-          <button
-            className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-lg text-base transition-colors shadow-lg"
-            onClick={handleTrailerClick}
-          >
-            PLAY THE TRAILER
-          </button>
-          <button
-            className="border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold py-3 px-8 rounded-lg text-base transition-colors shadow-lg"
-            onClick={handleInfoClick}
-          >
-            MORE INFO
-          </button>
+          {homepage && (
+            <button
+              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-lg text-base transition-colors shadow-lg"
+              onClick={handleTrailerClick}
+            >
+              PLAY THE TRAILER
+            </button>
+          )}
+          {moreInfo && (
+            <button
+              className="border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold py-3 px-8 rounded-lg text-base transition-colors shadow-lg"
+              onClick={handleInfoClick}
+            >
+              MORE INFO
+            </button>
+          )}
           {user && (
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -177,4 +221,4 @@ const MovieHero: React.FC<MovieHeroProps> = ({
   );
 };
 
-export default MovieHero; 
+export default MovieHero;
