@@ -6,15 +6,15 @@ import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { AuthSlider } from "@/components/AuthSlider";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { auth } from "../../../lib/firebase";            // adjust path to your firebase.ts
 
 export default function LoginPage() {
   const tLogin = useTranslations("login");
   const tErrors = useTranslations("errors");
-  const router = useRouter();
   const { locale } = useParams() as { locale: string };
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

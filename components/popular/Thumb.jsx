@@ -1,10 +1,19 @@
 "use client";
 import React from "react";
-import convertImageUrl from "../../public/lib/utils/imageUrlHelper";
+import convertImageUrl from "@/lib/utils/imageUrlHelper";
 
 export const Thumb = (props) => {
-  const { selected, onClick, movie } = props;
-  const imageUrl = convertImageUrl(movie?.backdrop_path)
+  const { selected, onClick, movie, type } = props;
+  let imageUrl;
+  let height;
+  if (type == "details") {
+    imageUrl = convertImageUrl(movie?.backdrop_path);
+    height = "h-20";
+  } else if (type == "carousel") {
+    imageUrl = convertImageUrl(movie?.poster_path);
+    height = "h-full";
+  }
+
   return (
     <div
       className={`
@@ -23,9 +32,9 @@ export const Thumb = (props) => {
         style={selected ? { borderColor: "var(--base-color)" } : undefined}
       >
         <img
-          src={imageUrl}  
-          alt=""
-          className={`rounded-xl object-cover w-full h-20 object-center`}
+          src={imageUrl}
+          alt="Movie"
+          className={`rounded-xl object-cover w-full ${height} object-center`}
         />
       </button>
     </div>

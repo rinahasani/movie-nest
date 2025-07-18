@@ -1,7 +1,8 @@
 // app/[locale]/layout.tsx
 import { NextIntlClientProvider } from "next-intl";
 import type { ReactNode } from "react";
-import Navbar from "@/components/Navbar"; // adjust the path as needed
+import Navbar from "@/components/Navbar"; 
+import Footer from "@/components/Footer";
 
 export async function generateStaticParams() {
   return [{ locale: "en" }, { locale: "de" }, { locale: "fr" }];
@@ -20,6 +21,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <NextIntlClientProvider locale={locale} messages={messages}>
       <Navbar />
       {children}
+      <Footer />
     </NextIntlClientProvider>
   );
 }

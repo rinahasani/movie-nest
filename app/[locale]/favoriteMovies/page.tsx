@@ -6,7 +6,13 @@ import { useTranslations } from "next-intl";
 import { useAuth } from "../../contexts/AuthContext";
 import { getUserFavorites } from "../../../lib/favoriteMovies";
 import { getMovieDetails } from "../../../lib/getMovieDetails";
-import { handleRemoveFavorite } from "../../../lib/handlers/favoritesHandler";
+import { ERROR_MESSAGES } from "../../../constants/strings";
+import {
+  handleRemoveFavorite,
+  handleAddFavorite,
+} from "../../../lib/handlers/favoritesHandler";
+import { useRouter } from "next/navigation";
+
 import MovieCard, {
   TMDBMovie,
   User,
@@ -22,14 +28,26 @@ export default function FavoritesPage() {
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(5);
+  const router = useRouter();
+
+  // GUARD: If not logged in and not loading, redirect and render nothing
+  if (typeof window !== "undefined" && !authLoading && !user) {
+    window.location.replace("/");
+    return null;
+  }
 
   useEffect(() => {
-    if (authLoading) return;
-    if (!user) {
-      setMovies([]);
-      setLoading(false);
-      return;
+    if (!authLoading && !user) {
+      router.push("/");
     }
+  }, [authLoading, user, router]);
+
+  if (!authLoading && !user) {
+    return null; // Prevents flicker before redirect
+  }
+
+  useEffect(() => {
+    if (authLoading || !user) return;
 
     async function loadFavorites() {
       try {
@@ -64,6 +82,16 @@ export default function FavoritesPage() {
     );
   }
 
+  function handleAdd(movie: { id: number; title: string }) {
+    handleAddFavorite(
+      movie,
+      user as User,
+      setMovies,
+      setErrorMsg,
+      {} // you can remove ERROR_MESSAGES usage now
+    );
+  }
+
   if (authLoading || loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh] bg-black text-white">
@@ -74,7 +102,7 @@ export default function FavoritesPage() {
 
   if (!movies.length) {
     return (
-      <div className="flex flex-col items-center justify-center text-center py-24 bg-black text-white min-h-[80vh]">
+      <div className="flex flex-col items-center justify-center text-center py-24 bg-black text-white min-h-screen">
         <Image
           src="/assets/empty-favorites.png"
           alt="No favorites"

@@ -5,6 +5,10 @@ import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { AuthSlider } from "../../../components/AuthSlider";
+import { ERROR_MESSAGES } from "../../../constants/strings";
+import { useRouter } from "next/navigation";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../lib/firebase";
 
 export default function SignupPage() {
   const t = useTranslations("signup");
@@ -12,6 +16,7 @@ export default function SignupPage() {
   const { locale } = useParams() as { locale: string };
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +45,10 @@ export default function SignupPage() {
       if (!res.ok || !data.success) {
         setError(data.error || tErrors("signupFailed"));
       } else {
-        setSuccess(t("success"));
+        setSuccess("Successfully registered! 🎉");
+        // Auto-login after signup
+        await signInWithEmailAndPassword(auth, email, password);
+        router.push("/");
       }
     } catch {
       setError(tErrors("network"));
