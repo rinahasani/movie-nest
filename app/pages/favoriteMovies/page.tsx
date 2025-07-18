@@ -6,7 +6,8 @@ import { useAuth } from "../../contexts/AuthContext";
 import { getUserFavorites } from "../../../lib/favoriteMovies";
 import { getMovieDetails } from "../../../lib/getMovieDetails";
 import { ERROR_MESSAGES } from "../../../constants/strings";
-import { handleRemoveFavorite } from "../../../lib/handlers/favoritesHandler";
+import { handleRemoveFavorite, handleAddFavorite } from "../../../lib/handlers/favoritesHandler";
+import { useRouter } from "next/navigation";
 
 import MovieCard, { TMDBMovie, User } from "../../../components/FavoriteMovieCard";
 
@@ -23,14 +24,26 @@ export default function FavoritesPage() {
 
   // NEW: number of movies currently visible
   const [visibleCount, setVisibleCount] = useState(5);
+  const router = useRouter();
+
+  // GUARD: If not logged in and not loading, redirect and render nothing
+  if (typeof window !== "undefined" && !authLoading && !user) {
+    window.location.replace("/");
+    return null;
+  }
 
   useEffect(() => {
-    if (authLoading) return;
-    if (!user) {
-      setMovies([]);
-      setLoading(false);
-      return;
+    if (!authLoading && !user) {
+      router.push("/");
     }
+  }, [authLoading, user, router]);
+
+  if (!authLoading && !user) {
+    return null; // Prevents flicker before redirect
+  }
+
+  useEffect(() => {
+    if (authLoading || !user) return;
 
     async function loadFavorites() {
       try {
@@ -59,6 +72,16 @@ export default function FavoritesPage() {
   function handleRemove(movieId: number) {
     handleRemoveFavorite(
       movieId,
+      user as User,
+      setMovies,
+      setErrorMsg,
+      ERROR_MESSAGES
+    );
+  }
+
+  function handleAdd(movie: { id: number; title: string }) {
+    handleAddFavorite(
+      movie,
       user as User,
       setMovies,
       setErrorMsg,
