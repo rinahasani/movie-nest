@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "@/lib/firebase"; // ← your initialized Firebase client
+import { auth } from "@/lib/firebase";
 import Link from "next/link";
 import { AuthSlider } from "@/components/AuthSlider";
 
@@ -37,9 +37,7 @@ export default function ForgotPasswordPage() {
     <div className="bg-black min-h-screen flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 flex items-center justify-center p-6">
         <div className="w-full max-w-md space-y-6">
-          <h1 className="text-4xl font-extrabold text-white">
-            {t("title" /* e.g. "Mot de passe oublié ?" */)}
-          </h1>
+          <h1 className="text-4xl font-extrabold text-white">{t("title")}</h1>
           <p className="text-lg text-gray-300">{t("description")}</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -63,9 +61,7 @@ export default function ForgotPasswordPage() {
               disabled={status === "sending"}
               className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg disabled:opacity-50"
             >
-              {status === "sending"
-                ? t("sendingButton")
-                : t("button" /* e.g. "Réinitialiser le mot de passe" */)}
+              {status === "sending" ? t("sendingButton") : t("button")}
             </button>
           </form>
 
@@ -79,14 +75,14 @@ export default function ForgotPasswordPage() {
               href={`/${locale}/login`}
               className="text-yellow-400 hover:underline"
             >
-              {t("backToLogin" /* e.g. "Retour à la connexion" */)}
+              {t("backToLogin")}
             </Link>
           </p>
         </div>
       </div>
 
       <AuthSlider
-        title={t("sliderTitle" /* whatever you want */)}
+        title={t("sliderTitle")}
         subtitle={t("sliderSubtitle")}
         emoji="🔒"
       />
