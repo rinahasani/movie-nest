@@ -1,9 +1,27 @@
+"use client"
 import { ERROR_MESSAGES } from "@/constants/strings";
 import PopularMovies from "./popular/PopularMovies";
 import { getAllMovies } from "@/lib/getAllMovies";
+import { useEffect, useState } from "react";
+import { MovieInfo } from "@/constants/types/MovieInfo";
 
-export default async function PopularCarousel() {
-  const movies = await getAllMovies(2);
+export default function PopularCarousel() {
+  const [movies, setMovies] = useState<MovieInfo[] | null>(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        setLoading(true);
+        const fetchedMovies = await getAllMovies();
+        setMovies(fetchedMovies);
+      } catch (error) {
+        console.error("Failed to fetch movies: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMovies();
+  }, []);
   const SLIDE_COUNT = movies ? movies.length : 0;
   const slides = Array.from({ length: SLIDE_COUNT }, (_, i) => i);
   const OPTIONS = { loop: true };

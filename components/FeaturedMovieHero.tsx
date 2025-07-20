@@ -1,9 +1,27 @@
+"use client";
 import { getRandomMovie } from "../lib/getRandomMovie";
 import MovieHero from "../components/MovieHero";
 import convertOriginalImageUrl from "../lib/utils/convertOriginalImage";
+import { MovieInfo } from "@/constants/types/MovieInfo";
+import { useEffect, useState } from "react";
 
-export default async function FeaturedMovieHero() {
-  const movie = await getRandomMovie();
+export default function FeaturedMovieHero() {
+  const [movie, setMovie] = useState<MovieInfo | null>(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        setLoading(true);
+        const fetchedMovie = await getRandomMovie();
+        setMovie(fetchedMovie);
+      } catch (error) {
+        console.error("Failed to fetch movies: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMovies();
+  }, []);
 
   if (!movie) {
     return (
