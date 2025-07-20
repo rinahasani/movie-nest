@@ -96,5 +96,17 @@
     "title": "Budget vs Revenus",
     "budget": "Budget",
     "revenue": "Revenus"
+  },
+  "resetPassword": {
+    "title": "Mot de passe oublié?🤔",
+    "description": "Entrez votre email et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Votre adresse email",
+    "button": "Envoyer le lien",
+    "sendingButton": "Envoi…",
+    "emailSentMessage": "Un email de réinitialisation vient d'être envoyé!",
+    "backToLogin": "Retour à la page de connexion",
+    "sliderTitle": "Comment ça marche?",
+    "sliderSubtitle": "Une fois que vous aurez reçu le lien de réinitialisation par e‑mail, suivez les instructions pour choisir un nouveau mot de passe et accéder à votre compte en un rien de temps."
   }
 }

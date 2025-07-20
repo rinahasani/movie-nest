@@ -96,5 +96,17 @@
     "title": "Budget vs Einnahmen",
     "budget": "Budget",
     "revenue": "Einnahmen"
+  },
+  "resetPassword": {
+    "title": "Passwort vergessen?🤔",
+    "description": "Gib deine E‑Mail-Adresse ein, und wir senden dir einen Link, um dein Passwort zurückzusetzen.",
+    "emailLabel": "E‑Mail",
+    "emailPlaceholder": "Deine E‑Mail-Adresse",
+    "button": "Link senden",
+    "sendingButton": "Senden…",
+    "emailSentMessage": "Eine E‑Mail zum Zurücksetzen wurde soeben gesendet!",
+    "backToLogin": "Zurück zur Anmeldeseite",
+    "sliderTitle": "So funktioniert’s?",
+    "sliderSubtitle": "Sobald du den Link zum Zurücksetzen per E‑Mail erhalten hast, folge den Anweisungen, um ein neues Passwort auszuwählen und sofort wieder auf dein Konto zuzugreifen."
   }
 }

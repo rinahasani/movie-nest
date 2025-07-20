@@ -40,11 +40,11 @@ export default function LoginPage() {
     <div className="bg-black flex flex-col md:flex-row w-full min-h-screen">
       {/* LEFT: LOGIN FORM */}
       <div className="w-full md:w-1/2 flex items-center justify-center px-4 sm:px-6 py-12 bg-black">
-        <div className="w-full max-w-sm space-y-6">
-          <h1 className="text-3xl font-extrabold text-white">
+        <div className="w-full max-w-md space-y-6">
+          <h1 className="text-4xl font-extrabold text-white">
             {tLogin("title")}
           </h1>
-          <p className="text-gray-300">{tLogin("description")}</p>
+          <p className="text-lg text-gray-300">{tLogin("description")}</p>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
