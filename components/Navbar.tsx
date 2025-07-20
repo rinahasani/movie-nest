@@ -26,17 +26,27 @@ export default function Navbar() {
   // Build your navLinks with the locale prefiximport { useAuth } from "@/app/contexts/AuthContext";
 
   const navLinks = [
-    { name: t("home"), href: `/${locale}/` },
+    { name: t("home"), href: `/${locale}` },
     { name: t("movies"), href: `/${locale}/movies` },
     { name: t("tvShows"), href: `/${locale}/tv-shows` },
     { name: t("myFavorite"), href: `/${locale}/favoriteMovies` },
     { name: t("about"), href: `/${locale}/about` },
   ];
 
-  // Allowed paths = all nav hrefs + the locale root
-  const allowedPaths = [...navLinks.map((l) => l.href), `/${locale}/`];
+  const allowedPaths = navLinks.map((l) => l.href);
 
-  if (!allowedPaths.includes(pathname)) return null;
+  const normalizedPathname =
+    pathname.endsWith("/") && pathname !== "/"
+      ? pathname.slice(0, -1)
+      : pathname;
+
+  const isAllowed = allowedPaths.some(
+    (allowedPath) =>
+      normalizedPathname === allowedPath ||
+      normalizedPathname.startsWith(allowedPath + "/")
+  );
+
+  if (!isAllowed) return null;
 
   // Login button
   function LoginButton({ className = "" }: { className?: string }) {
@@ -45,7 +55,7 @@ export default function Navbar() {
         href={`/${locale}/login`}
         className={`text-base uppercase tracking-wider px-6 py-2.5 rounded bg-yellow-500 text-white font-medium hover:bg-yellow-400 transition-colors ${className}`}
       >
-        Log In
+        {t("login")}
       </Link>
     );
   }
@@ -106,12 +116,12 @@ export default function Navbar() {
           <div className="hidden md:flex flex-1 justify-center">
             <div className="flex items-center space-x-8">
               {navLinks
-                .filter(link => link.name !== 'My Favorite' || user)
+                .filter((link) => link.name !== "My Favorite" || user)
                 .map((link) => (
                   <Link key={link.name} href={link.href}>
                     <span
                       className={`text-base uppercase tracking-wider font-medium px-3 py-2 cursor-pointer transition-colors ${
-                      pathname === link.href
+                        pathname === link.href
                           ? "text-white border-b-2 border-yellow-500"
                           : "text-gray-400 hover:text-white"
                       }`}
@@ -218,12 +228,12 @@ export default function Navbar() {
 
           {/* Nav links */}
           {navLinks
-            .filter(link => link.name !== 'My Favorite' || user)
+            .filter((link) => link.name !== "My Favorite" || user)
             .map((link) => (
               <Link key={link.name} href={link.href}>
                 <span
                   className={`text-2xl uppercase tracking-wider font-light cursor-pointer transition-colors ${
-                  pathname === link.href
+                    pathname === link.href
                       ? "text-white"
                       : "text-gray-300 hover:text-white"
                   }`}

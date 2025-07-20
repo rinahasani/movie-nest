@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { usePathname } from "next/navigation";
 
 const socialLinks = [
   {
@@ -25,13 +24,9 @@ const socialLinks = [
   },
 ];
 
-const allowedPaths = ["/", "/pages/favoriteMovies"];
-
 const Footer = () => {
-  const pathname = usePathname();
-  if (!allowedPaths.includes(pathname)) return null;
   return (
-    <footer className="w-full bg-[#111010] text-white py-4 px-6 flex flex-col md:flex-row items-center justify-between mt-8 border-t border-[#222]">
+    <footer className="w-full bg-black text-white py-4 px-6 flex flex-col md:flex-row items-center justify-between border-t border-[#222]">
       <div className="flex flex-col md:flex-row items-center gap-5 md:gap-3 text-m">
         <span>
           © 2025 <span className="font-bold text-yellow-400">Movie Nest</span>
@@ -47,7 +42,11 @@ const Footer = () => {
             aria-label={link.label}
             className="transition-transform hover:scale-110"
           >
-            <img src={link.img} alt={link.label} className="w-6 h-6 rounded-full" />
+            <img
+              src={link.img}
+              alt={link.label}
+              className="w-6 h-6 rounded-full"
+            />
           </a>
         ))}
       </div>
@@ -55,4 +54,4 @@ const Footer = () => {
   );
 };
 
-export default Footer; 
+export default Footer;

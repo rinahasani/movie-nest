@@ -12,16 +12,19 @@ import {
   LabelList,
   Cell,
 } from "recharts";
+import { useTranslations } from "next-intl";
+import { title } from "process";
 
 const BudgetVsRevenueBarChart = ({ budget, revenue }) => {
+  const t = useTranslations("budgetVsRevenueChart");
   const data = [
-    { name: "Budget", value: budget || 0 },
-    { name: "Revenue", value: revenue || 0 },
+    { name: t("budget"), value: budget || 0 },
+    { name: t("revenue"), value: revenue || 0 },
   ];
 
   return (
     <div style={{ width: "100%", height: 300 }}>
-      <h2 className="text-xl font-semibold mb-4">Budget vs Revenue</h2>
+      <h2 className="text-xl font-semibold mb-4">{t("title")}</h2>
       <ResponsiveContainer>
         <BarChart
           layout="vertical"
@@ -35,7 +38,7 @@ const BudgetVsRevenueBarChart = ({ budget, revenue }) => {
             {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={entry.name === "Budget" ? "#E6E4E3" : "var(--base-color)"}
+                fill={entry.name === t("budget") ? "#E6E4E3" : "var(--base-color)"}
               />
             ))}
             <LabelList

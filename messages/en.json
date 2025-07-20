@@ -73,11 +73,29 @@
     "moreInfo": "More Info",
     "remove": "Remove from Favorites"
   },
-
   "movieHero": {
     "playTrailer": "Play trailer!",
     "moreInfo": "Show more info!",
     "playTrailerButton": "PLAY THE TRAILER",
-    "moreInfoButton": "MORE INFO"
+    "moreInfoButton": "MORE INFO",
+    "addedToFavorites": "Added to favorites!",
+    "removedFromFavorites": "Removed from favorites!"
+  },
+  "similarCarousel": {
+    "title": "Similar",
+    "noMovies": "No similar movies found at the moment."
+  },
+  "popularCarousel": {
+    "title": "Popular",
+    "noMovies": "No popular movies found at the moment."
+  },
+  "movieDetails": {
+    "productionCompanies": "Production Companies",
+    "noDetails": "No movie details found."
+  },
+  "budgetVsRevenueChart": {
+    "title": "Budget vs Revenue",
+    "budget": "Budget",
+    "revenue": "Revenue"
   }
 }

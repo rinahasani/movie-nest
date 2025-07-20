@@ -43,7 +43,6 @@
     "success": "Erfolgreich eingeloggt! 🎉",
     "error": "Anmeldung fehlgeschlagen. {{message}}"
   },
-
   "signup": {
     "title": "Bereit, der Community beizutreten?",
     "description": "Füllen Sie das Formular aus, um Movie Nest beizutreten!",
@@ -63,7 +62,6 @@
     "haveAccount": "Sie haben bereits ein Konto?",
     "loginLink": "Hier einloggen"
   },
-
   "favorites": {
     "title": "Die Filme, die du als Favoriten markiert hast.",
     "emptyTitle": "Es sieht so aus, als wäre deine Favoritenliste im Moment noch leer.",
@@ -73,11 +71,30 @@
     "moreInfo": "Mehr Infos",
     "remove": "Aus Favoriten entfernen"
   },
-
   "movieHero": {
     "playTrailer": "Trailer abspielen!",
     "moreInfo": "Mehr Informationen anzeigen!",
     "playTrailerButton": "TRAILER ABSPIELEN",
-    "moreInfoButton": "MEHR INFO"
+    "moreInfoButton": "MEHR INFO",
+    "addedToFavorites": "Zu Favoriten hinzugefügt!",
+    "removedFromFavorites": "Aus Favoriten entfernt!"
+  },
+  "similarCarousel": {
+    "title": "Ähnlich",
+    "noMovies": "Derzeit keine ähnlichen Filme gefunden."
+  },
+  "popularCarousel": {
+    "title": "Beliebt",
+    "noMovies": "Zurzeit sind keine beliebten Filme verfügbar."
+  },
+  "movieDetails": {
+    "productionCompanies": "Produktionsfirmen",
+    "noDetails": "Keine Filmdetails gefunden."
+  },
+
+  "budgetVsRevenueChart": {
+    "title": "Budget vs Einnahmen",
+    "budget": "Budget",
+    "revenue": "Einnahmen"
   }
 }

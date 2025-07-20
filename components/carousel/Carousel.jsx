@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Thumb } from "../popular/Thumb";
 import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 
 const Carousel = (props) => {
   const { slides, options, movies } = props;
@@ -13,6 +14,7 @@ const Carousel = (props) => {
     dragFree: true,
   });
   const router = useRouter();
+  const locale = useLocale();
 
   const onThumbClick = useCallback(
     (index) => {
@@ -21,7 +23,7 @@ const Carousel = (props) => {
       emblaMainApi.scrollTo(index);
       const clickedMovie = movies[index];
       if (clickedMovie && clickedMovie.id) {
-        router.push(`/pages/details/${clickedMovie.id}`);
+        router.push(`/${locale}/details/${clickedMovie.id}`);
       }
     },
     [emblaMainApi, emblaThumbsApi, movies, router]

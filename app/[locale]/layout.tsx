@@ -1,7 +1,6 @@
-// app/[locale]/layout.tsx
 import { NextIntlClientProvider } from "next-intl";
 import type { ReactNode } from "react";
-import Navbar from "@/components/Navbar"; 
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export async function generateStaticParams() {

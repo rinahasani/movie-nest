@@ -28,7 +28,7 @@ export default function LoginPage() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setSuccess(tLogin("success"));
-      router.push(`/${locale}/popular`);
+      router.push(`/${locale}`);
     } catch (err: any) {
       // Use the generic loginFailed error message and include original error message
       setError(

@@ -63,7 +63,6 @@
     "haveAccount": "Vous avez déjà un compte ?",
     "loginLink": "Connectez-vous ici"
   },
-
   "favorites": {
     "title": "Les films que vous avez marqués comme favoris.",
     "emptyTitle": "Il semble que votre liste de favoris soit encore vide pour l’instant.",
@@ -73,11 +72,29 @@
     "moreInfo": "Plus d’infos",
     "remove": "Retirer des favoris"
   },
-
   "movieHero": {
-    "playTrailer": "Lire la bande-annonce !",
-    "moreInfo": "Afficher plus d'informations !",
+    "playTrailer": "Lire la bande-annonce!",
+    "moreInfo": "Afficher plus d'informations!",
     "playTrailerButton": "LIRE LA BANDE-ANNONCE",
-    "moreInfoButton": "PLUS D'INFOS"
+    "moreInfoButton": "PLUS D'INFOS",
+    "addedToFavorites": "Ajouté aux favoris!",
+    "removedFromFavorites": "Retiré des favoris!"
+  },
+  "similarCarousel": {
+    "title": "Similaires",
+    "noMovies": "Aucun film similaire trouvé pour le moment."
+  },
+  "popularCarousel": {
+    "title": "Populaires",
+    "noMovies": "Aucun film populaire trouvé pour le moment."
+  },
+  "movieDetails": {
+    "productionCompanies": "Sociétés de production",
+    "noDetails": "Aucun détail sur le film trouvé."
+  },
+  "budgetVsRevenueChart": {
+    "title": "Budget vs Revenus",
+    "budget": "Budget",
+    "revenue": "Revenus"
   }
 }
