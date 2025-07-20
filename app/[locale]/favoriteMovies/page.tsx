@@ -1,12 +1,10 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "../../contexts/AuthContext";
 import { getUserFavorites } from "../../../lib/favoriteMovies";
 import { getMovieDetails } from "../../../lib/getMovieDetails";
-import { ERROR_MESSAGES } from "../../../constants/strings";
 import {
   handleRemoveFavorite,
   handleAddFavorite,
@@ -29,6 +27,7 @@ export default function FavoritesPage() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(5);
   const router = useRouter();
+  const locale = useLocale();
 
   // GUARD: If not logged in and not loading, redirect and render nothing
   if (typeof window !== "undefined" && !authLoading && !user) {
@@ -58,7 +57,7 @@ export default function FavoritesPage() {
           return;
         }
         const details = await Promise.all(
-          favs.map((f: Favorite) => getMovieDetails(f.id))
+          favs.map((f: Favorite) => getMovieDetails(f.id,locale))
         );
         setMovies(details.filter((d): d is TMDBMovie => !!d));
         setLoading(false);
@@ -72,23 +71,11 @@ export default function FavoritesPage() {
   }, [authLoading, user, tErrors]);
 
   function handleRemove(movieId: number) {
-    handleRemoveFavorite(
-      movieId,
-      user as User,
-      setMovies,
-      setErrorMsg,
-      {} 
-    );
+    handleRemoveFavorite(movieId, user as User, setMovies, setErrorMsg, {});
   }
 
   function handleAdd(movie: { id: number; title: string }) {
-    handleAddFavorite(
-      movie,
-      user as User,
-      setMovies,
-      setErrorMsg,
-      {} 
-    );
+    handleAddFavorite(movie, user as User, setMovies, setErrorMsg, {});
   }
 
   if (authLoading || loading) {
