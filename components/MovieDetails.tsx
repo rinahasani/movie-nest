@@ -5,10 +5,12 @@ import MovieHero from "./MovieHero";
 import convertImageUrl from "@/lib/utils/imageUrlHelper";
 import BudgetVsRevenueBarChart from "./Chart";
 import { MovieInfo } from "@/constants/types/MovieInfo";
+import { useTranslations } from "next-intl";
 
 const MovieDetails: React.FC<{ movieDetails: MovieInfo | null }> = ({
   movieDetails,
 }) => {
+  const t = useTranslations("movieDetails");
   return (
     <>
       <main>
@@ -30,7 +32,7 @@ const MovieDetails: React.FC<{ movieDetails: MovieInfo | null }> = ({
               <div className="flex flex-col md:flex-row gap-8 items-start">
                 <div className="w-full md:w-1/2">
                   <h2 className="text-xl font-semibold mb-4">
-                    Production Companies
+                    {t("productionCompanies")}
                   </h2>
                   <div className="flex flex-wrap gap-4 p-[1rem]">
                     {movieDetails.production_companies?.map(
@@ -60,7 +62,7 @@ const MovieDetails: React.FC<{ movieDetails: MovieInfo | null }> = ({
             </div>
           </div>
         ) : (
-          <p>No movie details found.</p>
+          <p>{t("noDetails")}</p>
         )}
       </main>
     </>

@@ -7,6 +7,9 @@ import { useAuth } from "@/app/contexts/AuthContext";
 import { handleAddFavorite, handleRemoveFavorite } from "../lib/handlers/favoritesHandler";
 import { ERROR_MESSAGES } from "../constants/strings";
 import { getUserFavorites } from "../lib/favoriteMovies";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+
 const getStarIcons = (rating: number) => {
   const stars = [];
   const starValue = rating / 2; // Convert 0-10 scale to 0-5
@@ -85,7 +88,10 @@ const MovieHero: React.FC<MovieHeroProps> = ({
   homepage,
   moreInfo,
 }) => {
+  const t = useTranslations();
+
   const router = useRouter();
+  const locale = useLocale();
   const { user } = useAuth();
   const [isFavorite, setIsFavorite] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -109,19 +115,19 @@ const MovieHero: React.FC<MovieHeroProps> = ({
     window.open(homepage, "_blank");
   };
   const handleInfoClick = () => {
-    router.push(`/pages/details/${id}}`);
+    router.push(`/${locale}/details/${id}`);
   };
   const handleFavoriteClick = async () => {
     if (!user) return;
     if (isFavorite) {
       await handleRemoveFavorite(id, user, undefined, setErrorMsg, ERROR_MESSAGES);
       setIsFavorite(false);
-      setPopupMsg("Removed from favorites!");
+      setPopupMsg(t("movieHero.removedFromFavorites"));
       setShowPopup(true);
     } else {
       await handleAddFavorite({ id, title }, user, undefined, setErrorMsg, ERROR_MESSAGES);
       setIsFavorite(true);
-      setPopupMsg("Added to favorites!");
+      setPopupMsg(t("movieHero.addedToFavorites"));
       setShowPopup(true);
     }
   };
@@ -164,7 +170,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({
               className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-lg text-base transition-colors shadow-lg"
               onClick={handleTrailerClick}
             >
-              PLAY THE TRAILER
+              {t("movieHero.playTrailerButton")}
             </button>
           )}
           {moreInfo && (
@@ -172,7 +178,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({
               className="border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold py-3 px-8 rounded-lg text-base transition-colors shadow-lg"
               onClick={handleInfoClick}
             >
-              MORE INFO
+              {t("movieHero.moreInfoButton")}
             </button>
           )}
           {user && (

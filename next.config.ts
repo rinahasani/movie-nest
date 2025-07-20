@@ -1,11 +1,18 @@
-import type { NextConfig } from "next";
+import nextIntl from 'next-intl/plugin';
+import type { NextConfig } from 'next';
+
+const withNextIntl = nextIntl(); 
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["image.tmdb.org"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'image.tmdb.org',
+      },
+    ],
   },
-  // …any other options you already have
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

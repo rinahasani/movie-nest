@@ -1,0 +1,100 @@
+{
+  "navbar": {
+    "home": "Startseite",
+    "movies": "Filme",
+    "tvShows": "Serien",
+    "myFavorite": "Meine Favoriten",
+    "about": "Über uns",
+    "login": "Anmelden"
+  },
+  "errors": {
+    "network": "Ein Netzwerkfehler ist aufgetreten. Bitte überprüfen Sie Ihre Internetverbindung.",
+    "apiFetchFailed": "Fehler beim Abrufen der API-Daten. Status: {{status}}.",
+    "unknown": "Ein unbekannter Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.",
+    "noMoviesFound": "Derzeit wurden keine Filme gefunden.",
+    "errorFetchingMovies": "Fehler beim Abrufen aller Filme.",
+    "loginFailed": "Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Zugangsdaten.",
+    "passwordMismatch": "Passwörter stimmen nicht überein.",
+    "signupFailed": "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "nameRequired": "Name ist erforderlich.",
+    "invalidEmail": "Ungültiges E-Mail-Format.",
+    "passwordShort": "Das Passwort muss mindestens 8 Zeichen lang sein.",
+    "uidRequired": "UID ist erforderlich.",
+    "emailInUse": "E-Mail wird bereits verwendet.",
+    "userNotFound": "Kein Benutzer mit dieser E-Mail gefunden.",
+    "wrongPassword": "Falsches Passwort.",
+    "weakPassword": "Das Passwort ist zu schwach.",
+    "invalidUidOrMovie": "Ungültige UID oder Film.",
+    "missingUidOrMovie": "UID oder Film fehlt.",
+    "missingUidOrMovieId": "UID oder Film-ID fehlt.",
+    "movieNotFound": "Film nicht in den Favoriten gefunden."
+  },
+
+  "login": {
+    "title": "Willkommen zurück!",
+    "description": "Bitte melden Sie sich mit Ihrer E-Mail-Adresse und Ihrem Passwort an.",
+    "emailLabel": "E‑Mail",
+    "emailPlaceholder": "du@beispiel.de",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "••••••••",
+    "button": "Einloggen",
+    "noAccount": "Noch kein Konto?",
+    "signUp": "Registrieren",
+    "success": "Erfolgreich eingeloggt! 🎉",
+    "error": "Anmeldung fehlgeschlagen. {{message}}"
+  },
+  "signup": {
+    "title": "Bereit, der Community beizutreten?",
+    "description": "Füllen Sie das Formular aus, um Movie Nest beizutreten!",
+    "usernameLabel": "Benutzername",
+    "usernamePlaceholder": "Geben Sie Ihren Benutzernamen ein",
+    "emailLabel": "E‑Mail",
+    "emailPlaceholder": "du@beispiel.de",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "••••••••",
+    "confirmPasswordLabel": "Passwort bestätigen",
+    "confirmPasswordPlaceholder": "••••••••",
+    "button": "Registrieren",
+    "success": "Erfolgreich registriert! 🎉",
+    "errorMismatch": "Passwörter stimmen nicht überein.",
+    "errorNetwork": "Netzwerkfehler. Bitte erneut versuchen.",
+    "errorDefault": "Registrierung fehlgeschlagen. Bitte erneut versuchen.",
+    "haveAccount": "Sie haben bereits ein Konto?",
+    "loginLink": "Hier einloggen"
+  },
+  "favorites": {
+    "title": "Die Filme, die du als Favoriten markiert hast.",
+    "emptyTitle": "Es sieht so aus, als wäre deine Favoritenliste im Moment noch leer.",
+    "loading": "Wird geladen…",
+    "seeMore": "Mehr anzeigen",
+    "error": "Favoriten konnten nicht geladen werden. Bitte versuche es erneut.",
+    "moreInfo": "Mehr Infos",
+    "remove": "Aus Favoriten entfernen"
+  },
+  "movieHero": {
+    "playTrailer": "Trailer abspielen!",
+    "moreInfo": "Mehr Informationen anzeigen!",
+    "playTrailerButton": "TRAILER ABSPIELEN",
+    "moreInfoButton": "MEHR INFO",
+    "addedToFavorites": "Zu Favoriten hinzugefügt!",
+    "removedFromFavorites": "Aus Favoriten entfernt!"
+  },
+  "similarCarousel": {
+    "title": "Ähnlich",
+    "noMovies": "Derzeit keine ähnlichen Filme gefunden."
+  },
+  "popularCarousel": {
+    "title": "Beliebt",
+    "noMovies": "Zurzeit sind keine beliebten Filme verfügbar."
+  },
+  "movieDetails": {
+    "productionCompanies": "Produktionsfirmen",
+    "noDetails": "Keine Filmdetails gefunden."
+  },
+
+  "budgetVsRevenueChart": {
+    "title": "Budget vs Einnahmen",
+    "budget": "Budget",
+    "revenue": "Einnahmen"
+  }
+}

@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 import convertImageUrl from "../lib/utils/imageUrlHelper";
 
 // — Types —
@@ -26,10 +27,20 @@ type MovieCardProps = {
   onRemove: (id: number) => void;
 };
 
-export default function MovieCard({ movie: m, user, onRemove }: MovieCardProps) {
+export default function MovieCard({
+  movie: m,
+  user,
+  onRemove,
+}: MovieCardProps) {
+  const t = useTranslations("favorites");
   const filledStars = Math.round(m.vote_average / 2);
-  const langMap: Record<string, string> = { en: "English", de: "German", fr: "French" };
-  const language = langMap[m.original_language] || m.original_language.toUpperCase();
+  const langMap: Record<string, string> = {
+    en: "English",
+    de: "German",
+    fr: "French",
+  };
+  const language =
+    langMap[m.original_language] || m.original_language.toUpperCase();
   const year = new Date(m.release_date).getFullYear();
 
   return (
@@ -38,24 +49,17 @@ export default function MovieCard({ movie: m, user, onRemove }: MovieCardProps) 
       <div
         className="
           relative flex-shrink-0
-          w-full
-          aspect-[6/5]
-          mb-4
-          overflow-hidden
-          rounded-xl
-          shadow-2xl
-
-          md:w-[300px]
-          md:h-[250px]
-          md:aspect-auto
-          md:mb-0
-          md:mr-6
+          w-full aspect-[6/5] mb-4
+          overflow-hidden rounded-xl shadow-2xl
+          md:w-[300px] md:h-[250px] md:aspect-auto md:mb-0 md:mr-6
         "
       >
         <Image
           src={convertImageUrl(m.backdrop_path)}
           alt={m.title}
           fill
+          sizes="(max-width: 768px) 100vw, 300px"
+          priority
           className="object-cover"
         />
       </div>
@@ -72,7 +76,9 @@ export default function MovieCard({ movie: m, user, onRemove }: MovieCardProps) 
               <FaRegStar key={i} className="mr-2 text-yellow-400 text-2xl" />
             )
           )}
-          <span className="ml-4 text-lg text-gray-300">{m.vote_average.toFixed(1)}</span>
+          <span className="ml-4 text-lg text-gray-300">
+            {m.vote_average.toFixed(1)}
+          </span>
         </div>
 
         <div className="flex items-center space-x-4 mb-6">
@@ -83,13 +89,13 @@ export default function MovieCard({ movie: m, user, onRemove }: MovieCardProps) 
 
         <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0">
           <button className="w-full sm:w-auto px-6 py-3 bg-[#f4c10f] text-lg text-white font-semibold rounded-xl hover:bg-[#e0b609] transition">
-            More Info
+            {t("moreInfo")}
           </button>
           <button
             onClick={() => onRemove(m.id)}
             className="w-full sm:w-auto px-6 py-3 bg-[#ea1c2c] text-lg text-white font-semibold rounded-xl hover:bg-[#c41826] transition"
           >
-            Remove from Favorites
+            {t("remove")}
           </button>
         </div>
       </div>
