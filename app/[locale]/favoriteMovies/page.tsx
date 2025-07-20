@@ -63,7 +63,6 @@ export default function FavoritesPage() {
         setMovies(details.filter((d): d is TMDBMovie => !!d));
         setLoading(false);
       } catch {
-        // Use centralized error message from "errors" namespace
         setErrorMsg(tErrors("errorFetchingMovies"));
         setLoading(false);
       }
@@ -78,7 +77,7 @@ export default function FavoritesPage() {
       user as User,
       setMovies,
       setErrorMsg,
-      {} // you can remove ERROR_MESSAGES usage now
+      {} 
     );
   }
 
@@ -88,7 +87,7 @@ export default function FavoritesPage() {
       user as User,
       setMovies,
       setErrorMsg,
-      {} // you can remove ERROR_MESSAGES usage now
+      {} 
     );
   }
 

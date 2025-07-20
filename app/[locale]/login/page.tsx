@@ -6,7 +6,7 @@ import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { AuthSlider } from "@/components/AuthSlider";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../lib/firebase";            // adjust path to your firebase.ts
+import { auth } from "../../../lib/firebase"; // adjust path to your firebase.ts
 
 export default function LoginPage() {
   const tLogin = useTranslations("login");
@@ -30,7 +30,6 @@ export default function LoginPage() {
       setSuccess(tLogin("success"));
       router.push(`/${locale}`);
     } catch (err: any) {
-      // Use the generic loginFailed error message and include original error message
       setError(
         tErrors("loginFailed", { message: err.message || tErrors("unknown") })
       );
