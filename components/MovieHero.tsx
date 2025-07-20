@@ -12,68 +12,23 @@ import { useLocale } from "next-intl";
 
 const getStarIcons = (rating: number) => {
   const stars = [];
-  const starValue = rating / 2; // Convert 0-10 scale to 0-5
+  const starValue = rating / 2;
   for (let i = 0; i < 5; i++) {
-    if (starValue >= i + 1) {
-      // Full star
-      stars.push(
-        <svg
-          key={i}
-          className="w-5 h-5 inline text-yellow-400"
-          fill="currentColor"
+    stars.push(
+      <svg
+        key={i}
+        className="w-5 h-5 inline text-yellow-400"
+        fill={starValue >= i + 1 ? "currentColor" : "none"}
+        stroke="currentColor"
+        strokeWidth={1}
+        viewBox="0 0 24 24"
+      >
+        <polygon
           stroke="currentColor"
-          strokeWidth={1}
-          viewBox="0 0 24 24"
-        >
-          <polygon
-            stroke="currentColor"
-            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-          />
-        </svg>
-      );
-    } else if (starValue > i && starValue < i + 1) {
-      stars.push(
-        <svg
-          key={i}
-          className="w-5 h-5 inline text-yellow-400"
-          viewBox="0 0 24 24"
-        >
-          <defs>
-            <linearGradient
-              id={`half-gradient-${i}`}
-              x1="0"
-              x2="1"
-              y1="0"
-              y2="0"
-            >
-              <stop offset="50%" stopColor="currentColor" />
-              <stop offset="50%" stopColor="transparent" />
-            </linearGradient>
-          </defs>
-          <polygon
-            stroke="currentColor"
-            fill={`url(#half-gradient-${i})`}
-            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-          />
-        </svg>
-      );
-    } else {
-      stars.push(
-        <svg
-          key={i}
-          className="w-5 h-5 inline text-yellow-400"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={1}
-          viewBox="0 0 24 24"
-        >
-          <polygon
-            stroke="currentColor"
-            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-          />
-        </svg>
-      );
-    }
+          points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+        />
+      </svg>
+    );
   }
   return stars;
 };
@@ -89,16 +44,15 @@ const MovieHero: React.FC<MovieHeroProps> = ({
   moreInfo,
 }) => {
   const t = useTranslations();
-
   const router = useRouter();
   const locale = useLocale();
   const { user } = useAuth();
+
   const [isFavorite, setIsFavorite] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [popupMsg, setPopupMsg] = useState("");
 
-  // Check if this movie is in user's favorites
   useEffect(() => {
     async function checkFavorite() {
       if (!user) {
@@ -114,22 +68,23 @@ const MovieHero: React.FC<MovieHeroProps> = ({
   const handleTrailerClick = () => {
     window.open(homepage, "_blank");
   };
+
   const handleInfoClick = () => {
     router.push(`/${locale}/details/${id}`);
   };
+
   const handleFavoriteClick = async () => {
     if (!user) return;
     if (isFavorite) {
       await handleRemoveFavorite(id, user, undefined, setErrorMsg, ERROR_MESSAGES);
       setIsFavorite(false);
       setPopupMsg(t("movieHero.removedFromFavorites"));
-      setShowPopup(true);
     } else {
       await handleAddFavorite({ id, title }, user, undefined, setErrorMsg, ERROR_MESSAGES);
       setIsFavorite(true);
       setPopupMsg(t("movieHero.addedToFavorites"));
-      setShowPopup(true);
     }
+    setShowPopup(true);
   };
 
   useEffect(() => {
@@ -141,7 +96,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({
 
   return (
     <section
-      className="relative w-full min-h-[60vh] flex items-center justify-start bg-black text-white overflow-hidden"
+      className="relative w-full min-h-[60vh] flex items-center justify-start bg-black text-white overflow-hidden px-4 sm:px-8 lg:px-16"
       style={{
         backgroundImage: `url(${convertOriginalImageUrl(backdrop_path)})`,
         backgroundSize: "cover",
@@ -150,24 +105,22 @@ const MovieHero: React.FC<MovieHeroProps> = ({
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent z-10" />
-      <div className="relative z-20 max-w-4xl px-8 py-16 flex flex-col gap-6">
-        <h1 className="text-3xl md:text-5xl font-extrabold leading-tight drop-shadow-lg">
-          {title}
-        </h1>
-        <div className="flex items-center gap-4 text-lg font-semibold">
+
+      <div className="relative z-20 max-w-4xl w-full py-16 flex flex-col gap-6">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight drop-shadow-lg">{title}</h1>
+
+        <div className="flex flex-wrap items-center gap-4 text-lg font-semibold">
           <span>{getStarIcons(vote_average)}</span>
-          <span className="ml-2 text-yellow-400">
-            {vote_average?.toFixed(1)}
-          </span>
-          <span className="ml-2 text-white/80">{release_date}</span>
+          <span className="text-yellow-400">{vote_average?.toFixed(1)}</span>
+          <span className="text-white/80">{release_date}</span>
         </div>
-        <p className="max-w-2xl text-white/90 text-base md:text-lg line-clamp-4">
-          {overview}
-        </p>
-        <div className="flex gap-4 mt-4 items-center">
+
+        <p className="max-w-2xl text-white/90 text-base md:text-lg">{overview}</p>
+
+        <div className="flex flex-row flex-nowrap gap-4 mt-4 items-center overflow-x-auto">
           {homepage && (
             <button
-              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-lg text-base transition-colors shadow-lg"
+              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 sm:px-8 rounded-lg text-sm sm:text-base transition-colors shadow-lg whitespace-nowrap"
               onClick={handleTrailerClick}
             >
               {t("movieHero.playTrailerButton")}
@@ -175,7 +128,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({
           )}
           {moreInfo && (
             <button
-              className="border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold py-3 px-8 rounded-lg text-base transition-colors shadow-lg"
+              className="border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold py-3 px-6 sm:px-8 rounded-lg text-sm sm:text-base transition-colors shadow-lg whitespace-nowrap"
               onClick={handleInfoClick}
             >
               {t("movieHero.moreInfoButton")}
@@ -187,8 +140,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({
               height="50px"
               width="50px"
               viewBox="0 -960 960 960"
-              className={`ml-2 transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-0 ${isFavorite ? "text-red-500" : "text-yellow-400 hover:text-yellow-300"
-                }`}
+              className={`ml-2 transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-0 ${isFavorite ? "text-red-500" : "text-yellow-400 hover:text-yellow-300"}`}
               onClick={handleFavoriteClick}
               tabIndex={0}
               aria-label={isFavorite ? "Remove from Favorites" : "Add to Favorites"}
@@ -202,17 +154,16 @@ const MovieHero: React.FC<MovieHeroProps> = ({
                 strokeWidth="2"
               />
             </svg>
-
           )}
         </div>
       </div>
-      {/* Popup for added/removed from favorites */}
+
       {showPopup && (
         <div className="fixed left-1/2 bottom-8 transform -translate-x-1/2 z-50 px-6 py-3 bg-yellow-400 text-black font-bold rounded-full shadow-lg animate-jump-in">
           {popupMsg}
         </div>
       )}
-    </section >
+    </section>
   );
 };
 
