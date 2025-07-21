@@ -113,10 +113,10 @@
   "About": {
     "heroTitle": "Über Movie Nest",
     "featuresTitle": "Warum Movie Nest wählen?",
-    "feature1Title": "Filme entdecken",
-    "feature1Description": "Entdecken Sie Tausende von Filmen mit unserem fortschrittlichen Such- und Empfehlungssystem.",
-    "feature2Title": "Favoriten speichern",
-    "feature2Description": "Erstellen Sie Ihre persönliche Sammlung von Lieblingsfilmen und teilen Sie sie mit Freunden.",
+    "feature1Title": "Soziale Interaktion",
+    "feature1Description": "Erstellen Sie ein Movie-Chill-Konto, um Ihre Lieblingsfilme und -serien zu speichern, Empfehlungen mit Ihren Freunden zu teilen und zu sehen, was andere Community-Mitglieder sehen.",
+    "feature2Title": "Offene Zusammenarbeit",
+    "feature2Description": "Movie Chill ist ein Open-Source-Projekt, das auf GitHub gehostet wird. Wir freuen uns über Beiträge von Entwicklern weltweit, um die Funktionalität der Anwendung zu verbessern und zu erweitern. Wenn Sie beitragen möchten, schauen Sie sich unser GitHub-Repository an und hinterlassen Sie einen Stern, um Ihre Unterstützung zu zeigen.",
     "feature3Title": "Community beitreten",
     "feature3Description": "Verbinden Sie sich mit anderen Filmfans und entdecken Sie gemeinsam neue Filme.",
     "faqTitle": "Häufig gestellte Fragen",
@@ -142,6 +142,10 @@
       "highlight2": "unterhaltsame Erfahrung",
       "highlight3": "kollaborativ."
     },
-    "signupButton": "Registrieren"
+    "signupButton": "Registrieren",
+    "endlessExploration": {
+      "title": "Endloses Erkunden",
+      "description": "Entdecken Sie eine riesige Bibliothek von Filmen und Serien aus The Movie Database (TMDb). Egal, ob Sie zeitlose Klassiker, aktuelle Blockbuster oder verborgene Schätze suchen, wir haben für jeden etwas dabei."
+    }
   }
 }

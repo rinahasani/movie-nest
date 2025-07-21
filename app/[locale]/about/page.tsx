@@ -67,65 +67,83 @@ export default function AboutPage() {
       </section>
 
       {/* Feature Cards Section */}
-      <section className="w-full flex flex-col items-center gap-3 px-4 py-3">
-        {/* Card 1: Social Interaction */}
-        <div className="bg-yellow-400 rounded-2xl w-full max-w-xl p-3 flex flex-col items-center shadow-lg">
-          <div className="bg-black rounded-lg p-2 mb-2 flex items-center justify-center">
-            {/* Social Icon (video chat style) */}
+      <section className="w-full flex flex-col items-center gap-8 px-4 py-8">
+        {/* Endless Exploration Card */}
+        <div 
+          className="relative w-full max-w-2xl h-80 bg-cover bg-center rounded-2xl overflow-hidden shadow-lg"
+          style={{ backgroundImage: "url('/images/movies/movie8.avif')" }}
+        >
+          <div className="absolute inset-0 bg-black opacity-60"></div>
+          <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white p-6">
+            <div className="bg-yellow-400 p-3 rounded-xl mb-4">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="black">
+                <path d="M4 6.48V17.52C4 18.23 4.89 18.64 5.54 18.28L12.7 14.24L19.86 18.28C20.51 18.64 21.4 18.23 21.4 17.52V6.48C21.4 5.77 20.51 5.36 19.86 5.72L12.7 9.76L5.54 5.72C4.89 5.36 4 5.77 4 6.48Z" />
+              </svg>
+            </div>
+            <h2 className="text-3xl font-bold mb-3">{t('endlessExploration.title')}</h2>
+            <p className="text-base max-w-xl">{t('endlessExploration.description')}</p>
+          </div>
+        </div>
+
+        {/* Social Interaction Card */}
+        <div className="bg-yellow-400 w-full max-w-2xl p-8 flex flex-col items-center text-center shadow-xl rounded-2xl">
+          <div className="bg-black p-3 rounded-xl mb-4">
             <svg width="28" height="28" fill="none" stroke="yellow" strokeWidth="2" viewBox="0 0 24 24">
               <rect x="4" y="4" width="16" height="16" rx="3" fill="black" />
               <path d="M8 8h8v8H8z" fill="yellow" />
               <path d="M15 11l3-2v6l-3-2" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <h2 className="font-extrabold text-lg text-black mb-2 text-center">{t('feature1Title')}</h2>
-          <p className="text-black text-center text-xs font-medium">
+          <h2 className="text-black font-extrabold text-2xl mb-3">{t('feature1Title')}</h2>
+          <p className="text-black text-base leading-relaxed font-medium">
             {t('feature1Description')}
           </p>
         </div>
 
-        {/* Card 2: Open Collaboration */}
-        <div className="bg-yellow-400 rounded-2xl w-full max-w-xl p-3 flex flex-col items-center shadow-lg">
-          <div className="bg-black rounded-lg p-2 mb-2 flex items-center justify-center">
-            {/* Code Icon */}
+        {/* Open Collaboration Card */}
+        <div className="bg-yellow-400 w-full max-w-2xl p-8 flex flex-col items-center text-center shadow-xl rounded-2xl">
+          <div className="bg-black p-3 rounded-xl mb-4">
             <svg width="28" height="28" fill="none" stroke="yellow" strokeWidth="2" viewBox="0 0 24 24">
               <rect x="4" y="4" width="16" height="16" rx="3" fill="black" />
               <path d="M9 9h6v6H9z" fill="yellow" />
               <path d="M10 14l-2-2 2-2M14 10l2 2-2 2" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <h2 className="font-extrabold text-lg text-black mb-2 text-center">{t('feature2Title')}</h2>
-          <p className="text-black text-center text-xs font-medium">
+          <h2 className="text-black font-extrabold text-2xl mb-3">{t('feature2Title')}</h2>
+          <p className="text-black text-base leading-relaxed font-medium">
             {t('feature2Description')}
           </p>
         </div>
       </section>
 
-      {/* FAQ Section (styled as in screenshot) */}
-      <section className="w-full flex flex-col items-center py-3 bg-black">
-        <h2 className="text-lg font-bold text-yellow-400 mb-3 text-center">{t('faqTitle')}</h2>
-        <div className="space-y-2 w-full max-w-3xl">
+      <section className="w-full flex flex-col items-center px-4 bg-black">
+        <h2 className="text-xl mb-3 text-left uppercase font-bold w-full max-w-3xl">
+          <span className="text-yellow-400">FAQ</span>
+          <span className="text-white"> - MOVIE CHILL</span>
+        </h2>
+
+        <div className="space-y-4 w-full max-w-3xl">
           {faqs.map((faq, i) => (
-            <div key={i} className="bg-yellow-400 rounded-xl p-0 overflow-hidden">
+            <div key={i} className="bg-yellow-400 rounded-lg p-0 overflow-hidden">
               <button
-                className="flex items-center justify-between w-full px-4 py-2 focus:outline-none"
+                className="flex items-center justify-between w-full px-6 py-4 focus:outline-none"
                 onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
                 aria-expanded={openIndex === i}
               >
-                <span className="font-extrabold text-sm md:text-base text-black text-left">
+                <span className="text-base uppercase tracking-wider font-bold text-black text-left">
                   {i + 1}. {faq.q}
                 </span>
-                <span className="ml-2 flex items-center justify-center w-5 h-5 bg-black rounded text-yellow-400">
+                <span className="ml-4 flex items-center justify-center w-6 h-6 bg-black rounded-md text-white">
                   {openIndex === i ? (
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="yellow" strokeWidth="3" strokeLinecap="round"><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><line x1="5" y1="12" x2="19" y2="12" /></svg>
                   ) : (
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="yellow" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
                   )}
                 </span>
               </button>
               {openIndex === i && (
-                <div className="px-4 pb-2">
-                  <p className="text-black text-xs font-medium mt-1">{faq.a}</p>
+                <div className="px-6 pb-4">
+                  <p className="text-black text-sm font-normal mt-2">{faq.a}</p>
                 </div>
               )}
             </div>
@@ -134,10 +152,10 @@ export default function AboutPage() {
       </section>
 
       {/* Movie grid + share section */}
-      <section className="w-full flex flex-col items-center justify-center py-4 px-4">
-        <div className="w-full max-w-5xl flex flex-col md:flex-row items-center md:items-stretch gap-8">
+      <section className="w-full flex flex-col items-center justify-center py-4 px-10">
+        <div className="w-full max-w-5xl flex flex-col md:flex-row items-center md:items-stretch gap-8 justify-center">
           {/* Left side: Two separate movie sections */}
-          <div className="flex flex-col gap-4 md:w-[480px] w-full">
+          <div className="flex flex-col gap-4 md:w-[440px] w-full">
             {/* Bottom: Grid of 7 smaller images */}
             <div className="grid grid-cols-4 gap-1 md:w-[440px] w-full" style={{
               gridTemplateAreas: `
@@ -150,14 +168,14 @@ export default function AboutPage() {
               {/* Row 1: Large Cover */}
               {movies && movies.length > 1 && (
                 <div style={{ gridArea: 'large' }} className="overflow-hidden h-40 border-4 border-yellow-400 rounded-2xl">
-                  <img 
-                    src={`https://image.tmdb.org/t/p/w500${movies[1].backdrop_path || movies[1].poster_path}`} 
-                    alt={movies[1].title} 
-                    className="object-cover w-full h-full" 
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${movies[1].backdrop_path || movies[1].poster_path}`}
+                    alt={movies[1].title}
+                    className="object-cover w-full h-full"
                   />
                 </div>
               )}
-              
+
               {/* Row 2: Cover, Poster, Cover */}
               {movies && movies.length > 2 && (
                 <div style={{ gridArea: 'cover1' }} className="overflow-hidden h-28 border-4 border-yellow-400 rounded-2xl">
@@ -177,11 +195,11 @@ export default function AboutPage() {
 
               {/* Row 3: 4 Covers */}
               {movies.slice(5, 9).map((movie, i) => (
-                <div key={i+5} style={{ gridArea: `cover${i+3}` }} className="overflow-hidden h-24 border-4 border-yellow-400 rounded-2xl">
-                  <img 
-                    src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path || movie.poster_path}`} 
-                    alt={movie.title} 
-                    className="object-cover w-full h-full" 
+                <div key={i + 5} style={{ gridArea: `cover${i + 3}` }} className="overflow-hidden h-24 border-4 border-yellow-400 rounded-2xl">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path || movie.poster_path}`}
+                    alt={movie.title}
+                    className="object-cover w-full h-full"
                   />
                 </div>
               ))}
@@ -189,14 +207,14 @@ export default function AboutPage() {
           </div>
 
           {/* Right side: Text and button */}
-          <div className="flex flex-col justify-center items-start space-y-6 flex-1">
-            <div className="text-4xl md:text-5xl font-bold text-white leading-tight">
+          <div className="flex flex-col justify-center items-start space-y-6">
+            <div className="text-4xl md:text-3xl font-bold text-white leading-tight">
               <div>{t('shareSection.line1')}</div>
               <div>{t('shareSection.line2')}</div>
               <div className="text-yellow-400">{t('shareSection.line3')}</div>
               <div>{t('shareSection.line4')}</div>
             </div>
-            
+
             <button className="bg-yellow-400 text-black px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:bg-yellow-300 transition-colors" onClick={() => router.push('/signup')}>
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />

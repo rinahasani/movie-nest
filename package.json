@@ -12,6 +12,7 @@
     "@heroui/card": "^2.2.21",
     "@heroui/system": "^2.4.18",
     "@heroui/theme": "^2.4.17",
+    "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "firebase": "^11.10.0",
     "firebase-admin": "^13.4.0",

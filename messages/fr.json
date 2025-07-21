@@ -151,6 +151,10 @@
       "highlight2": "divertissement cinématographique enrichissante et",
       "highlight3": "collaborative."
     },
-    "signupButton": "S'inscrire"
+    "signupButton": "S'inscrire",
+    "endlessExploration": {
+      "title": "Exploration sans fin",
+      "description": "Explorez une vaste bibliothèque de films et de séries provenant de la base de données de The Movie Database (TMDb). Que vous recherchiez des classiques intemporels, des blockbusters récents ou des pépites méconnues, nous avons quelque chose pour tout le monde."
+    }
   }
 }

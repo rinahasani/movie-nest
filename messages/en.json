@@ -150,10 +150,10 @@
   "About": {
     "heroTitle": "About Movie Nest",
     "featuresTitle": "Why Choose Movie Nest?",
-    "feature1Title": "Discover Movies",
-    "feature1Description": "Explore thousands of movies with our advanced search and recommendation system.",
-    "feature2Title": "Save Favorites",
-    "feature2Description": "Create your personal collection of favorite movies and share them with friends.",
+    "feature1Title": "Social Interaction",
+    "feature1Description": "Create a Movie Chill account to save your favorite movies and series, share recommendations with your friends, and see what other community members are watching.",
+    "feature2Title": "Open Collaboration",
+    "feature2Description": "Movie Chill is an open-source project hosted on GitHub. We welcome contributions from developers worldwide to improve and extend the application's functionality. If you'd like to contribute, check out our GitHub repository and leave a star to show your support.",
     "feature3Title": "Join Community",
     "feature3Description": "Connect with other movie lovers and discover new films together.",
     "faqTitle": "Frequently Asked Questions",
@@ -179,6 +179,10 @@
       "highlight2": "entertainment experience",
       "highlight3": "collaborative."
     },
-    "signupButton": "Sign up"
+    "signupButton": "Sign up",
+    "endlessExploration": {
+      "title": "Endless Exploration",
+      "description": "Explore a vast library of films and series from The Movie Database (TMDb). Whether you're looking for timeless classics, recent blockbusters, or hidden gems, we have something for everyone."
+    }
   }
 }

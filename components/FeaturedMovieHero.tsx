@@ -14,7 +14,7 @@ export default function FeaturedMovieHero() {
     const fetchMovies = async () => {
       try {
         setLoading(true);
-        const fetchedMovie = await getRandomMovie(1,locale);
+        const fetchedMovie = await getRandomMovie(locale);
         setMovie(fetchedMovie);
       } catch (error) {
         console.error("Failed to fetch movies: ", error);
