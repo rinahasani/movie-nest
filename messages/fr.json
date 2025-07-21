@@ -118,5 +118,52 @@
     "backToLogin": "Retour à la page de connexion",
     "sliderTitle": "Comment ça marche?",
     "sliderSubtitle": "Une fois que vous aurez reçu le lien de réinitialisation par e‑mail, suivez les instructions pour choisir un nouveau mot de passe et accéder à votre compte en un rien de temps."
+  },
+  "Navbar": {
+    "home": "Accueil",
+    "about": "À propos",
+    "favorites": "Favoris",
+    "login": "Connexion",
+    "signup": "S'inscrire",
+    "logout": "Déconnexion",
+    "profile": "Profil"
+  },
+  "About": {
+    "heroTitle": "À propos de Movie Nest",
+    "featuresTitle": "Pourquoi choisir Movie Nest ?",
+    "feature1Title": "Découvrir des films",
+    "feature1Description": "Explorez des milliers de films avec notre système de recherche et de recommandation avancé.",
+    "feature2Title": "Sauvegarder les favoris",
+    "feature2Description": "Créez votre collection personnelle de films préférés et partagez-les avec vos amis.",
+    "feature3Title": "Rejoindre la communauté",
+    "feature3Description": "Connectez-vous avec d'autres amateurs de cinéma et découvrez de nouveaux films ensemble.",
+    "faqTitle": "Questions fréquemment posées",
+    "faq1Question": "Qu'est-ce que Movie Nest ?",
+    "faq1Answer": "Movie Nest est une plateforme pour découvrir, partager et discuter de films avec une communauté amicale.",
+    "faq2Question": "Comment rejoindre Movie Nest ?",
+    "faq2Answer": "Inscrivez-vous gratuitement et commencez à explorer des films, partager vos favoris et vous connecter avec d'autres !",
+    "faq3Question": "Movie Nest est-il gratuit ?",
+    "faq3Answer": "Oui, Movie Nest est entièrement gratuit.",
+    "faq4Question": "Comment contribuer à Movie Nest ?",
+    "faq4Answer": "Vous pouvez suggérer des fonctionnalités, signaler des bugs ou collaborer avec d'autres amateurs de cinéma pour faire grandir Movie Nest !",
+    "shareSection": {
+      "line1": "Ensemble, vivons des",
+      "line2": "moments de",
+      "line3": "divertissement",
+      "line4": "inoubliables !"
+    },
+    "description": {
+      "line1": "Movie Nest",
+      "highlight1": "est un projet open-source",
+      "line2": "disponible sur GitHub. Notre objectif est de vous offrir une expérience de",
+      "line3": "divertissement cinématographique enrichissante et",
+      "highlight2": "divertissement cinématographique enrichissante et",
+      "highlight3": "collaborative."
+    },
+    "signupButton": "S'inscrire",
+    "endlessExploration": {
+      "title": "Exploration sans fin",
+      "description": "Explorez une vaste bibliothèque de films et de séries provenant de la base de données de The Movie Database (TMDb). Que vous recherchiez des classiques intemporels, des blockbusters récents ou des pépites méconnues, nous avons quelque chose pour tout le monde."
+    }
   }
 }

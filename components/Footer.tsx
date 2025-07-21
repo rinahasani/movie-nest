@@ -26,13 +26,13 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-black text-white py-4 px-6 flex flex-col md:flex-row items-center justify-between border-t border-[#222]">
-      <div className="flex flex-col md:flex-row items-center gap-5 md:gap-3 text-m">
+    <footer className="w-full bg-black text-white py-4 px-6 flex flex-col md:flex-row items-center justify-between border-t border-[#222] gap-4">
+      <div className="flex flex-col md:flex-row items-center gap-5 md:gap-3 text-base">
         <span>
           © 2025 <span className="font-bold text-yellow-400">Movie Nest</span>
         </span>
       </div>
-      <div className="flex gap-2 mt-3 md:mt-0">
+      <div className="flex gap-2">
         {socialLinks.map((link) => (
           <a
             key={link.label}
