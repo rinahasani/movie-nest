@@ -22,6 +22,11 @@ export const ERROR_MESSAGES = {
   WRONG_PASSWORD: "Incorrect password.",
   WEAK_PASSWORD: "Password is too weak.",
 
+  // Google‐popup‑specific errors
+  POPUP_CLOSED_BY_USER: "The sign‑in popup was closed before completing.",
+  POPUP_BLOCKED: "The sign‑in popup was blocked by the browser.",
+  CANCELLED_POPUP_REQUEST: "Only one popup request is allowed at a time.",
+
   // Add/Remove favorite movie errors
   INVALID_UID_OR_MOVIE: "Invalid UID or movie.",
   MISSING_UID_OR_MOVIE: "Missing uid or movie.",

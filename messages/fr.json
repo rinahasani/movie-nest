@@ -27,7 +27,10 @@
     "invalidUidOrMovie": "UID ou film invalide.",
     "missingUidOrMovie": "UID ou film manquant.",
     "missingUidOrMovieId": "UID ou ID de film manquant.",
-    "movieNotFound": "Film introuvable dans les favoris."
+    "movieNotFound": "Film introuvable dans les favoris.",
+    "popupClosedByUser": "La fenêtre popup a été fermée avant la connexion.",
+    "popupBlocked": "La fenêtre popup a été bloquée par le navigateur.",
+    "cancelledPopupRequest": "Une seule demande de popup est autorisée à la fois."
   },
 
   "login": {
@@ -42,7 +45,8 @@
     "signUp": "S’inscrire",
     "success": "Connexion réussie ! 🎉",
     "error": "Échec de la connexion. {{message}}",
-    "forgotPasswordLink": "Mot de passe oublié ?"
+    "forgotPasswordLink": "Mot de passe oublié ?",
+    "orContinueWith": "Ou continuer avec"
   },
 
   "signup": {
@@ -62,7 +66,8 @@
     "errorNetwork": "Erreur réseau. Veuillez réessayer.",
     "errorDefault": "Échec de l’inscription. Veuillez réessayer.",
     "haveAccount": "Vous avez déjà un compte ?",
-    "loginLink": "Connectez-vous ici"
+    "loginLink": "Connectez-vous ici",
+    "orContinueWith": "Ou continuer avec"
   },
   "favorites": {
     "title": "Les films que vous avez marqués comme favoris.",
@@ -92,6 +97,10 @@
   "movieDetails": {
     "productionCompanies": "Sociétés de production",
     "noDetails": "Aucun détail sur le film trouvé."
+  },
+  "movieGenres": {
+    "title": "Genres",
+    "noGenres": "Aucun genres trouvé."
   },
   "budgetVsRevenueChart": {
     "title": "Budget vs Revenus",

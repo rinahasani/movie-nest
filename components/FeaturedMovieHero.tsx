@@ -1,10 +1,10 @@
-'use client';
-import { getRandomMovie } from "../lib/getRandomMovie";
+"use client";
 import MovieHero from "../components/MovieHero";
 import convertOriginalImageUrl from "../lib/utils/convertOriginalImage";
 import { MovieInfo } from "@/constants/types/MovieInfo";
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
+import { getRandomMovie } from "@/lib/tmdbCalls/getRandomMovie";
 
 export default function FeaturedMovieHero() {
   const [movie, setMovie] = useState<MovieInfo | null>(null);
