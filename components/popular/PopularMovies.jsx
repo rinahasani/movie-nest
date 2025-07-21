@@ -76,14 +76,7 @@ const PopularMovies = (props) => {
                 paddingLeft: "var(--slide-spacing)",
               }}
             >
-              <div
-                className="
-                  shadow-[inset_0_0_0_0.2rem_var(--detail-medium-contrast)]
-                  rounded-[1.8rem] text-4xl font-semibold flex items-center justify-center select-none
-                  h-[var(--slide-height)]
-                  my-8
-                "
-              >
+              <div className="my-8">
                 <MovieHero
                   id={movies[index].id}
                   title={movies[index].title}
