@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getAllMovies } from "@/lib/getAllMovies";
 import Carousel from "@/components/carousel/Carousel";
 import { MovieInfo } from "@/constants/types/MovieInfo";
 import { useLocale, useTranslations } from "next-intl";
+import { getAllMovies } from "@/lib/tmdbCalls/getAllMovies";
 
 export default function SimilarCarousel() {
   const [movies, setMovies] = useState<MovieInfo[] | null>(null);

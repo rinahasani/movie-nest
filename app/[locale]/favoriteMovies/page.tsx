@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "../../contexts/AuthContext";
 import { getUserFavorites } from "../../../lib/favoriteMovies";
-import { getMovieDetails } from "../../../lib/getMovieDetails";
 import {
   handleRemoveFavorite,
   handleAddFavorite,
@@ -15,6 +14,7 @@ import MovieCard, {
   TMDBMovie,
   User,
 } from "../../../components/FavoriteMovieCard";
+import { getMovieDetails } from "@/lib/tmdbCalls/getMovieDetails";
 
 type Favorite = { id: string; title: string };
 
