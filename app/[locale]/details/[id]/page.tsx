@@ -1,22 +1,34 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { getMovieDetails } from "@/lib/getMovieDetails";
 import { MovieInfo } from "@/constants/types/MovieInfo";
 import MovieDetails from "@/components/MovieDetails";
+import { useLocale } from "next-intl";
 
-export default async function DetailsMoviesPage({
- params,
+export default function DetailsMoviesPage({
+  params,
 }: {
   params: { id: string };
 }) {
-  const { id } = await params
-  let movieDetails: MovieInfo | null = null;
-  if (id) {
-    try {
-      movieDetails = await getMovieDetails(id);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const [movieDetails, setMovieDetails] = useState<MovieInfo | null>(null);
+  const [loading, setLoading] = useState(true);
+  const locale = useLocale();
+
+  const { id } = params;
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        setLoading(true);
+        const fetchedMovieDetails = await getMovieDetails(id, locale);
+        setMovieDetails(fetchedMovieDetails);
+      } catch (error) {
+        console.error("Failed to fetch movies: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMovies();
+  }, []);
   return (
     <>
       <main>
