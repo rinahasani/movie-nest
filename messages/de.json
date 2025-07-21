@@ -41,7 +41,8 @@
     "noAccount": "Noch kein Konto?",
     "signUp": "Registrieren",
     "success": "Erfolgreich eingeloggt! 🎉",
-    "error": "Anmeldung fehlgeschlagen. {{message}}"
+    "error": "Anmeldung fehlgeschlagen. {{message}}",
+    "forgotPasswordLink": "Passwort vergessen?"
   },
   "signup": {
     "title": "Bereit, der Community beizutreten?",

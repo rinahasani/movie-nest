@@ -6,7 +6,7 @@ import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { AuthSlider } from "@/components/AuthSlider";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../lib/firebase"; // adjust path to your firebase.ts
+import { auth } from "../../../lib/firebase";
 
 export default function LoginPage() {
   const tLogin = useTranslations("login");
@@ -84,6 +84,17 @@ export default function LoginPage() {
           </form>
 
           {error && <p className="text-red-400">{error}</p>}
+          {error && (
+            <p className="text-center text-gray-500">
+              <Link
+                href={`/${locale}/reset-password`}
+                className="text-yellow-400 hover:underline"
+              >
+                {tLogin("forgotPasswordLink")}
+              </Link>
+            </p>
+          )}
+
           {success && <p className="text-green-400">{success}</p>}
 
           <p className="text-center text-gray-500">

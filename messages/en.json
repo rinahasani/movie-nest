@@ -41,7 +41,8 @@
     "noAccount": "Don’t have an account?",
     "signUp": "Sign up",
     "success": "Successfully logged in! 🎉",
-    "error": "Login failed. {{message}}"
+    "error": "Login failed. {{message}}",
+    "forgotPasswordLink": "Forgot your password?"
   },
 
   "signup": {

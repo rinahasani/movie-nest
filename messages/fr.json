@@ -41,7 +41,8 @@
     "noAccount": "Pas de compte ?",
     "signUp": "S’inscrire",
     "success": "Connexion réussie ! 🎉",
-    "error": "Échec de la connexion. {{message}}"
+    "error": "Échec de la connexion. {{message}}",
+    "forgotPasswordLink": "Mot de passe oublié ?"
   },
 
   "signup": {
