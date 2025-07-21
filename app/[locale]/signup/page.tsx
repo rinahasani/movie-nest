@@ -7,7 +7,11 @@ import Link from "next/link";
 import { AuthSlider } from "../../../components/AuthSlider";
 import { ERROR_MESSAGES } from "../../../constants/strings";
 import { useRouter } from "next/navigation";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../../../lib/firebase";
 
 export default function SignupPage() {
@@ -17,6 +21,7 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const router = useRouter();
+  const provider = new GoogleAuthProvider();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,10 +53,29 @@ export default function SignupPage() {
         setSuccess("Successfully registered! 🎉");
         // Auto-login after signup
         await signInWithEmailAndPassword(auth, email, password);
-        router.push("/");
+        router.push(`/${locale}`);
       }
     } catch {
       setError(tErrors("network"));
+    }
+  };
+
+  const handleGoogle = async () => {
+    try {
+      await signInWithPopup(auth, provider);
+      router.push(`/${locale}`);
+    } catch (err: any) {
+      const key = (err.code as string)
+        .replace("auth/", "")
+        .split("-")
+        .map((part, i) =>
+          i === 0 ? part : part[0].toUpperCase() + part.slice(1)
+        )
+        .join("");
+
+      const message = tErrors(key) || tErrors("unknown");
+
+      setError(message);
     }
   };
 
@@ -138,6 +162,25 @@ export default function SignupPage() {
               {t("button")}
             </button>
           </form>
+
+          {/* Social login divider */}
+          <div className="flex items-center space-x-2 my-4">
+            <hr className="flex-grow border-gray-600" />
+            <span className="text-gray-400 uppercase text-xs">
+              {t("orContinueWith")}
+            </span>
+            <hr className="flex-grow border-gray-600" />
+          </div>
+
+          {/* Google button */}
+          <div className="flex justify-center space-x-4">
+            <button
+              onClick={handleGoogle}
+              className="p-3 bg-white rounded-full hover:shadow-md"
+            >
+              <img src="/images/google.png" alt="Google" className="h-5 w-5" />
+            </button>
+          </div>
 
           {error && <p className="text-red-400 text-sm">{error}</p>}
           {success && <p className="text-green-400 text-sm">{success}</p>}
