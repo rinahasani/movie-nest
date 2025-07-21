@@ -27,7 +27,10 @@
     "invalidUidOrMovie": "Ungültige UID oder Film.",
     "missingUidOrMovie": "UID oder Film fehlt.",
     "missingUidOrMovieId": "UID oder Film-ID fehlt.",
-    "movieNotFound": "Film nicht in den Favoriten gefunden."
+    "movieNotFound": "Film nicht in den Favoriten gefunden.",
+    "popupClosedByUser": "Das Anmeldefenster wurde geschlossen, bevor es abgeschlossen war.",
+    "popupBlocked": "Das Anmeldefenster wurde vom Browser blockiert.",
+    "cancelledPopupRequest": "Es ist nur eine Popup-Anforderung gleichzeitig erlaubt."
   },
 
   "login": {
@@ -42,7 +45,8 @@
     "signUp": "Registrieren",
     "success": "Erfolgreich eingeloggt! 🎉",
     "error": "Anmeldung fehlgeschlagen. {{message}}",
-    "forgotPasswordLink": "Passwort vergessen?"
+    "forgotPasswordLink": "Passwort vergessen?",
+    "orContinueWith": "Oder fortfahren mit"
   },
   "signup": {
     "title": "Bereit, der Community beizutreten?",
@@ -61,7 +65,8 @@
     "errorNetwork": "Netzwerkfehler. Bitte erneut versuchen.",
     "errorDefault": "Registrierung fehlgeschlagen. Bitte erneut versuchen.",
     "haveAccount": "Sie haben bereits ein Konto?",
-    "loginLink": "Hier einloggen"
+    "loginLink": "Hier einloggen",
+    "orContinueWith": "Oder fortfahren mit"
   },
   "favorites": {
     "title": "Die Filme, die du als Favoriten markiert hast.",
