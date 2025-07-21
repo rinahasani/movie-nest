@@ -98,6 +98,10 @@
     "productionCompanies": "Sociétés de production",
     "noDetails": "Aucun détail sur le film trouvé."
   },
+  "movieGenres": {
+    "title": "Genres",
+    "noGenres": "Aucun genres trouvé."
+  },
   "budgetVsRevenueChart": {
     "title": "Budget vs Revenus",
     "budget": "Budget",
