@@ -1,3 +1,4 @@
+"use client";
 import { getRandomMovie } from "../lib/getRandomMovie";
 import MovieHero from "../components/MovieHero";
 import convertOriginalImageUrl from "../lib/utils/convertOriginalImage";

@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { getAllMovies } from "@/lib/getAllMovies";
 import Carousel from "@/components/carousel/Carousel";
 import { MovieInfo } from "@/constants/types/MovieInfo";
