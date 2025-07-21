@@ -59,11 +59,11 @@ export default function SignupPage() {
     <div className="bg-black min-h-screen flex flex-col md:flex-row w-full">
       {/* LEFT: SIGNUP FORM */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-6 bg-black">
-        <div className="w-full max-w-sm space-y-6">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-white">
+        <div className="w-full max-w-md space-y-6">
+          <h1 className="text-4xl md:text-4xl font-extrabold text-white">
             {t("title")}
           </h1>
-          <p className="text-gray-300">{t("description")}</p>
+          <p className="text-lg text-gray-300">{t("description")}</p>
 
           <form id="signup-form" className="space-y-4" onSubmit={handleSubmit}>
             {/* Username */}

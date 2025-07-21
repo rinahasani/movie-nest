@@ -6,7 +6,7 @@ import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { AuthSlider } from "@/components/AuthSlider";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../lib/firebase"; // adjust path to your firebase.ts
+import { auth } from "../../../lib/firebase";
 
 export default function LoginPage() {
   const tLogin = useTranslations("login");
@@ -40,11 +40,11 @@ export default function LoginPage() {
     <div className="bg-black flex flex-col md:flex-row w-full min-h-screen">
       {/* LEFT: LOGIN FORM */}
       <div className="w-full md:w-1/2 flex items-center justify-center px-4 sm:px-6 py-12 bg-black">
-        <div className="w-full max-w-sm space-y-6">
-          <h1 className="text-3xl font-extrabold text-white">
+        <div className="w-full max-w-md space-y-6">
+          <h1 className="text-4xl font-extrabold text-white">
             {tLogin("title")}
           </h1>
-          <p className="text-gray-300">{tLogin("description")}</p>
+          <p className="text-lg text-gray-300">{tLogin("description")}</p>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
@@ -84,6 +84,17 @@ export default function LoginPage() {
           </form>
 
           {error && <p className="text-red-400">{error}</p>}
+          {error && (
+            <p className="text-center text-gray-500">
+              <Link
+                href={`/${locale}/reset-password`}
+                className="text-yellow-400 hover:underline"
+              >
+                {tLogin("forgotPasswordLink")}
+              </Link>
+            </p>
+          )}
+
           {success && <p className="text-green-400">{success}</p>}
 
           <p className="text-center text-gray-500">

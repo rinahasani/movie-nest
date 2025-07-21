@@ -41,7 +41,8 @@
     "noAccount": "Don’t have an account?",
     "signUp": "Sign up",
     "success": "Successfully logged in! 🎉",
-    "error": "Login failed. {{message}}"
+    "error": "Login failed. {{message}}",
+    "forgotPasswordLink": "Forgot your password?"
   },
 
   "signup": {
@@ -97,5 +98,17 @@
     "title": "Budget vs Revenue",
     "budget": "Budget",
     "revenue": "Revenue"
+  },
+  "resetPassword": {
+    "title": "Forgot Password?🤔",
+    "description": "Enter your email and we'll send you a link to reset your password.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Your email address",
+    "button": "Send Link",
+    "sendingButton": "Sending…",
+    "emailSentMessage": "A reset email has just been sent!",
+    "backToLogin": "Back to login page",
+    "sliderTitle": "How it works?",
+    "sliderSubtitle": "Once you’ve received the reset link by email, follow the instructions to pick a new password and get back into your account in no time."
   }
 }
