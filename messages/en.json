@@ -120,6 +120,24 @@
     "sliderTitle": "How it works?",
     "sliderSubtitle": "Once you’ve received the reset link by email, follow the instructions to pick a new password and get back into your account in no time."
   },
+  "tvShowsPage": {
+    "title": "Browse TV Shows",
+    "loading": "Loading…",
+    "seeMore": "See More",
+    "noTvShowsFound": "No TV shows found at the moment."
+  },
+  "tvShowDetailsPage": {
+    "notFound": "TV Show not found.",
+    "firstAirDate": "First Air Date",
+    "rating": "Rating",
+    "numberOfSeasons": "Number of Seasons",
+    "numberOfEpisodes": "Number of Episodes",
+    "seasons": "Seasons",
+    "noSeasons": "No seasons found for this TV show.",
+    "loading": "Loading…",
+    "episodes": "Episodes",
+    "selectSeason": "Select Season"
+  },
   "about": {
     "title": "Welcome to Movie Nest!",
     "description": "Movie Nest is your go-to platform for discovering, sharing, and enjoying movies with friends and fellow fans. Dive into a world of cinema, connect with others, and make every movie night special!",
@@ -161,15 +179,6 @@
     "finalTitle": "Ready to Nest?",
     "finalDesc": "Sign up now and start discovering, sharing, and enjoying movies with Movie Nest!",
     "finalButton": "Get Started"
-  },
-  "Navbar": {
-    "home": "Home",
-    "about": "About",
-    "favorites": "Favorites",
-    "login": "Login",
-    "signup": "Sign Up",
-    "logout": "Logout",
-    "profile": "Profile"
   },
   "About": {
     "heroTitle": "About Movie Nest",

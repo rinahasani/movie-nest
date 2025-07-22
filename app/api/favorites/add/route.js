@@ -1,6 +1,6 @@
-import { addFavoriteMovie } from "../../../../lib/favoriteMovies";
-import { ERROR_MESSAGES } from "../../../../constants/strings";
-import { adminAuth } from "../../../../lib/firebaseAdmin";
+import { addFavoriteMovie } from "@/lib/favoriteMovies";
+import { ERROR_MESSAGES } from "@/constants/strings";
+import { adminAuth } from "@/lib/firebaseAdmin";
 
 export async function POST(req) {
   try {

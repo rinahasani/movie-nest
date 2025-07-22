@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
   User,
 } from "firebase/auth";
-import { auth } from "../../lib/firebase";
+import { auth } from "@/lib/firebase";
 import { signOut as firebaseSignOut } from "firebase/auth";
 
 type AuthContextType = {

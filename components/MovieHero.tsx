@@ -4,9 +4,9 @@ import convertOriginalImageUrl from "@/lib/utils/convertOriginalImage";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/app/contexts/AuthContext";
-import { handleAddFavorite, handleRemoveFavorite } from "../lib/handlers/favoritesHandler";
-import { ERROR_MESSAGES } from "../constants/strings";
-import { getUserFavorites } from "../lib/favoriteMovies";
+import { handleAddFavorite, handleRemoveFavorite } from "@/lib/handlers/favoritesHandler";
+import { ERROR_MESSAGES } from "@/constants/strings";
+import { getUserFavorites } from "@/lib/favoriteMovies";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 

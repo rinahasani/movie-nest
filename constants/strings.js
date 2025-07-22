@@ -32,4 +32,15 @@ export const ERROR_MESSAGES = {
   MISSING_UID_OR_MOVIE: "Missing uid or movie.",
   MISSING_UID_OR_MOVIE_ID: "Missing uid or movie.id.",
   MOVIE_NOT_FOUND: "Movie not found in favorites.",
+
+  // TvShows related errors
+  TV_SHOWS: 'TV Shows',
+  SEASONS: 'Seasons',
+  EPISODES: 'Episodes',
+  FIRST_AIR_DATE: 'First Air Date',
+  RATING: 'Rating',
+  NUMBER_OF_SEASONS: 'Number of Seasons',
+  NUMBER_OF_EPISODES: 'Number of Episodes',
+  NO_SEASONS_FOUND: 'No seasons found for this TV show.',
+  TV_SHOW_NOT_FOUND: 'TV show not found.',
 };
