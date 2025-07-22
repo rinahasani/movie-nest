@@ -165,15 +165,6 @@
     "finalDesc": "Sign up now and start discovering, sharing, and enjoying movies with Movie Nest!",
     "finalButton": "Get Started"
   },
-  "Navbar": {
-    "home": "Home",
-    "about": "About",
-    "favorites": "Favorites",
-    "login": "Login",
-    "signup": "Sign Up",
-    "logout": "Logout",
-    "profile": "Profile"
-  },
   "About": {
     "heroTitle": "About Movie Nest",
     "featuresTitle": "Why Choose Movie Nest?",

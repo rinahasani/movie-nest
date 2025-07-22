@@ -137,15 +137,6 @@
     "episodes": "Épisodes",
     "selectSeason": "Sélectionner la saison"
   },
-  "Navbar": {
-    "home": "Accueil",
-    "about": "À propos",
-    "favorites": "Favoris",
-    "login": "Connexion",
-    "signup": "S'inscrire",
-    "logout": "Déconnexion",
-    "profile": "Profil"
-  },
   "About": {
     "heroTitle": "À propos de Movie Nest",
     "featuresTitle": "Pourquoi choisir Movie Nest ?",
