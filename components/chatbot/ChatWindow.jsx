@@ -51,9 +51,7 @@ const ChatWindow = ({ onClose }) => {
 
       <div className="flex-1 p-4 overflow-y-auto custom-scrollbar">
         {recommendations.length === 0 && !isLoading && !error && (
-          <div className="text-white-500 text-center py-4">
-           {t("chatDesc")}
-          </div>
+          <div className="text-white-500 text-center py-4">{t("chatDesc")}</div>
         )}
         {isLoading && (
           <div className="flex justify-center items-center py-4">
@@ -71,11 +69,14 @@ const ChatWindow = ({ onClose }) => {
           </div>
         )}
         {recommendations.length > 0 && (
-          <div className="bg-gray-50 p-3 rounded-lg shadow-sm">
-            <h3 className="font-semibold text-gray-800 mb-2">
-             {t("recommendations")}
+          <div
+            className=" p-3 rounded-lg shadow-sm"
+            style={{ backgroundColor: "#1E1E1E" }}
+          >
+            <h3 className="font-semibold text-white-800 mb-2">
+              {t("recommendations")}
             </h3>
-            <ul className="list-disc pl-5 text-gray-700">
+            <ul className="list-disc pl-5 text-white-700">
               {recommendations.map((rec, index) => (
                 <li key={index} className="mb-1">
                   {rec}
