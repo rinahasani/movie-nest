@@ -174,5 +174,10 @@
       "title": "Exploration sans fin",
       "description": "Explorez une vaste bibliothèque de films et de séries provenant de la base de données de The Movie Database (TMDb). Que vous recherchiez des classiques intemporels, des blockbusters récents ou des pépites méconnues, nous avons quelque chose pour tout le monde."
     }
+  },
+  "gemini": {
+    "chatTitle": "Recommandeur de films",
+    "chatDesc": "Saisissez un titre de film, un acteur ou un genre pour obtenir des recommandations.",
+    "recommendations": "Nous vous recommandons ces films: "
   }
 }
