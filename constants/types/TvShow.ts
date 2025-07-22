@@ -11,5 +11,5 @@ export interface TvShow {
     genre_ids: number[];
     number_of_seasons?: number; 
     number_of_episodes?: number; 
-    seasons?: Season[]; 
+    seasons: Season[]; 
   }
