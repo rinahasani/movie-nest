@@ -9,7 +9,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { getMovieDetails } from "@/lib/tmdbCalls/getMovieDetails";
 
-const MovieDetails: React.FC<{ id: string }> = ({ id }) => {
+const MovieDetails = ({ id }: { id: string }) => {
   const [movieDetails, setMovieDetails] = useState<MovieInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const locale = useLocale();
