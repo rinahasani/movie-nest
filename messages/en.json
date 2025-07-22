@@ -99,7 +99,7 @@
     "productionCompanies": "Production Companies",
     "noDetails": "No movie details found."
   },
-    "movieGenres": {
+  "movieGenres": {
     "title": "Genres",
     "noGenres": "No genres found."
   },
@@ -132,11 +132,26 @@
       "collabDesc": "Join a vibrant community of movie lovers. Discuss, recommend, and create your own watchlists!"
     },
     "faq": [
-      { "q": "What is Movie Nest?", "a": "Movie Nest is a platform for discovering, sharing, and discussing movies with a friendly community." },
-      { "q": "How do I join Movie Nest?", "a": "Just sign up for free and start exploring movies, sharing favorites, and connecting with others!" },
-      { "q": "Is Movie Nest free?", "a": "Yes, Movie Nest is completely free to use." },
-      { "q": "How do I add movies to my favorites?", "a": "Click the 'Add to Favorites' button on any movie page after logging in." },
-      { "q": "Can I make my own watchlists?", "a": "Yes! You can create and manage your own movie watchlists to keep track of what you want to see." }
+      {
+        "q": "What is Movie Nest?",
+        "a": "Movie Nest is a platform for discovering, sharing, and discussing movies with a friendly community."
+      },
+      {
+        "q": "How do I join Movie Nest?",
+        "a": "Just sign up for free and start exploring movies, sharing favorites, and connecting with others!"
+      },
+      {
+        "q": "Is Movie Nest free?",
+        "a": "Yes, Movie Nest is completely free to use."
+      },
+      {
+        "q": "How do I add movies to my favorites?",
+        "a": "Click the 'Add to Favorites' button on any movie page after logging in."
+      },
+      {
+        "q": "Can I make my own watchlists?",
+        "a": "Yes! You can create and manage your own movie watchlists to keep track of what you want to see."
+      }
     ],
     "socialTitle": "Stay Connected",
     "socialDesc": "Follow us on social media for the latest movie news, recommendations, and community events.",
@@ -187,6 +202,11 @@
       "line3": "Built with love by film lovers for film lovers.",
       "highlight2": "entertainment experience",
       "highlight3": "collaborative."
+    },
+    "gemini": {
+      "chatTitle": "Movie Recommender",
+      "chatDesc": "Enter a movie title, actor, or genre to get recommendations.",
+      "recommendations": "We recommend you these movies: "
     },
     "signupButton": "Sign up",
     "endlessExploration": {

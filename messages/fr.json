@@ -160,6 +160,11 @@
       "highlight2": "divertissement cinématographique enrichissante et",
       "highlight3": "collaborative."
     },
+    "gemini":{
+      "chatTitle" : "Recommandeur de films",
+      "chatDesc":"Saisissez un titre de film, un acteur ou un genre pour obtenir des recommandations.",
+      "recommendations":"Nous vous recommandons ces films: "
+    },
     "signupButton": "S'inscrire",
     "endlessExploration": {
       "title": "Exploration sans fin",

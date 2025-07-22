@@ -150,6 +150,11 @@
       "highlight2": "unterhaltsame Erfahrung",
       "highlight3": "kollaborativ."
     },
+    "gemini":{
+      "chatTitle" : "Film-Empfehlung",
+      "chatDesc":"Geben Sie einen Filmtitel, Schauspieler oder ein Genre ein, um Empfehlungen zu erhalten.",
+      "recommendations":"Wir empfehlen Ihnen diese Filme: "
+    },
     "signupButton": "Registrieren",
     "endlessExploration": {
       "title": "Endloses Erkunden",
