@@ -114,5 +114,23 @@
     "backToLogin": "Retour à la page de connexion",
     "sliderTitle": "Comment ça marche?",
     "sliderSubtitle": "Une fois que vous aurez reçu le lien de réinitialisation par e‑mail, suivez les instructions pour choisir un nouveau mot de passe et accéder à votre compte en un rien de temps."
+  },
+  "tvShowsPage": {
+    "title": "Parcourir les Séries TV",
+    "loading": "Chargement…",
+    "seeMore": "Voir plus",
+    "noTvShowsFound": "Aucune série TV trouvée pour le moment."
+  },
+  "tvShowDetailsPage": {
+    "notFound": "Série TV non trouvée.",
+    "firstAirDate": "Première diffusion",
+    "rating": "Évaluation",
+    "numberOfSeasons": "Nombre de saisons",
+    "numberOfEpisodes": "Nombre d'épisodes",
+    "seasons": "Saisons",
+    "noSeasons": "Aucune saison trouvée pour cette série TV.",
+    "loading": "Chargement…",
+    "episodes": "Épisodes",
+    "selectSeason": "Sélectionner la saison"
   }
 }

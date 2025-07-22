@@ -1,7 +1,12 @@
 export const BASE_URL = "https://api.themoviedb.org/3";
-const API_KEY = ""; //your api key here
+const API_KEY = "fdb91272c3f95e9e093b31f73184bd5c"; //your api key here
 export const API_ENDPOINTS = {
   DISCOVER:(page = 1,language = 'en-EN') => `${BASE_URL}/discover/movie?page=${page}&api_key=${API_KEY}&language=${language}`,
   // GENRES: (language = 'en-EN') `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=${language}`,
   MOVIE_DETAILS: (movieId,language='en-EN') => `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=${language}`,
+
+  DISCOVER_TV: (page = 1, language = 'en-EN') => `${BASE_URL}/discover/tv?page=${page}&api_key=${API_KEY}&language=${language}`,
+  TV_SHOW_DETAILS: (tvId, language = 'en-EN') => `${BASE_URL}/tv/${tvId}?api_key=${API_KEY}&language=${language}`,
+  TV_SEASON_DETAILS: (tvId, seasonNumber, language = 'en-EN') => `${BASE_URL}/tv/${tvId}/season/${seasonNumber}?api_key=${API_KEY}&language=${language}`,
+
 };

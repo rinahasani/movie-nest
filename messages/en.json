@@ -115,5 +115,23 @@
     "backToLogin": "Back to login page",
     "sliderTitle": "How it works?",
     "sliderSubtitle": "Once you’ve received the reset link by email, follow the instructions to pick a new password and get back into your account in no time."
+  },
+  "tvShowsPage": {
+    "title": "Browse TV Shows",
+    "loading": "Loading…",
+    "seeMore": "See More",
+    "noTvShowsFound": "No TV shows found at the moment."
+  },
+  "tvShowDetailsPage": {
+    "notFound": "TV Show not found.",
+    "firstAirDate": "First Air Date",
+    "rating": "Rating",
+    "numberOfSeasons": "Number of Seasons",
+    "numberOfEpisodes": "Number of Episodes",
+    "seasons": "Seasons",
+    "noSeasons": "No seasons found for this TV show.",
+    "loading": "Loading…",
+    "episodes": "Episodes",
+    "selectSeason": "Select Season"
   }
 }
