@@ -40,13 +40,12 @@ export default function Navbar() {
       ? pathname.slice(0, -1)
       : pathname;
 
-  const isAllowed = allowedPaths.some(
-    (allowedPath) =>
-      normalizedPathname === allowedPath ||
-      normalizedPathname.startsWith(allowedPath + "/")
-  );
+  const isAuthPage =
+    normalizedPathname === `/${locale}/login` ||
+    normalizedPathname === `/${locale}/signup` ||
+    normalizedPathname === `/${locale}/reset-password`;
 
-  if (!isAllowed) return null;
+  if (isAuthPage) return null;
 
   // Login button
   function LoginButton({ className = "" }: { className?: string }) {

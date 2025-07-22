@@ -6,7 +6,7 @@ import Autoplay from "embla-carousel-autoplay";
 import convertImageUrl from "@/lib/utils/imageUrlHelper";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
-import { getAllMovies } from "@/lib/getAllMovies";
+import { getAllMovies } from "@/lib/tmdbCalls/getAllMovies";
 
 /**
  * @param {{ movies?: any[], onMovieClick?: (movie: any) => void }} props
