@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getMovieDetails } from "@/lib/getMovieDetails";
 import { MovieInfo } from "@/constants/types/MovieInfo";
 import MovieDetails from "@/components/MovieDetails";
 import { useLocale } from "next-intl";
+import { getMovieDetails } from "@/lib/tmdbCalls/getMovieDetails";
 
 export default function DetailsMoviesPage({
   params,

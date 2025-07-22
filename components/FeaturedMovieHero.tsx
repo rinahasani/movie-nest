@@ -1,10 +1,10 @@
 "use client";
-import { getRandomMovie } from "../lib/getRandomMovie";
 import MovieHero from "../components/MovieHero";
 import convertOriginalImageUrl from "../lib/utils/convertOriginalImage";
 import { MovieInfo } from "@/constants/types/MovieInfo";
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
+import { getRandomMovie } from "@/lib/tmdbCalls/getRandomMovie";
 
 export default function FeaturedMovieHero() {
   const [movie, setMovie] = useState<MovieInfo | null>(null);
@@ -14,7 +14,7 @@ export default function FeaturedMovieHero() {
     const fetchMovies = async () => {
       try {
         setLoading(true);
-        const fetchedMovie = await getRandomMovie(1,locale);
+        const fetchedMovie = await getRandomMovie(locale);
         setMovie(fetchedMovie);
       } catch (error) {
         console.error("Failed to fetch movies: ", error);

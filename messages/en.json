@@ -99,6 +99,10 @@
     "productionCompanies": "Production Companies",
     "noDetails": "No movie details found."
   },
+    "movieGenres": {
+    "title": "Genres",
+    "noGenres": "No genres found."
+  },
   "budgetVsRevenueChart": {
     "title": "Budget vs Revenue",
     "budget": "Budget",
@@ -133,5 +137,79 @@
     "loading": "Loading…",
     "episodes": "Episodes",
     "selectSeason": "Select Season"
+  },
+  "about": {
+    "title": "Welcome to Movie Nest!",
+    "description": "Movie Nest is your go-to platform for discovering, sharing, and enjoying movies with friends and fellow fans. Dive into a world of cinema, connect with others, and make every movie night special!",
+    "features": {
+      "exploreTitle": "Discover Movies",
+      "exploreDesc": "Browse trending, top-rated, and hidden gem movies. Find detailed info, cast, reviews, and more.",
+      "socialTitle": "Share & Connect",
+      "socialDesc": "Share your favorite movies, rate what you watch, and see what your friends are enjoying.",
+      "collabTitle": "Community Fun",
+      "collabDesc": "Join a vibrant community of movie lovers. Discuss, recommend, and create your own watchlists!"
+    },
+    "faq": [
+      { "q": "What is Movie Nest?", "a": "Movie Nest is a platform for discovering, sharing, and discussing movies with a friendly community." },
+      { "q": "How do I join Movie Nest?", "a": "Just sign up for free and start exploring movies, sharing favorites, and connecting with others!" },
+      { "q": "Is Movie Nest free?", "a": "Yes, Movie Nest is completely free to use." },
+      { "q": "How do I add movies to my favorites?", "a": "Click the 'Add to Favorites' button on any movie page after logging in." },
+      { "q": "Can I make my own watchlists?", "a": "Yes! You can create and manage your own movie watchlists to keep track of what you want to see." }
+    ],
+    "socialTitle": "Stay Connected",
+    "socialDesc": "Follow us on social media for the latest movie news, recommendations, and community events.",
+    "collabTitle": "Join the Community",
+    "collabDesc": "Become part of Movie Nest and help shape the best movie experience for everyone!",
+    "collabButton": "Join Now",
+    "finalTitle": "Ready to Nest?",
+    "finalDesc": "Sign up now and start discovering, sharing, and enjoying movies with Movie Nest!",
+    "finalButton": "Get Started"
+  },
+  "Navbar": {
+    "home": "Home",
+    "about": "About",
+    "favorites": "Favorites",
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "profile": "Profile"
+  },
+  "About": {
+    "heroTitle": "About Movie Nest",
+    "featuresTitle": "Why Choose Movie Nest?",
+    "feature1Title": "Social Interaction",
+    "feature1Description": "Create a Movie Chill account to save your favorite movies and series, share recommendations with your friends, and see what other community members are watching.",
+    "feature2Title": "Open Collaboration",
+    "feature2Description": "Movie Chill is an open-source project hosted on GitHub. We welcome contributions from developers worldwide to improve and extend the application's functionality. If you'd like to contribute, check out our GitHub repository and leave a star to show your support.",
+    "feature3Title": "Join Community",
+    "feature3Description": "Connect with other movie lovers and discover new films together.",
+    "faqTitle": "Frequently Asked Questions",
+    "faq1Question": "What is Movie Nest?",
+    "faq1Answer": "Movie Nest is a platform for discovering, sharing, and discussing movies with a friendly community.",
+    "faq2Question": "How do I join Movie Nest?",
+    "faq2Answer": "Just sign up for free and start exploring movies, sharing favorites, and connecting with others!",
+    "faq3Question": "Is Movie Nest free?",
+    "faq3Answer": "Yes, Movie Nest is completely free to use.",
+    "faq4Question": "How do I contribute to Movie Nest?",
+    "faq4Answer": "You can suggest features, report bugs, or collaborate with other movie lovers to help Movie Nest grow!",
+    "shareSection": {
+      "line1": "Let's experience",
+      "line2": "unforgettable",
+      "line3": "entertainment",
+      "line4": "moments!"
+    },
+    "description": {
+      "line1": "Movie Nest",
+      "highlight1": "is a creative and open-source platform",
+      "line2": "for discovering and sharing movies.",
+      "line3": "Built with love by film lovers for film lovers.",
+      "highlight2": "entertainment experience",
+      "highlight3": "collaborative."
+    },
+    "signupButton": "Sign up",
+    "endlessExploration": {
+      "title": "Endless Exploration",
+      "description": "Explore a vast library of films and series from The Movie Database (TMDb). Whether you're looking for timeless classics, recent blockbusters, or hidden gems, we have something for everyone."
+    }
   }
 }

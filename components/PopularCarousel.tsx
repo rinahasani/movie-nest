@@ -1,9 +1,9 @@
 "use client";
 import PopularMovies from "./popular/PopularMovies";
-import { getAllMovies } from "@/lib/getAllMovies";
 import { useEffect, useState } from "react";
 import { MovieInfo } from "@/constants/types/MovieInfo";
 import { useLocale, useTranslations } from "next-intl";
+import { getTrendingMovies } from "@/lib/tmdbCalls/getTrendingMovies";
 
 export default function PopularCarousel() {
   const [movies, setMovies] = useState<MovieInfo[] | null>(null);
@@ -13,7 +13,7 @@ export default function PopularCarousel() {
     const fetchMovies = async () => {
       try {
         setLoading(true);
-        const fetchedMovies = await getAllMovies(1,locale);
+        const fetchedMovies = await getTrendingMovies(locale);
         setMovies(fetchedMovies);
       } catch (error) {
         console.error("Failed to fetch movies: ", error);
