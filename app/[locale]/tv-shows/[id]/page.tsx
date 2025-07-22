@@ -3,15 +3,15 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import SeasonEpisodesList from "../../../../components/SeasonEpisodesList";
-import { getTvShowDetails } from "../../../../lib/getTvShowDetails";
-import convertImageUrl from "../../../../lib/utils/imageUrlHelper";
+import SeasonEpisodesList from "@/components/tvShow/SeasonEpisodesList";
+import { getTvShowDetails } from "@/lib/tmdbCallsTvShow/getTvShowDetails";
+import convertImageUrl from "@/lib/utils/imageUrlHelper";
 import convertOriginalImageUrl from "@/lib/utils/convertOriginalImage";
 import { TvShow } from "@/constants/types/TvShow";
-import { Season } from "@/constants/types/Season"; 
+import { Season } from "@/constants/types/Season";
 
 interface TvShowDetailsPageProps {
-  params: {
+  params: { 
     id: string;
     locale: string;
   };
@@ -25,7 +25,7 @@ export default function TvShowDetailsPage({
   const [tvShow, setTvShow] = useState<TvShow | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedSeason, setSelectedSeason] = useState<Season | null>(null); 
+  const [selectedSeason, setSelectedSeason] = useState<Season | null>(null);
 
   useEffect(() => {
     const fetchTvShow = async () => {
@@ -156,7 +156,7 @@ export default function TvShowDetailsPage({
                   value={selectedSeason?.season_number || ""}
                   className="block w-full md:w-1/2 p-2 rounded-md bg-gray-700/80 text-white border border-gray-600/70 focus:outline-none focus:ring focus:border-blue-300"
                 >
-                  {tvShow.seasons 
+                  {tvShow.seasons
                     .filter((season: Season) => season.season_number !== 0)
                     .sort(
                       (a: Season, b: Season) =>
@@ -164,7 +164,8 @@ export default function TvShowDetailsPage({
                     )
                     .map((season: Season) => (
                       <option key={season.id} value={season.season_number}>
-                        {season.name} - {season.episode_count || 0}{" Episodes"}
+                        {season.name} - {season.episode_count || 0}
+                        {" Episodes"}
                       </option>
                     ))}
                 </select>

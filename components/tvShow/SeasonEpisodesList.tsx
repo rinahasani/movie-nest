@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Season } from "../constants/types/Season";
-import { Episode } from "../constants/types/Season";
-import { getTvSeasonDetails } from "../lib/getTvSeasonDetails";
+import { Season } from "@/constants/types/Season";
+import { Episode } from "@/constants/types/Season";
+import { getTvSeasonDetails } from "@/lib/tmdbCallsTvShow/getTvSeasonDetails";
 import { useLocale } from "next-intl";
 import EpisodeCard from "./EpisodeCard";
 
@@ -12,7 +12,7 @@ interface SeasonEpisodesListProps {
   season: Season;
 }
 
-const EPISODES_PER_PAGE = 10; 
+const EPISODES_PER_PAGE = 10;
 
 const SeasonEpisodesList: React.FC<SeasonEpisodesListProps> = ({
   tvId,
@@ -23,7 +23,7 @@ const SeasonEpisodesList: React.FC<SeasonEpisodesListProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [visibleEpisodesCount, setVisibleEpisodesCount] =
-    useState(EPISODES_PER_PAGE); 
+    useState(EPISODES_PER_PAGE);
 
   useEffect(() => {
     const fetchEpisodes = async () => {
@@ -36,7 +36,7 @@ const SeasonEpisodesList: React.FC<SeasonEpisodesListProps> = ({
           locale
         );
         setEpisodes(seasonDetails.episodes || []);
-        setVisibleEpisodesCount(EPISODES_PER_PAGE); 
+        setVisibleEpisodesCount(EPISODES_PER_PAGE);
       } catch (err: any) {
         setError(err.message);
       } finally {

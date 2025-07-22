@@ -4,15 +4,14 @@ import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { AuthSlider } from "../../../components/AuthSlider";
-import { ERROR_MESSAGES } from "../../../constants/strings";
+import { AuthSlider } from "@/components/AuthSlider";
 import { useRouter } from "next/navigation";
 import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { auth } from "../../../lib/firebase";
+import { auth } from "@/lib/firebase";
 
 export default function SignupPage() {
   const t = useTranslations("signup");

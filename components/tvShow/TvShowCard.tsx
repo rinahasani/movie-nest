@@ -3,10 +3,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { TvShow } from "../constants/types/TvShow";
+import { TvShow } from "@/constants/types/TvShow";
 import { useLocale } from "next-intl";
-import convertImageUrl from "../lib/utils/imageUrlHelper";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import convertImageUrl from "@/lib/utils/imageUrlHelper";
 
 interface TvShowCardProps {
   tvShow: TvShow;

@@ -2,8 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-import { Episode } from "../constants/types/Season";
 import convertImageUrl from "@/lib/utils/imageUrlHelper";
+import { Episode } from "@/constants/types/Season";
 
 interface EpisodeCardProps {
   episode: Episode;
@@ -15,12 +15,12 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode }) => {
   return (
     <div className="flex bg-[#302f2e] rounded-lg shadow-md p-3 items-start">
       <div className="flex-shrink-0 mr-3">
-        {imageUrl ? ( 
+        {imageUrl ? (
           <Image
             src={imageUrl}
             alt={episode.name}
             width={120}
-            height={67} 
+            height={67}
             className="rounded-md"
             priority
           />

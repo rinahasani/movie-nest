@@ -4,11 +4,11 @@ import { useEffect, useState, useCallback } from "react";
 
 import { useTranslations } from "next-intl";
 
-import { getAllTvShows } from "../../../lib/getAllTvShows";
+import { getAllTvShows } from "@/lib/tmdbCallsTvShow/getAllTvShows";
 
-import TvShowCard from "../../../components/TvShowCard";
+import TvShowCard from "@/components/tvShow/TvShowCard";
 
-import { TvShow } from "../../../constants/types/TvShow"; 
+import { TvShow } from "@/constants/types/TvShow";
 
 interface TvShowsPageProps {
   params: {
