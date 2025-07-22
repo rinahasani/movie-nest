@@ -4,9 +4,9 @@ import convertOriginalImageUrl from "@/lib/utils/convertOriginalImage";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/app/contexts/AuthContext";
-import { handleAddFavorite, handleRemoveFavorite } from "../lib/handlers/favoritesHandler";
-import { ERROR_MESSAGES } from "../constants/strings";
-import { getUserFavorites } from "../lib/favoriteMovies";
+import { handleAddFavorite, handleRemoveFavorite } from "@/lib/handlers/favoritesHandler";
+import { ERROR_MESSAGES } from "@/constants/strings";
+import { getUserFavorites } from "@/lib/favoriteMovies";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 
@@ -104,7 +104,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({
       }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent" />
 
       <div className="relative z-20 max-w-4xl w-full py-16 flex flex-col gap-6">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight drop-shadow-lg">{title}</h1>

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import CoverflowCarousel from '@/components/carousel/CoverflowCarousel';
-import { getAllMovies } from "@/lib/tmdbCalls/getAllMovies";
+import { getAllMovies } from '@/lib/tmdbCalls/getAllMovies';
 
 export default function AboutPage() {
   const [movies, setMovies] = useState<any[]>([]);

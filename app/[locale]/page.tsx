@@ -1,3 +1,4 @@
+import GeminiChatBot from "@/components/chatbot/GeminiChatBot";
 import FeaturedMovieHero from "@/components/FeaturedMovieHero";
 import MoviesByGenre from "@/components/genres/MoviesByGenre";
 import PopularCarousel from "@/components/PopularCarousel";
@@ -10,6 +11,7 @@ export default function Home() {
       <SimilarCarousel />
       <PopularCarousel />
       <MoviesByGenre />
+      <GeminiChatBot/>
     </main>
   );
 }

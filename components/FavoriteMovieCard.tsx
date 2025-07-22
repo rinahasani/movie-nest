@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { useTranslations } from "next-intl";
-import convertImageUrl from "../lib/utils/imageUrlHelper";
+import convertImageUrl from "@/lib/utils/imageUrlHelper";
 
 // — Types —
 export type TMDBMovie = {

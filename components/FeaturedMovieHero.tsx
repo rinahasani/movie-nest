@@ -1,6 +1,6 @@
 "use client";
-import MovieHero from "../components/MovieHero";
-import convertOriginalImageUrl from "../lib/utils/convertOriginalImage";
+import MovieHero from "@/components/MovieHero";
+import convertOriginalImageUrl from "@/lib/utils/convertOriginalImage";
 import { MovieInfo } from "@/constants/types/MovieInfo";
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";

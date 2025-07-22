@@ -97,7 +97,7 @@
     "productionCompanies": "Produktionsfirmen",
     "noDetails": "Keine Filmdetails gefunden."
   },
-    "movieGenres": {
+  "movieGenres": {
     "title": "Genres",
     "noGenres": "Kein genres gefunden."
   },
@@ -117,6 +117,24 @@
     "backToLogin": "Zurück zur Anmeldeseite",
     "sliderTitle": "So funktioniert’s?",
     "sliderSubtitle": "Sobald du den Link zum Zurücksetzen per E‑Mail erhalten hast, folge den Anweisungen, um ein neues Passwort auszuwählen und sofort wieder auf dein Konto zuzugreifen."
+  },
+  "tvShowsPage": {
+    "title": "Fernsehsendungen durchsuchen",
+    "loading": "Wird geladen…",
+    "seeMore": "Mehr anzeigen",
+    "noTvShowsFound": "Derzeit wurden keine Fernsehsendungen gefunden."
+  },
+  "tvShowDetailsPage": {
+    "notFound": "Fernsehsendung nicht gefunden.",
+    "firstAirDate": "Erstausstrahlung",
+    "rating": "Bewertung",
+    "numberOfSeasons": "Anzahl der Staffeln",
+    "numberOfEpisodes": "Anzahl der Episoden",
+    "seasons": "Staffeln",
+    "noSeasons": "Keine Staffeln für diese Fernsehsendung gefunden.",
+    "loading": "Wird geladen…",
+    "episodes": "Episoden",
+    "selectSeason": "Staffel auswählen"
   },
   "About": {
     "heroTitle": "Über Movie Nest",
@@ -155,5 +173,10 @@
       "title": "Endloses Erkunden",
       "description": "Entdecken Sie eine riesige Bibliothek von Filmen und Serien aus The Movie Database (TMDb). Egal, ob Sie zeitlose Klassiker, aktuelle Blockbuster oder verborgene Schätze suchen, wir haben für jeden etwas dabei."
     }
+  },
+  "gemini": {
+    "chatTitle": "Film-Empfehlung",
+    "chatDesc": "Geben Sie einen Filmtitel, Schauspieler oder ein Genre ein, um Empfehlungen zu erhalten.",
+    "recommendations": "Wir empfehlen Ihnen diese Filme: "
   }
 }

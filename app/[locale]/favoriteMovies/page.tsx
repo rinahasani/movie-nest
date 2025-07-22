@@ -2,18 +2,18 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { useAuth } from "../../contexts/AuthContext";
-import { getUserFavorites } from "../../../lib/favoriteMovies";
+import { useAuth } from "@/app/contexts/AuthContext";
+import { getUserFavorites } from "@/lib/favoriteMovies";
 import {
   handleRemoveFavorite,
   handleAddFavorite,
-} from "../../../lib/handlers/favoritesHandler";
+} from "@/lib/handlers/favoritesHandler";
 import { useRouter } from "next/navigation";
 
 import MovieCard, {
   TMDBMovie,
   User,
-} from "../../../components/FavoriteMovieCard";
+} from "@/components/FavoriteMovieCard";
 import { getMovieDetails } from "@/lib/tmdbCalls/getMovieDetails";
 
 type Favorite = { id: string; title: string };
@@ -59,7 +59,7 @@ export default function FavoritesPage() {
         const details = await Promise.all(
           favs.map((f: Favorite) => getMovieDetails(f.id,locale))
         );
-        setMovies(details.filter((d): d is TMDBMovie => !!d));
+        setMovies(details.filter((d: unknown): d is TMDBMovie => !!d));
         setLoading(false);
       } catch {
         setErrorMsg(tErrors("errorFetchingMovies"));
