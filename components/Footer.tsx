@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { usePathname, useParams } from "next/navigation";
 
 const socialLinks = [
   {
@@ -25,6 +26,15 @@ const socialLinks = [
 ];
 
 const Footer = () => {
+  const pathname = usePathname();
+  const { locale } = useParams() as { locale?: string };
+  if (!locale) return null;
+  const normalizedPathname = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
+  const isAuthPage =
+    normalizedPathname === `/${locale}/login` ||
+    normalizedPathname === `/${locale}/signup` ||
+    normalizedPathname === `/${locale}/reset-password`;
+  if (isAuthPage) return null;
   return (
     <footer className="w-full bg-black text-white py-4 px-6 flex flex-col md:flex-row items-center justify-between border-t border-[#222] gap-4">
       <div className="flex flex-col md:flex-row items-center gap-5 md:gap-3 text-base">
