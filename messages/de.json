@@ -97,7 +97,7 @@
     "productionCompanies": "Produktionsfirmen",
     "noDetails": "Keine Filmdetails gefunden."
   },
-    "movieGenres": {
+  "movieGenres": {
     "title": "Genres",
     "noGenres": "Kein genres gefunden."
   },
@@ -155,5 +155,10 @@
       "title": "Endloses Erkunden",
       "description": "Entdecken Sie eine riesige Bibliothek von Filmen und Serien aus The Movie Database (TMDb). Egal, ob Sie zeitlose Klassiker, aktuelle Blockbuster oder verborgene Schätze suchen, wir haben für jeden etwas dabei."
     }
+  },
+  "gemini": {
+    "chatTitle": "Film-Empfehlung",
+    "chatDesc": "Geben Sie einen Filmtitel, Schauspieler oder ein Genre ein, um Empfehlungen zu erhalten.",
+    "recommendations": "Wir empfehlen Ihnen diese Filme: "
   }
 }
