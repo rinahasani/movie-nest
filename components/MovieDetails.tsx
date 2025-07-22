@@ -5,12 +5,29 @@ import MovieHero from "./MovieHero";
 import convertImageUrl from "@/lib/utils/imageUrlHelper";
 import BudgetVsRevenueBarChart from "./Chart";
 import { MovieInfo } from "@/constants/types/MovieInfo";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { getMovieDetails } from "@/lib/tmdbCalls/getMovieDetails";
 
-const MovieDetails: React.FC<{ movieDetails: MovieInfo | null }> = ({
-  movieDetails,
-}) => {
+const MovieDetails: React.FC<{ id: string }> = ({ id }) => {
+  const [movieDetails, setMovieDetails] = useState<MovieInfo | null>(null);
+  const [loading, setLoading] = useState(true);
+  const locale = useLocale();
   const t = useTranslations("movieDetails");
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        setLoading(true);
+        const fetchedMovieDetails = await getMovieDetails(id, locale);
+        setMovieDetails(fetchedMovieDetails);
+      } catch (error) {
+        console.error("Failed to fetch movies: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMovies();
+  }, []);
   return (
     <>
       <main>

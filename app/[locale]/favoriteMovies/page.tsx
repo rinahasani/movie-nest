@@ -59,7 +59,7 @@ export default function FavoritesPage() {
         const details = await Promise.all(
           favs.map((f: Favorite) => getMovieDetails(f.id,locale))
         );
-        setMovies(details.filter((d): d is TMDBMovie => !!d));
+        setMovies(details.filter((d: unknown): d is TMDBMovie => !!d));
         setLoading(false);
       } catch {
         setErrorMsg(tErrors("errorFetchingMovies"));
