@@ -203,15 +203,15 @@
       "highlight2": "entertainment experience",
       "highlight3": "collaborative."
     },
-    "gemini": {
-      "chatTitle": "Movie Recommender",
-      "chatDesc": "Enter a movie title, actor, or genre to get recommendations.",
-      "recommendations": "We recommend you these movies: "
-    },
     "signupButton": "Sign up",
     "endlessExploration": {
       "title": "Endless Exploration",
       "description": "Explore a vast library of films and series from The Movie Database (TMDb). Whether you're looking for timeless classics, recent blockbusters, or hidden gems, we have something for everyone."
     }
+  },
+  "gemini": {
+    "chatTitle": "Movie Recommender",
+    "chatDesc": "Enter a movie title, actor, or genre to get recommendations.",
+    "recommendations": "We recommend you these movies: "
   }
 }

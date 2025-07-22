@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { X, Send } from "lucide-react";
 import { getMovieRecommendations } from "@/app/api/chatbot/getMovieRecommendations";
+import { useTranslations } from "next-intl";
 
 const ChatWindow = ({ onClose }) => {
   const [query, setQuery] = useState("");
@@ -38,7 +39,7 @@ const ChatWindow = ({ onClose }) => {
       style={{ backgroundColor: "#1E1E1E" }}
     >
       <div className="flex justify-between items-center bg-blue-600 text-white p-4 rounded-t-lg">
-        <h2 className="text-lg font-semibold">Movie Recommender</h2>
+        <h2 className="text-lg font-semibold">{t("chatTitle")}</h2>
         <button
           onClick={onClose}
           className="p-1 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
@@ -51,7 +52,7 @@ const ChatWindow = ({ onClose }) => {
       <div className="flex-1 p-4 overflow-y-auto custom-scrollbar">
         {recommendations.length === 0 && !isLoading && !error && (
           <div className="text-white-500 text-center py-4">
-            Enter a movie title, actor, or genre to get recommendations.
+           {t("chatDesc")}
           </div>
         )}
         {isLoading && (
@@ -72,7 +73,7 @@ const ChatWindow = ({ onClose }) => {
         {recommendations.length > 0 && (
           <div className="bg-gray-50 p-3 rounded-lg shadow-sm">
             <h3 className="font-semibold text-gray-800 mb-2">
-              We recommend these movies:
+             {t("recommendations")}
             </h3>
             <ul className="list-disc pl-5 text-gray-700">
               {recommendations.map((rec, index) => (
