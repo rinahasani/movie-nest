@@ -5,6 +5,8 @@ import Image from "next/image";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 import convertImageUrl from "@/lib/utils/imageUrlHelper";
+import Link from "next/link";
+import { useLocale } from "next-intl";
 
 // — Types —
 export type TMDBMovie = {
@@ -33,6 +35,7 @@ export default function MovieCard({
   onRemove,
 }: MovieCardProps) {
   const t = useTranslations("favorites");
+  const locale = useLocale();
   const filledStars = Math.round(m.vote_average / 2);
   const langMap: Record<string, string> = {
     en: "English",
@@ -88,9 +91,12 @@ export default function MovieCard({
         </div>
 
         <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0">
-          <button className="w-full sm:w-auto px-6 py-3 bg-[#f4c10f] text-lg text-white font-semibold rounded-xl hover:bg-[#e0b609] transition">
+          <Link
+            href={`/${locale}/details/${m.id}`}
+            className="w-full sm:w-auto px-6 py-3 bg-[#f4c10f] text-lg text-white font-semibold rounded-xl hover:bg-[#e0b609] transition text-center"
+          >
             {t("moreInfo")}
-          </button>
+          </Link>
           <button
             onClick={() => onRemove(m.id)}
             className="w-full sm:w-auto px-6 py-3 bg-[#ea1c2c] text-lg text-white font-semibold rounded-xl hover:bg-[#c41826] transition"
