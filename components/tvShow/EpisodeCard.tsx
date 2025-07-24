@@ -4,12 +4,14 @@ import React from "react";
 import Image from "next/image";
 import convertImageUrl from "@/lib/utils/imageUrlHelper";
 import { Episode } from "@/constants/types/Season";
+import { useTranslations } from "next-intl";
 
 interface EpisodeCardProps {
   episode: Episode;
 }
 
 const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode }) => {
+  const t = useTranslations("seasonEpisodesListPage");
   const imageUrl = convertImageUrl(episode.still_path);
 
   return (
@@ -26,7 +28,7 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode }) => {
           />
         ) : (
           <div className="w-[120px] h-[67px] bg-gray-600 rounded-md flex items-center justify-center text-gray-400 text-xs text-center">
-            No Image Available
+            {t("noImage")}
           </div>
         )}
       </div>
@@ -36,7 +38,7 @@ const EpisodeCard: React.FC<EpisodeCardProps> = ({ episode }) => {
         </h4>
         <p className="text-gray-300 text-sm line-clamp-2">{episode.overview}</p>
         <p className="text-gray-400 text-xs mt-1">
-          Air Date: {new Date(episode.air_date).toLocaleDateString()} | Rating:{" "}
+          {t("airDate")}: {new Date(episode.air_date).toLocaleDateString()} | {t("rating")}:{" "}
           {episode.vote_average.toFixed(1)}
         </p>
       </div>

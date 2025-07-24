@@ -134,7 +134,20 @@
     "noSeasons": "Keine Staffeln für diese Fernsehsendung gefunden.",
     "loading": "Wird geladen…",
     "episodes": "Episoden",
-    "selectSeason": "Staffel auswählen"
+    "selectSeason": "Staffel auswählen",
+    "noPoster": "Kein Poster",
+    "notAvailable": "Nicht verfügbar",
+    "viewDetails": "Details ansehen",
+    "noDescription": "Keine Beschreibung"
+  },
+  "seasonEpisodesListPage": {
+    "loading": "Lade Episoden...",
+    "error": "Fehler: {{message}}",
+    "noEpisodes": "Keine Episoden für diese Staffel gefunden.",
+    "showMore": "Mehr anzeigen",
+    "noImage": "Kein Bild verfügbar",
+    "airDate": "Ausstrahlungsdatum",
+    "rating": "Bewertung"
   },
   "About": {
     "heroTitle": "Über Movie Nest",
