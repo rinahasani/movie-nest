@@ -3,6 +3,9 @@ import Image from "next/image";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import convertImageUrl from "@/lib/utils/imageUrlHelper";
 import { Result as Movie } from "@/constants/types/Movie";
+import { searchMovies } from "@/lib/tmdbCalls/searchMovies";
+import { ERROR_MESSAGES } from "@/constants/strings"
+import { handleAddFavorite, handleRemoveFavorite } from "@/lib/handlers/favoritesHandler";
 
 interface SearchBarProps {
   locale: string;
@@ -76,13 +79,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (searchQuery.length > 2) {
+    if (searchQuery.length > 3) {
       setLoadingSearch(true);
       const fetchResults = async () => {
-        const response = await fetch(
-          `/api/search?query=${searchQuery}&locale=${locale}`
-        );
-        const data = await response.json();
+        const data = await searchMovies(searchQuery, locale);
         setSearchResults(data);
         setLoadingSearch(false);
       };
@@ -99,15 +99,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
     if (!user) return;
     setFavoriteError(null);
     const isFav = favoriteIds.includes(movie.id);
-    // Optimistically update UI
     if (isFav) {
       setFavoriteIds((curr) => curr.filter((id) => id !== movie.id));
       forceUpdate((n) => n + 1);
       try {
-        // @ts-ignore
-        await import("@/lib/handlers/favoritesHandler").then(({ handleRemoveFavorite }) =>
-          handleRemoveFavorite(movie.id, user, undefined, setFavoriteError, import("@/constants/strings").then(m => m.ERROR_MESSAGES))
-        );
+        await handleRemoveFavorite(movie.id, user, undefined, setFavoriteError, ERROR_MESSAGES);
       } catch (e) {
         setFavoriteError("Unknown error");
         setFavoriteIds((curr) => [...curr, movie.id]);
@@ -117,10 +113,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       setFavoriteIds((curr) => [...curr, movie.id]);
       forceUpdate((n) => n + 1);
       try {
-        // @ts-ignore
-        await import("@/lib/handlers/favoritesHandler").then(({ handleAddFavorite }) =>
-          handleAddFavorite({ id: movie.id, title: movie.title }, user, undefined, setFavoriteError, import("@/constants/strings").then(m => m.ERROR_MESSAGES))
-        );
+        await handleAddFavorite({ id: movie.id, title: movie.title }, user, undefined, setFavoriteError, ERROR_MESSAGES);
       } catch (e) {
         setFavoriteError("Unknown error");
         setFavoriteIds((curr) => curr.filter((id) => id !== movie.id));
@@ -128,12 +121,21 @@ const SearchBar: React.FC<SearchBarProps> = ({
       }
     }
     // Re-fetch search results to update favorite icons
-    if (searchQuery.length > 2) {
+    if (searchQuery.length > 3) {
       setLoadingSearch(true);
-      const response = await fetch(`/api/search?query=${searchQuery}&locale=${locale}`);
-      const data = await response.json();
+      const data = await searchMovies(searchQuery, locale);
       setSearchResults(data);
       setLoadingSearch(false);
+    }
+  };
+
+  // Handler for favorite button click (used in both mobile and desktop)
+  const handleFavoriteButtonClick = async (e: React.MouseEvent, movie: Movie) => {
+    e.stopPropagation();
+    try {
+      await handleFavoriteClick(movie);
+    } catch (err) {
+      console.error('Error handling favorite click:', err);
     }
   };
 
@@ -219,10 +221,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                           </div>
                           <button
                             className="fav-btn ml-2 text-yellow-400 hover:text-yellow-500 focus:outline-none"
-                            onClick={async (e) => {
-                              e.stopPropagation();
-                              await handleFavoriteClick(movie);
-                            }}
+                            onClick={(e) => handleFavoriteButtonClick(e, movie)}
                             aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
                           >
                             {isFav ? (
@@ -276,7 +275,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           }}
         />
       ) : (
-        <div ref={searchRef} className="flex items-center w-80 transition-all">
+        <div ref={searchRef} className="flex items-center w-[280px] transition-all">
           <div className="relative w-full">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg
@@ -300,12 +299,38 @@ const SearchBar: React.FC<SearchBarProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search..."
-              className="w-full p-2 pl-10 bg-black text-white border border-gray-700 rounded-md focus:outline-none focus:border-yellow-500"
+              className="w-full p-2 pl-10 pr-10 bg-black text-white border border-gray-700 rounded-md focus:outline-none focus:border-yellow-500"
               autoFocus
             />
+            {/* X Button for clearing/closing */}
+            <button
+              type="button"
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white focus:outline-none"
+              aria-label={searchQuery ? 'Clear search' : 'Close search'}
+              onClick={() => {
+                if (searchQuery) {
+                  setSearchQuery("");
+                  searchInputRef.current?.focus();
+                } else {
+                  setDesktopSearchOpen(false);
+                }
+              }}
+            >
+              <svg
+                className="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
           </div>
           {searchQuery.length > 2 && (
-            <div className="absolute left-0 top-12 w-full bg-black/80 backdrop-blur-sm border border-gray-700 rounded-lg shadow-lg z-50 overflow-hidden" style={{ width: '100%' }}>
+            <div className="absolute left-0 top-12 w-full bg-black/80 backdrop-blur-sm border border-gray-700 rounded-lg shadow-lg z-50 overflow-hidden">
               {loadingSearch ? (
                 <p className="text-white p-4">Loading...</p>
               ) : (
@@ -359,10 +384,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                           </div>
                           <button
                             className="fav-btn ml-2 text-yellow-400 hover:text-yellow-500 focus:outline-none"
-                            onClick={async (e) => {
-                              e.stopPropagation();
-                              await handleFavoriteClick(movie);
-                            }}
+                            onClick={(e) => handleFavoriteButtonClick(e, movie)}
                             aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
                           >
                             {isFav ? (
@@ -385,7 +407,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         </div>
       )}
     </div>
-  );
+ );
 };
 
 export default SearchBar; 
