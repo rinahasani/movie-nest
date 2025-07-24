@@ -7,6 +7,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import Link from "next/link";
 import { AuthSlider } from "@/components/auth/AuthSlider";
+import Spinner from "./Spinner";
 
 export default function ResetPasswordPage() {
   const t = useTranslations("resetPassword");
@@ -59,9 +60,18 @@ export default function ResetPasswordPage() {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg disabled:opacity-50"
+              className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg disabled:opacity-50 flex items-center justify-center relative"
             >
-              {status === "sending" ? t("sendingButton") : t("button")}
+              {status === "sending" && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Spinner size={20} color="text-white" />
+                </div>
+              )}
+              <span
+                className={status === "sending" ? "opacity-0" : "opacity-100"}
+              >
+                {t("button")}
+              </span>
             </button>
           </form>
 

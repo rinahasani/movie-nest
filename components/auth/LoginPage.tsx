@@ -11,6 +11,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import Spinner from "./Spinner";
 
 export default function LoginPage() {
   const tLogin = useTranslations("login");
@@ -18,6 +19,7 @@ export default function LoginPage() {
   const { locale } = useParams() as { locale: string };
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const provider = new GoogleAuthProvider();
 
@@ -25,6 +27,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
     setSuccess("");
+    setIsLoading(true);
 
     const form = e.currentTarget;
     const email = (form.email as HTMLInputElement).value;
@@ -38,10 +41,15 @@ export default function LoginPage() {
       setError(
         tErrors("loginFailed", { message: err.message || tErrors("unknown") })
       );
+      setIsLoading(false);
     }
   };
 
   const handleGoogle = async () => {
+    setError("");
+    setSuccess("");
+    setIsLoading(true);
+
     try {
       await signInWithPopup(auth, provider);
       router.push(`/${locale}`);
@@ -56,6 +64,7 @@ export default function LoginPage() {
 
       const message = tErrors(key) || tErrors("unknown");
       setError(message);
+      setIsLoading(false);
     }
   };
 
@@ -100,9 +109,10 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg"
+              disabled={isLoading}
+              className="w-full min-w-[10rem] bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg disabled:opacity-50 flex items-center justify-center"
             >
-              {tLogin("button")}
+              {isLoading ? <Spinner /> : tLogin("button")}
             </button>
           </form>
 
@@ -131,9 +141,16 @@ export default function LoginPage() {
           <div className="flex justify-center space-x-4">
             <button
               onClick={handleGoogle}
-              className="p-3 bg-white rounded-full hover:shadow-md"
+              disabled={isLoading}
+              className="p-3 bg-white rounded-full hover:shadow-md disabled:opacity-50 flex items-center justify-center"
             >
-              <img src="/images/google.png" alt="Google" className="h-5 w-5" />
+              <img
+                src="/images/google.png"
+                alt="Google"
+                className={`h-5 w-5 transition-opacity ${
+                  isLoading ? "opacity-50" : "opacity-100"
+                }`}
+              />
             </button>
           </div>
 

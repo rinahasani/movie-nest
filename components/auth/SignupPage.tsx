@@ -12,6 +12,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import Spinner from "./Spinner";
 
 export default function SignupPage() {
   const t = useTranslations("signup");
@@ -19,6 +20,7 @@ export default function SignupPage() {
   const { locale } = useParams() as { locale: string };
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const provider = new GoogleAuthProvider();
 
@@ -26,6 +28,7 @@ export default function SignupPage() {
     e.preventDefault();
     setError("");
     setSuccess("");
+    setIsLoading(true);
 
     const form = e.currentTarget;
     const name = (form.username as HTMLInputElement).value;
@@ -35,6 +38,7 @@ export default function SignupPage() {
 
     if (password !== confirmPassword) {
       setError(tErrors("passwordMismatch"));
+      setIsLoading(false);
       return;
     }
 
@@ -56,10 +60,15 @@ export default function SignupPage() {
       }
     } catch {
       setError(tErrors("network"));
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleGoogle = async () => {
+    setError("");
+    setSuccess("");
+    setIsLoading(true);
     try {
       await signInWithPopup(auth, provider);
       router.push(`/${locale}`);
@@ -74,6 +83,8 @@ export default function SignupPage() {
 
       const message = tErrors(key) || tErrors("unknown");
       setError(message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -155,9 +166,17 @@ export default function SignupPage() {
 
             <button
               type="submit"
-              className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg"
+              disabled={isLoading}
+              className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg disabled:opacity-50 flex items-center justify-center relative"
             >
-              {t("button")}
+              {isLoading && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Spinner />
+                </div>
+              )}
+              <span className={isLoading ? "opacity-0" : "opacity-100"}>
+                {t("button")}
+              </span>
             </button>
           </form>
 
@@ -174,9 +193,16 @@ export default function SignupPage() {
           <div className="flex justify-center space-x-4">
             <button
               onClick={handleGoogle}
-              className="p-3 bg-white rounded-full hover:shadow-md"
+              disabled={isLoading}
+              className="p-3 bg-white rounded-full hover:shadow-md disabled:opacity-50 flex items-center justify-center"
             >
-              <img src="/images/google.png" alt="Google" className="h-5 w-5" />
+              <img
+                src="/images/google.png"
+                alt="Google"
+                className={`h-5 w-5 transition-opacity ${
+                  isLoading ? "opacity-50" : "opacity-100"
+                }`}
+              />
             </button>
           </div>
 
