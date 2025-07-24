@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { TvShow } from "@/constants/types/TvShow";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import convertImageUrl from "@/lib/utils/imageUrlHelper";
 
@@ -22,6 +22,7 @@ const TvShowCard: React.FC<TvShowCardProps> = ({
   onHover,
 }) => {
   const locale = useLocale();
+  const t = useTranslations("tvShowDetailsPage");
   const [isHovered, setIsHovered] = useState(false);
   const filledStars = Math.round(tvShow.vote_average / 2);
 
@@ -85,14 +86,16 @@ const TvShowCard: React.FC<TvShowCardProps> = ({
               </span>
             </div>
             <p className="text-gray-400 text-xs line-clamp-3 mb-2">
-              {tvShow.overview}
+              {tvShow.overview && tvShow.overview.trim() !== ""
+                ? tvShow.overview
+                : t("noDescription")}
             </p>
             <Link
               href={`/${locale}/tv-shows/${tvShow.id}`}
               className={`px-3 py-1.5 ${mainButtonColor} text-black font-semibold rounded-md ${hoverButtonColor} transition-colors text-center text-sm mb-2`}
               onClick={(e) => e.stopPropagation()}
             >
-              View Details
+              {t("viewDetails")}
             </Link>
           </div>
         )}

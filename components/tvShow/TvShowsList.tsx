@@ -34,7 +34,6 @@ export default function TvShowsList({ locale }: TvShowsListProps) {
             ? results
             : [
                 ...prev,
-                // explicitly type `tv` here to remove implicit any
                 ...results.filter((tv: TvShow) => !prev.some((p) => p.id === tv.id)),
               ]
         );
