@@ -34,7 +34,13 @@ export default function LoginPage() {
     const password = (form.password as HTMLInputElement).value;
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const cred = await signInWithEmailAndPassword(auth, email, password);
+      const token = await cred.user.getIdToken();
+      await fetch("/api/setAuthCookie", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
       setSuccess(tLogin("success"));
       router.push(`/${locale}`);
     } catch (err: any) {
@@ -51,7 +57,13 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      await signInWithPopup(auth, provider);
+      const cred = await signInWithPopup(auth, provider);
+      const token = await cred.user.getIdToken();
+      await fetch("/api/setAuthCookie", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
       router.push(`/${locale}`);
     } catch (err: any) {
       const key = (err.code as string)

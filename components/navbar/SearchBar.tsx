@@ -219,17 +219,19 @@ const SearchBar: React.FC<SearchBarProps> = ({
                               {movie.release_date?.slice(0, 4)}
                             </p>
                           </div>
-                          <button
-                            className="fav-btn ml-2 text-yellow-400 hover:text-yellow-500 focus:outline-none"
-                            onClick={(e) => handleFavoriteButtonClick(e, movie)}
-                            aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
-                          >
-                            {isFav ? (
-                              <FaHeart className="h-5 w-5" />
-                            ) : (
-                              <FaRegHeart className="h-5 w-5" />
-                            )}
-                          </button>
+                          {user && (
+                            <button
+                              className="fav-btn ml-2 text-yellow-400 hover:text-yellow-500 focus:outline-none"
+                              onClick={(e) => handleFavoriteButtonClick(e, movie)}
+                              aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
+                            >
+                              {isFav ? (
+                                <FaHeart className="h-5 w-5" />
+                              ) : (
+                                <FaRegHeart className="h-5 w-5" />
+                              )}
+                            </button>
+                          )}
                         </li>
                       );
                     })
@@ -382,17 +384,19 @@ const SearchBar: React.FC<SearchBarProps> = ({
                               {movie.release_date?.slice(0, 4)}
                             </p>
                           </div>
-                          <button
-                            className="fav-btn ml-2 text-yellow-400 hover:text-yellow-500 focus:outline-none"
-                            onClick={(e) => handleFavoriteButtonClick(e, movie)}
-                            aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
-                          >
-                            {isFav ? (
-                              <FaHeart className="h-5 w-5" />
-                            ) : (
-                              <FaRegHeart className="h-5 w-5" />
-                            )}
-                          </button>
+                          {user && (
+                            <button
+                              className="fav-btn ml-2 text-yellow-400 hover:text-yellow-500 focus:outline-none"
+                              onClick={(e) => handleFavoriteButtonClick(e, movie)}
+                              aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
+                            >
+                              {isFav ? (
+                                <FaHeart className="h-5 w-5" />
+                              ) : (
+                                <FaRegHeart className="h-5 w-5" />
+                              )}
+                            </button>
+                          )}
                         </li>
                       );
                     })

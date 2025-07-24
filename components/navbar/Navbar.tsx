@@ -113,6 +113,9 @@ export default function Navbar() {
 
   if (isAuthPage) return null;
 
+  // Helper to check if a nav link is the favorites link
+  const isFavoritesLink = (link: { href: string }) => link.href.endsWith('/favoriteMovies');
+
   // Login button
   function LoginButton({ className = "" }: { className?: string }) {
     return (
@@ -152,7 +155,7 @@ export default function Navbar() {
               <div className="hidden md:flex flex-1 justify-center">
                 <div className="flex items-center space-x-8">
                   {navLinks
-                    .filter((link) => link.name !== "My Favorite" || user)
+                    .filter((link) => !isFavoritesLink(link) || user)
                     .map((link) => (
                       <Link
                         key={link.name}
@@ -212,7 +215,7 @@ export default function Navbar() {
                           onClick={async () => {
                             setAvatarMenuOpen(false);
                             await signOut();
-                            router.push("/");
+                            router.push(`/${locale}`);
                           }}
                         >
                           Sign Out
@@ -299,7 +302,7 @@ export default function Navbar() {
       {mobileOpen && (
         <MobileMenu
           user={user}
-          navLinks={navLinks}
+          navLinks={navLinks.filter((link) => !isFavoritesLink(link) || user)}
           pathname={pathname}
           setMobileOpen={setMobileOpen}
           signOut={signOut}
