@@ -48,20 +48,39 @@ export default function MovieCard({
       {/* Poster */}
       <div
         className="
-          relative flex-shrink-0
-          w-full aspect-[6/5] mb-4
-          overflow-hidden rounded-xl shadow-2xl
-          md:w-[300px] md:h-[250px] md:aspect-auto md:mb-0 md:mr-6
-        "
+    relative flex-shrink-0
+    w-full aspect-[6/5] mb-4
+    overflow-hidden rounded-xl shadow-2xl
+    md:w-[300px] md:h-[250px] md:aspect-auto md:mb-0 md:mr-6
+  "
       >
-        <Image
-          src={convertImageUrl(m.backdrop_path)}
-          alt={m.title}
-          fill
-          sizes="(max-width: 768px) 100vw, 300px"
-          priority
-          className="object-cover"
-        />
+        {m.backdrop_path ? (
+          <Image
+            src={convertImageUrl(m.backdrop_path)}
+            alt={m.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 300px"
+            priority
+            className="object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-800 flex items-center justify-center rounded-xl">
+            <svg
+              className="w-12 h-12 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15.55 5.55a8 8 0 10-11.3 11.3M6.34 6.34l11.3 11.3"
+              />
+            </svg>
+          </div>
+        )}
       </div>
 
       {/* Content */}
