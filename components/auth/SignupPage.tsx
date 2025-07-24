@@ -56,6 +56,13 @@ export default function SignupPage() {
         setSuccess("Successfully registered! 🎉");
         // Auto-login after signup
         await signInWithEmailAndPassword(auth, email, password);
+        const cred = await signInWithEmailAndPassword(auth, email, password);
+        const token = await cred.user.getIdToken();
+        await fetch("/api/setAuthCookie", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token }),
+        });
         router.push(`/${locale}`);
       }
     } catch {
@@ -70,7 +77,13 @@ export default function SignupPage() {
     setSuccess("");
     setIsLoading(true);
     try {
-      await signInWithPopup(auth, provider);
+      const cred = await signInWithPopup(auth, provider);
+      const token = await cred.user.getIdToken();
+      await fetch("/api/setAuthCookie", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
       router.push(`/${locale}`);
     } catch (err: any) {
       const key = (err.code as string)

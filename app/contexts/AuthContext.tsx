@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   setPersistence,
-  browserLocalPersistence,
+  browserSessionPersistence,
   onAuthStateChanged,
   User,
 } from "firebase/auth";
@@ -27,7 +27,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   
     async function initAuth() {
       try {
-        await setPersistence(auth, browserLocalPersistence);
+        await setPersistence(auth, browserSessionPersistence);
         unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
           setUser(firebaseUser);
           setLoading(false);
@@ -49,6 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signOut = async () => {
     setLoading(true);
     try {
+      await fetch("/api/clearAuthCookie", { method: "POST" });
       await firebaseSignOut(auth);
       setUser(null);
     } catch (error) {
