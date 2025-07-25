@@ -4,8 +4,11 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import convertImageUrl from "@/lib/utils/imageUrlHelper";
 import { Result as Movie } from "@/constants/types/Movie";
 import { searchMovies } from "@/lib/tmdbCalls/searchMovies";
+import { searchTvShows } from "@/lib/tmdbCallsTvShow/searchTvShows";
+import { TvShow } from "@/constants/types/TvShow";
 import { ERROR_MESSAGES } from "@/constants/strings"
 import { handleAddFavorite, handleRemoveFavorite } from "@/lib/handlers/favoritesHandler";
+import SearchResultsList from "./search/SearchResultsList";
 
 interface SearchBarProps {
   locale: string;
@@ -70,7 +73,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
   mobile = false,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<Movie[]>([]);
+  const [movieResults, setMovieResults] = useState<Movie[]>([]);
+  const [tvResults, setTvResults] = useState<TvShow[]>([]);
   const [loadingSearch, setLoadingSearch] = useState(false);
   const [favoriteError, setFavoriteError] = useState<string | null>(null);
   const [, forceUpdate] = useState(0);
@@ -82,8 +86,12 @@ const SearchBar: React.FC<SearchBarProps> = ({
     if (searchQuery.length > 3) {
       setLoadingSearch(true);
       const fetchResults = async () => {
-        const data = await searchMovies(searchQuery, locale);
-        setSearchResults(data);
+        const [movies, shows] = await Promise.all([
+          searchMovies(searchQuery, locale),
+          searchTvShows(searchQuery, locale),
+        ]);
+        setMovieResults(movies);
+        setTvResults(shows);
         setLoadingSearch(false);
       };
       const debounce = setTimeout(() => {
@@ -91,49 +99,54 @@ const SearchBar: React.FC<SearchBarProps> = ({
       }, 300);
       return () => clearTimeout(debounce);
     } else {
-      setSearchResults([]);
+      setMovieResults([]);
+      setTvResults([]);
     }
   }, [searchQuery, locale]);
 
-  const handleFavoriteClick = async (movie: Movie) => {
+  const handleFavoriteClick = async (item: Movie | TvShow) => {
     if (!user) return;
     setFavoriteError(null);
-    const isFav = favoriteIds.includes(movie.id);
+    const isFav = favoriteIds.includes(item.id);
     if (isFav) {
-      setFavoriteIds((curr) => curr.filter((id) => id !== movie.id));
+      setFavoriteIds((curr) => curr.filter((id) => id !== item.id));
       forceUpdate((n) => n + 1);
       try {
-        await handleRemoveFavorite(movie.id, user, undefined, setFavoriteError, ERROR_MESSAGES);
+        await handleRemoveFavorite(item.id, user, undefined, setFavoriteError, ERROR_MESSAGES);
       } catch (e) {
         setFavoriteError("Unknown error");
-        setFavoriteIds((curr) => [...curr, movie.id]);
+        setFavoriteIds((curr) => [...curr, item.id]);
         forceUpdate((n) => n + 1);
       }
     } else {
-      setFavoriteIds((curr) => [...curr, movie.id]);
+      setFavoriteIds((curr) => [...curr, item.id]);
       forceUpdate((n) => n + 1);
       try {
-        await handleAddFavorite({ id: movie.id, title: movie.title }, user, undefined, setFavoriteError, ERROR_MESSAGES);
+        await handleAddFavorite({ id: item.id, title: 'title' in item ? item.title : item.name }, user, undefined, setFavoriteError, ERROR_MESSAGES);
       } catch (e) {
         setFavoriteError("Unknown error");
-        setFavoriteIds((curr) => curr.filter((id) => id !== movie.id));
+        setFavoriteIds((curr) => curr.filter((id) => id !== item.id));
         forceUpdate((n) => n + 1);
       }
     }
     // Re-fetch search results to update favorite icons
     if (searchQuery.length > 3) {
       setLoadingSearch(true);
-      const data = await searchMovies(searchQuery, locale);
-      setSearchResults(data);
+      const [movies, shows] = await Promise.all([
+        searchMovies(searchQuery, locale),
+        searchTvShows(searchQuery, locale),
+      ]);
+      setMovieResults(movies);
+      setTvResults(shows);
       setLoadingSearch(false);
     }
   };
 
   // Handler for favorite button click (used in both mobile and desktop)
-  const handleFavoriteButtonClick = async (e: React.MouseEvent, movie: Movie) => {
+  const handleFavoriteButtonClick = async (e: React.MouseEvent, item: Movie | TvShow) => {
     e.stopPropagation();
     try {
-      await handleFavoriteClick(movie);
+      await handleFavoriteClick(item);
     } catch (err) {
       console.error('Error handling favorite click:', err);
     }
@@ -168,78 +181,27 @@ const SearchBar: React.FC<SearchBarProps> = ({
           />
           {searchQuery.length > 2 && (
             <div className="absolute top-14 left-0 w-full bg-black/80 backdrop-blur-sm border border-gray-700 rounded-lg shadow-lg z-50">
-              {loadingSearch ? (
-                <p className="text-white p-4">Loading...</p>
-              ) : (
-                <ul className="max-h-96 overflow-y-auto p-2 search-results-scrollbar w-full">
-                  {searchResults.length > 0 ? (
-                    searchResults.map((movie) => {
-                      const isFav = favoriteIds.includes(movie.id);
-                      return (
-                        <li
-                          key={movie.id}
-                          className="flex items-center p-2 rounded-md hover:bg-gray-800 cursor-pointer"
-                          onClick={(e) => {
-                            if ((e.target as HTMLElement).closest('.fav-btn')) return;
-                            router.push(`/${locale}/details/${movie.id}`);
-                            setMobileSearchOpen(false);
-                            setSearchQuery("");
-                          }}
-                        >
-                          {movie.poster_path ? (
-                            <Image
-                              src={convertImageUrl(movie.poster_path)}
-                              alt={movie.title}
-                              width={40}
-                              height={60}
-                              className="mr-3 rounded"
-                            />
-                          ) : (
-                            <div className="w-10 h-[60px] mr-3 rounded bg-gray-800 flex items-center justify-center">
-                              <svg
-                                className="w-6 h-6 text-gray-500"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M15.55 5.55a8 8 0 10-11.3 11.3M6.34 6.34l11.3 11.3"
-                                />
-                              </svg>
-                            </div>
-                          )}
-                          <div className="flex-1">
-                            <h3 className="text-white font-bold text-sm">
-                              {movie.title}
-                            </h3>
-                            <p className="text-gray-400 text-xs">
-                              {movie.release_date?.slice(0, 4)}
-                            </p>
-                          </div>
-                          {user && (
-                            <button
-                              className="fav-btn ml-2 text-yellow-400 hover:text-yellow-500 focus:outline-none"
-                              onClick={(e) => handleFavoriteButtonClick(e, movie)}
-                              aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
-                            >
-                              {isFav ? (
-                                <FaHeart className="h-5 w-5" />
-                              ) : (
-                                <FaRegHeart className="h-5 w-5" />
-                              )}
-                            </button>
-                          )}
-                        </li>
-                      );
-                    })
-                  ) : (
-                    <p className="text-gray-400 p-4">No results found.</p>
-                  )}
-                </ul>
-              )}
+              <SearchResultsList
+                movieResults={movieResults}
+                tvResults={tvResults}
+                favoriteIds={favoriteIds}
+                onFavoriteClick={handleFavoriteButtonClick}
+                onMovieClick={(e: React.MouseEvent<any, MouseEvent>, movie) => {
+                  if ((e.target as HTMLElement).closest('.fav-btn')) return;
+                  router.push(`/${locale}/details/${movie.id}`);
+                  setMobileSearchOpen(false);
+                  setSearchQuery("");
+                }}
+                onTvShowClick={(e: React.MouseEvent<any, MouseEvent>, show) => {
+                  if ((e.target as HTMLElement).closest('.fav-btn')) return;
+                  router.push(`/${locale}/tv-shows/${show.id}`);
+                  setMobileSearchOpen(false);
+                  setSearchQuery("");
+                }}
+                user={user}
+                loading={loadingSearch}
+                error={favoriteError}
+              />
             </div>
           )}
         </div>
@@ -333,85 +295,33 @@ const SearchBar: React.FC<SearchBarProps> = ({
           </div>
           {searchQuery.length > 2 && (
             <div className="absolute left-0 top-12 w-full bg-black/80 backdrop-blur-sm border border-gray-700 rounded-lg shadow-lg z-50 overflow-hidden">
-              {loadingSearch ? (
-                <p className="text-white p-4">Loading...</p>
-              ) : (
-                <ul className="max-h-96 overflow-y-auto p-2 search-results-scrollbar w-full">
-                  {searchResults.length > 0 ? (
-                    searchResults.map((movie) => {
-                      const isFav = favoriteIds.includes(movie.id);
-                      return (
-                        <li
-                          key={movie.id}
-                          className="flex items-center p-2 rounded-md hover:bg-gray-800 cursor-pointer group"
-                          onClick={(e) => {
-                            if ((e.target as HTMLElement).closest('.fav-btn')) return;
-                            router.push(`/${locale}/details/${movie.id}`);
-                            setSearchQuery("");
-                            setDesktopSearchOpen(false);
-                          }}
-                        >
-                          {movie.poster_path ? (
-                            <Image
-                              src={convertImageUrl(movie.poster_path)}
-                              alt={movie.title}
-                              width={40}
-                              height={60}
-                              className="mr-3 rounded"
-                            />
-                          ) : (
-                            <div className="w-10 h-[60px] mr-3 rounded bg-gray-800 flex items-center justify-center">
-                              <svg
-                                className="w-6 h-6 text-gray-500"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M15.55 5.55a8 8 0 10-11.3 11.3M6.34 6.34l11.3 11.3"
-                                />
-                              </svg>
-                            </div>
-                          )}
-                          <div className="flex-1">
-                            <h3 className="text-white font-bold text-sm">
-                              {movie.title}
-                            </h3>
-                            <p className="text-gray-400 text-xs">
-                              {movie.release_date?.slice(0, 4)}
-                            </p>
-                          </div>
-                          {user && (
-                            <button
-                              className="fav-btn ml-2 text-yellow-400 hover:text-yellow-500 focus:outline-none"
-                              onClick={(e) => handleFavoriteButtonClick(e, movie)}
-                              aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
-                            >
-                              {isFav ? (
-                                <FaHeart className="h-5 w-5" />
-                              ) : (
-                                <FaRegHeart className="h-5 w-5" />
-                              )}
-                            </button>
-                          )}
-                        </li>
-                      );
-                    })
-                  ) : (
-                    <p className="text-gray-400 p-4">No results found.</p>
-                  )}
-                </ul>
-              )}
-              {favoriteError && <p className="text-red-500 p-2 text-xs">{favoriteError}</p>}
+              <SearchResultsList
+                movieResults={movieResults}
+                tvResults={tvResults}
+                favoriteIds={favoriteIds}
+                onFavoriteClick={handleFavoriteButtonClick}
+                onMovieClick={(e: React.MouseEvent<any, MouseEvent>, movie) => {
+                  if ((e.target as HTMLElement).closest('.fav-btn')) return;
+                  router.push(`/${locale}/details/${movie.id}`);
+                  setSearchQuery("");
+                  setDesktopSearchOpen(false);
+                }}
+                onTvShowClick={(e: React.MouseEvent<any, MouseEvent>, show) => {
+                  if ((e.target as HTMLElement).closest('.fav-btn')) return;
+                  router.push(`/${locale}/tv-shows/${show.id}`);
+                  setSearchQuery("");
+                  setDesktopSearchOpen(false);
+                }}
+                user={user}
+                loading={loadingSearch}
+                error={favoriteError}
+              />
             </div>
           )}
         </div>
       )}
     </div>
- );
+  );
 };
 
 export default SearchBar; 
