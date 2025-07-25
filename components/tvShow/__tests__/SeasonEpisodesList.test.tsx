@@ -9,12 +9,26 @@ jest.mock("@/lib/tmdbCallsTvShow/getTvSeasonDetails", () => ({
   getTvSeasonDetails: jest.fn(),
 }));
 
-// Mock next-intl useLocale
+// Mock next-intl's useLocale AND useTranslations
 jest.mock("next-intl", () => ({
   useLocale: () => "en-US",
+  useTranslations: () => (key: string, opts?: Record<string, any>) => {
+    switch (key) {
+      case "loading":
+        return "Loading episodes";
+      case "error":
+        return `Error: ${opts?.message}`;
+      case "noEpisodes":
+        return "No episodes found for this season";
+      case "showMore":
+        return "Show More";
+      default:
+        return key;
+    }
+  },
 }));
 
-// Mock EpisodeCard to simplify DOM
+// Mock EpisodeCard to simplify the DOM
 jest.mock("@/components/tvShow/EpisodeCard", () => ({
   __esModule: true,
   default: ({ episode }: { episode: Episode }) => (
@@ -90,13 +104,15 @@ describe("SeasonEpisodesList", () => {
 
     render(<SeasonEpisodesList tvId={tvId} season={season} />);
 
+    // initially 10
     await waitFor(() => {
       expect(screen.getAllByTestId("episode-card")).toHaveLength(10);
     });
 
-    const button = screen.getByRole("button", { name: /show more/i });
-    fireEvent.click(button);
+    // click Show More
+    fireEvent.click(screen.getByRole("button", { name: /show more/i }));
 
+    // now 12
     await waitFor(() => {
       expect(screen.getAllByTestId("episode-card")).toHaveLength(12);
     });

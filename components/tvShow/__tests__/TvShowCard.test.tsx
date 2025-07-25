@@ -1,19 +1,27 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import TvShowCard from "../TvShowCard";
 import { TvShow } from "@/constants/types/TvShow";
-import { Season } from "@/constants/types/Season";
 
-// Mock next-intl
+// 1️⃣ Mock next-intl before importing the component
 jest.mock("next-intl", () => ({
   useLocale: () => "en",
+  useTranslations: () => (key: string) => {
+    const map: Record<string, string> = {
+      viewDetails: "View Details",
+      noDescription: "No Description Available",
+    };
+    return map[key] ?? key;
+  },
 }));
 
-// Mock imageUrlHelper
+// 2️⃣ Mock imageUrlHelper
 jest.mock("@/lib/utils/imageUrlHelper", () => ({
   __esModule: true,
   default: jest.fn(() => "https://mocked.image/url.jpg"),
 }));
+
+// 3️⃣ Now import the component under test
+import TvShowCard from "../TvShowCard";
 
 describe("TvShowCard", () => {
   const mockTvShow: TvShow = {
@@ -27,7 +35,7 @@ describe("TvShowCard", () => {
     genre_ids: [1, 2],
     number_of_seasons: 3,
     number_of_episodes: 24,
-    seasons: [], 
+    seasons: [],
   };
 
   const onClick = jest.fn();
@@ -37,7 +45,7 @@ describe("TvShowCard", () => {
     jest.clearAllMocks();
   });
 
-  it("renders the TV show poster and name", () => {
+  it("renders the TV show poster and name (collapsed)", () => {
     render(
       <TvShowCard
         tvShow={mockTvShow}
@@ -47,9 +55,10 @@ describe("TvShowCard", () => {
       />
     );
 
-    const image = screen.getByAltText("Mock Show");
-    expect(image).toBeInTheDocument();
+    const img = screen.getByAltText("Mock Show");
+    expect(img).toBeInTheDocument();
 
+    // Since not hovered/expanded, overlay text should not appear
     expect(screen.queryByText("View Details")).not.toBeInTheDocument();
   });
 
@@ -63,15 +72,16 @@ describe("TvShowCard", () => {
       />
     );
 
-    const card = screen.getByRole("img", { hidden: true }).parentElement
-      ?.parentElement as HTMLElement;
+    // Find the outer div by role=img’s parent container
+    const card = screen.getByAltText("Mock Show").closest("div") as HTMLElement;
 
+    // Fire hover
     fireEvent.mouseEnter(card);
-
     expect(onHover).toHaveBeenCalledWith(mockTvShow.id);
 
+    // Overlay content appears
     expect(screen.getByText("Mock Show")).toBeInTheDocument();
-    expect(screen.getByText(/View Details/i)).toBeInTheDocument();
+    expect(screen.getByText("View Details")).toBeInTheDocument();
     expect(screen.getByText(mockTvShow.overview)).toBeInTheDocument();
   });
 
@@ -85,12 +95,10 @@ describe("TvShowCard", () => {
       />
     );
 
-    const card = screen.getByRole("img", { hidden: true }).parentElement
-      ?.parentElement as HTMLElement;
+    const card = screen.getByAltText("Mock Show").closest("div") as HTMLElement;
 
     fireEvent.mouseEnter(card);
     fireEvent.mouseLeave(card);
-
     expect(onHover).toHaveBeenLastCalledWith(null);
   });
 
@@ -104,11 +112,8 @@ describe("TvShowCard", () => {
       />
     );
 
-    const card = screen.getByRole("img", { hidden: true }).parentElement
-      ?.parentElement as HTMLElement;
-
+    const card = screen.getByAltText("Mock Show").closest("div") as HTMLElement;
     fireEvent.click(card);
-
     expect(onClick).toHaveBeenCalledWith(mockTvShow.id);
   });
 
@@ -116,16 +121,15 @@ describe("TvShowCard", () => {
     render(
       <TvShowCard
         tvShow={mockTvShow}
-        isExpanded={true} 
+        isExpanded={true}
         onClick={onClick}
         onHover={onHover}
       />
     );
 
-    const viewDetailsButton = screen.getByText(/View Details/i);
-
-    fireEvent.click(viewDetailsButton);
-
+    // View Details link is rendered because isExpanded=true
+    const viewDetails = screen.getByText("View Details");
+    fireEvent.click(viewDetails);
     expect(onClick).not.toHaveBeenCalled();
   });
 });

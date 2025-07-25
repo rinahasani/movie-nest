@@ -5,10 +5,10 @@ import { TvShow } from "@/constants/types/TvShow";
 
 // Mock next-intl
 jest.mock("next-intl", () => ({
-  useTranslations: () => (key: string) => key, 
+  useTranslations: () => (key: string) => key,
 }));
 
-// Mock TvShowCard 
+// Mock TvShowCard
 jest.mock("../TvShowCard", () => (props: any) => {
   return (
     <div
@@ -76,7 +76,7 @@ describe("TvShowsList", () => {
   it("renders loading state initially", () => {
     (getAllTvShows as jest.Mock).mockImplementation(
       () => new Promise(() => {})
-    ); 
+    );
 
     render(<TvShowsList locale="en" />);
 
