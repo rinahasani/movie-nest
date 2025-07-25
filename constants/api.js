@@ -21,4 +21,6 @@ export const API_ENDPOINTS = {
     `${BASE_URL}/tv/${tvId}/season/${seasonNumber}?api_key=${API_KEY}&language=${language}`,
   SEARCH_MOVIES: (query, language = "en-EN") =>
     `${BASE_URL}/search/movie?query=${encodeURIComponent(query)}&api_key=${API_KEY}&language=${language}&include_adult=false`,
+  SEARCH_TV: (query, language = "en-EN") =>
+    `${BASE_URL}/search/tv?query=${encodeURIComponent(query)}&api_key=${API_KEY}&language=${language}`
 };
