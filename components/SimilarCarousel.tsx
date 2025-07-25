@@ -31,7 +31,7 @@ export default function SimilarCarousel() {
   const t = useTranslations("similarCarousel");
 
   return (
-    <main className="bg-black m-6">
+    <main className="bg-black mt-6">
       <h1 className="text-3xl md:text-2xl font-extrabold leading-tight drop-shadow-lg m-6">
         {t("title")}
       </h1>

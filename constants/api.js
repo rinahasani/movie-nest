@@ -11,7 +11,8 @@ export const API_ENDPOINTS = {
     `${BASE_URL}/discover/movie?with_genres=${genreId}&page=${page}&api_key=${API_KEY}&language=${language}&include_adult=false`,
   TRENDING_MOVIES: (language = "en-EN") =>
     `${BASE_URL}/trending/movie/week?api_key=${API_KEY}&language=${language}&include_adult=false`,
-
+  MOVIE_COLLECTIONS: (collectionID, language = "en-EN") =>
+    `${BASE_URL}/collection/${collectionID}?api_key=${API_KEY}&language=${language}`,
   DISCOVER_TV: (page = 1, language = "en-EN") =>
     `${BASE_URL}/discover/tv?page=${page}&api_key=${API_KEY}&language=${language}`,
   TV_SHOW_DETAILS: (tvId, language = "en-EN") =>
