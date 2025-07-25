@@ -29,24 +29,14 @@ export default function FavoritesPage() {
   const router = useRouter();
   const locale = useLocale();
 
-  // GUARD: If not logged in and not loading, redirect and render nothing
-  if (typeof window !== "undefined" && !authLoading && !user) {
-    window.location.replace("/");
-    return null;
-  }
-
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push("/");
+      router.replace("/");
     }
   }, [authLoading, user, router]);
 
-  if (!authLoading && !user) {
-    return null; // Prevents flicker before redirect
-  }
-
   useEffect(() => {
-    if (authLoading || !user) return;
+    if (authLoading || !user) return; // Guard: do not run if not logged in
 
     async function loadFavorites() {
       try {
@@ -71,11 +61,22 @@ export default function FavoritesPage() {
   }, [authLoading, user, tErrors]);
 
   function handleRemove(movieId: number) {
+    if (!user) return; // Guard: do not run if not logged in
     handleRemoveFavorite(movieId, user as User, setMovies, setErrorMsg, {});
   }
 
   function handleAdd(movie: { id: number; title: string }) {
+    if (!user) return; // Guard: do not run if not logged in
     handleAddFavorite(movie, user as User, setMovies, setErrorMsg, {});
+  }
+
+  // Loader for not logged in (prevents flicker and hook errors)
+  if (!authLoading && !user) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <span className="text-lg">Signing out...</span>
+      </div>
+    );
   }
 
   if (authLoading || loading) {

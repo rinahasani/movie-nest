@@ -1,0 +1,299 @@
+openapi: 3.0.3
+info:
+  title: 🎬 MovieNest API
+  version: 1.0.0
+  description: |
+    Endpoint:
+    - POST /api/auth/login
+servers:
+  - url: https://{host}/api
+    variables:
+      host:
+        default: localhost:3000
+paths:
+  /auth/login:
+    post:
+      summary: Log in
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Credentials"
+      responses:
+        "200":
+          description: JWT token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        "401":
+          description: Unauthorized - invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /auth/reset-password:
+    post:
+      summary: Send password reset email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+      responses:
+        "200":
+          description: Password reset email sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        "400":
+          description: Invalid email or error sending reset link
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+  /auth/signup:
+    post:
+      summary: Create account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, password]
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Account created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  uid:
+                    type: string
+        "400":
+          description: Bad request or validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+  /chatbot/getMovieRecommendations:
+    post:
+      summary: Get 5 movie recommendations based on a query (title, actor, genre)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [query]
+              properties:
+                query:
+                  type: string
+                  description: Movie title, actor, or genre to base recommendations on
+      responses:
+        "200":
+          description: List of recommended movie titles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "400":
+          description: Bad request (e.g., empty query)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "500":
+          description: Internal server error / API failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /favorites/add:
+    post:
+      summary: Add a movie to user's favorites
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [movie]
+              properties:
+                movie:
+                  type: object
+                  description: Details of the movie to add to favorites
+                  required:
+                    - id
+                    - title
+                  properties:
+                    id:
+                      type: string
+                      description: Unique identifier of the movie (e.g., TMDB id)
+                      example: "12345"
+                    title:
+                      type: string
+                      description: Movie title
+                      example: "Inception"
+                    posterPath:
+                      type: string
+                      description: Relative path to the movie poster image
+                      example: "/poster123.jpg"
+                    releaseDate:
+                      type: string
+                      format: date
+                      description: Release date of the movie
+                      example: "2010-07-16"
+                    overview:
+                      type: string
+                      description: Brief synopsis of the movie
+                      example: "A thief who steals corporate secrets through dream-sharing technology..."
+      responses:
+        "200":
+          description: Movie added to favorites successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        "400":
+          description: Bad request (missing movie, invalid data, etc.)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "401":
+          description: Unauthorized (missing or invalid token)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /favorites/remove:
+    post:
+      summary: Remove a movie from the authenticated user's favorites
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Movie object containing at least the movie ID to remove from favorites
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - movie
+              properties:
+                movie:
+                  type: object
+                  description: Details of the movie to remove from favorites
+                  required:
+                    - id
+                  properties:
+                    id:
+                      type: string
+                      description: Unique identifier of the movie (e.g., TMDB id)
+                      example: "12345"
+                    title:
+                      type: string
+                      description: Movie title (optional)
+                      example: "Inception"
+      responses:
+        "200":
+          description: Movie successfully removed from favorites
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        "400":
+          description: Bad request — missing movie id or invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Missing movie ID"
+        "401":
+          description: Unauthorized — missing or invalid JWT token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Unauthorized: Missing token"
+components:
+  schemas:
+    Credentials:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

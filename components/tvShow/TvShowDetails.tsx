@@ -105,7 +105,7 @@ export default function TvShowDetails({ id, locale }: TvShowDetailsProps) {
               />
             ) : (
               <div className="w-[300px] h-[450px] bg-gray-700 rounded-lg flex items-center justify-center text-gray-400 text-lg">
-                No Poster
+                {t("noPoster")}
               </div>
             )}
           </div>
@@ -118,15 +118,22 @@ export default function TvShowDetails({ id, locale }: TvShowDetailsProps) {
             </div>
             <div className="text-xl mb-2 text-gray-200">
               <span className="font-semibold">{t("rating")}:</span>{" "}
-              {tvShow.vote_average?.toFixed(1) || "N/A"} / 10
+              {tvShow.vote_average !== undefined
+                ? tvShow.vote_average.toFixed(1)
+                : t("notAvailable")}{" "}
+              / 10
             </div>
             <div className="text-xl mb-2 text-gray-200">
               <span className="font-semibold">{t("numberOfSeasons")}:</span>{" "}
-              {tvShow.number_of_seasons || "N/A"}
+              {tvShow.number_of_seasons !== undefined
+                ? tvShow.number_of_seasons
+                : t("notAvailable")}
             </div>
             <div className="text-xl mb-4 text-gray-200">
               <span className="font-semibold">{t("numberOfEpisodes")}:</span>{" "}
-              {tvShow.number_of_episodes || "N/A"}
+              {tvShow.number_of_episodes !== undefined
+                ? tvShow.number_of_episodes
+                : t("notAvailable")}
             </div>
 
             {tvShow.seasons?.length > 0 && (

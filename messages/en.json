@@ -136,8 +136,22 @@
     "noSeasons": "No seasons found for this TV show.",
     "loading": "Loading…",
     "episodes": "Episodes",
-    "selectSeason": "Select Season"
+    "selectSeason": "Select Season",
+    "noPoster": "No Poster",
+    "notAvailable": "N/A",
+    "viewDetails": "View Details",
+    "noDescription": "No Description"
   },
+  "seasonEpisodesListPage": {
+    "loading": "Loading episodes...",
+    "error": "Error: {{message}}",
+    "noEpisodes": "No episodes found for this season.",
+    "showMore": "Show More",
+    "noImage": "No Image Available",
+    "airDate": "Air Date",
+    "rating": "Rating"
+  },
+
   "about": {
     "title": "Welcome to Movie Nest!",
     "description": "Movie Nest is your go-to platform for discovering, sharing, and enjoying movies with friends and fellow fans. Dive into a world of cinema, connect with others, and make every movie night special!",

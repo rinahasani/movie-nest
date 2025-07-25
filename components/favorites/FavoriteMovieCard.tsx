@@ -5,6 +5,8 @@ import Image from "next/image";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 import convertImageUrl from "@/lib/utils/imageUrlHelper";
+import Link from "next/link";
+import { useLocale } from "next-intl";
 
 // — Types —
 export type TMDBMovie = {
@@ -33,6 +35,7 @@ export default function MovieCard({
   onRemove,
 }: MovieCardProps) {
   const t = useTranslations("favorites");
+  const locale = useLocale();
   const filledStars = Math.round(m.vote_average / 2);
   const langMap: Record<string, string> = {
     en: "English",
@@ -48,20 +51,39 @@ export default function MovieCard({
       {/* Poster */}
       <div
         className="
-          relative flex-shrink-0
-          w-full aspect-[6/5] mb-4
-          overflow-hidden rounded-xl shadow-2xl
-          md:w-[300px] md:h-[250px] md:aspect-auto md:mb-0 md:mr-6
-        "
+    relative flex-shrink-0
+    w-full aspect-[6/5] mb-4
+    overflow-hidden rounded-xl shadow-2xl
+    md:w-[300px] md:h-[250px] md:aspect-auto md:mb-0 md:mr-6
+  "
       >
-        <Image
-          src={convertImageUrl(m.backdrop_path)}
-          alt={m.title}
-          fill
-          sizes="(max-width: 768px) 100vw, 300px"
-          priority
-          className="object-cover"
-        />
+        {m.backdrop_path ? (
+          <Image
+            src={convertImageUrl(m.backdrop_path)}
+            alt={m.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 300px"
+            priority
+            className="object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-800 flex items-center justify-center rounded-xl">
+            <svg
+              className="w-12 h-12 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15.55 5.55a8 8 0 10-11.3 11.3M6.34 6.34l11.3 11.3"
+              />
+            </svg>
+          </div>
+        )}
       </div>
 
       {/* Content */}
@@ -88,9 +110,12 @@ export default function MovieCard({
         </div>
 
         <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0">
-          <button className="w-full sm:w-auto px-6 py-3 bg-[#f4c10f] text-lg text-white font-semibold rounded-xl hover:bg-[#e0b609] transition">
+          <Link
+            href={`/${locale}/details/${m.id}`}
+            className="w-full sm:w-auto px-6 py-3 bg-[#f4c10f] text-lg text-white font-semibold rounded-xl hover:bg-[#e0b609] transition text-center"
+          >
             {t("moreInfo")}
-          </button>
+          </Link>
           <button
             onClick={() => onRemove(m.id)}
             className="w-full sm:w-auto px-6 py-3 bg-[#ea1c2c] text-lg text-white font-semibold rounded-xl hover:bg-[#c41826] transition"

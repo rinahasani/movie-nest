@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Season } from "@/constants/types/Season";
 import { Episode } from "@/constants/types/Season";
 import { getTvSeasonDetails } from "@/lib/tmdbCallsTvShow/getTvSeasonDetails";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import EpisodeCard from "./EpisodeCard";
 
 interface SeasonEpisodesListProps {
@@ -19,6 +19,7 @@ const SeasonEpisodesList: React.FC<SeasonEpisodesListProps> = ({
   season,
 }) => {
   const locale = useLocale();
+  const t = useTranslations("seasonEpisodesListPage");
   const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +39,8 @@ const SeasonEpisodesList: React.FC<SeasonEpisodesListProps> = ({
         setEpisodes(seasonDetails.episodes || []);
         setVisibleEpisodesCount(EPISODES_PER_PAGE);
       } catch (err: any) {
-        setError(err.message);
+        console.error(err);
+        setError(err.message || "Unknown error");
       } finally {
         setIsLoading(false);
       }
@@ -55,10 +57,10 @@ const SeasonEpisodesList: React.FC<SeasonEpisodesListProps> = ({
 
   return (
     <div className="rounded-lg p-4 mb-4 bg-[#121110]">
-      {isLoading && <p className="text-gray-400">Loading episodes...</p>}
-      {error && <p className="text-red-500">Error: {error}</p>}
+      {isLoading && <p className="text-gray-400">{t("loading")}</p>}
+      {error && <p className="text-red-500">{t("error", { message: error })}</p>}
       {!isLoading && !error && episodes.length === 0 && (
-        <p className="text-gray-400">No episodes found for this season.</p>
+        <p className="text-gray-400">{t("noEpisodes")}</p>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {episodesToDisplay.map((episode) => (
@@ -72,7 +74,7 @@ const SeasonEpisodesList: React.FC<SeasonEpisodesListProps> = ({
             onClick={handleShowMore}
             className="px-6 py-3 bg-[#FFAC00] text-black font-semibold rounded-md hover:bg-[#CC8A00] transition-colors"
           >
-            Show More
+            {t("showMore")}
           </button>
         </div>
       )}

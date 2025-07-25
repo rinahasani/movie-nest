@@ -23,8 +23,21 @@ export function middleware(req: NextRequest) {
   const { pathname, search, origin } = req.nextUrl;
   const segments = pathname.split("/").filter(Boolean); 
 
-  // If there is already a valid locale, do nothing
+  // If there is already a valid locale, do nothing (let the request through)
   if (segments[0] && LOCALES.includes(segments[0])) {
+    // --- FAVORITES PAGE PROTECTION ---
+    // e.g. /en/favoriteMovies
+    if (
+      segments.length >= 2 &&
+      segments[1] === "favoriteMovies"
+    ) {
+      // Check for auth token cookie (set this on login!)
+      const token = req.cookies.get("authToken")?.value;
+      if (!token) {
+        // Not logged in, redirect to login page for the current locale
+        return NextResponse.redirect(`${origin}/${segments[0]}/login`);
+      }
+    }
     return NextResponse.next();
   }
 

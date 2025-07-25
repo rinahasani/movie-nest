@@ -25,6 +25,14 @@ export default function FeaturedMovieHero() {
     fetchMovies();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="w-full min-h-[60vh] flex items-center justify-center">
+        <span className="text-lg">Loading...</span>
+      </div>
+    );
+  }
+
   if (!movie) {
     return (
       <div className="w-full min-h-[60vh] flex items-center justify-center">
