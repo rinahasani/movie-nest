@@ -11,6 +11,7 @@ export default function FeaturedMovieHero() {
   const [loading, setLoading] = useState(true);
   const locale = useLocale();
   useEffect(() => {
+    let intervalId: NodeJS.Timeout;
     const fetchMovies = async () => {
       try {
         setLoading(true);
@@ -23,7 +24,9 @@ export default function FeaturedMovieHero() {
       }
     };
     fetchMovies();
-  }, []);
+    intervalId = setInterval(fetchMovies, 20000); 
+    return () => clearInterval(intervalId);
+  }, [locale]);
 
   if (loading) {
     return (
