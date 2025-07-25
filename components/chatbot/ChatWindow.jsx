@@ -38,11 +38,14 @@ const ChatWindow = ({ onClose }) => {
       className="fixed bottom-4 right-4 w-80 md:w-96 h-[450px]  rounded-lg shadow-xl flex flex-col font-sans"
       style={{ backgroundColor: "#1E1E1E" }}
     >
-      <div className="flex justify-between items-center bg-blue-600 text-white p-4 rounded-t-lg">
+      <div
+        className="flex justify-between items-center text-white p-4 rounded-t-lg"
+        style={{ backgroundColor: "#FFAD00" }}
+      >
         <h2 className="text-lg font-semibold">{t("chatTitle")}</h2>
         <button
           onClick={onClose}
-          className="p-1 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+          className="p-1 rounded-full hover:bg-[#CC8A00] focus:outline-none focus:ring-2 focus:ring-[#FFAD00] focus:ring-opacity-75"
           aria-label="Close chat"
         >
           <X size={20} />
@@ -97,12 +100,13 @@ const ChatWindow = ({ onClose }) => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Enter movie, actor, or genre..."
-          className="flex-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+          className="flex-1 p-2 border border-gray-300 rounded-md  focus:ring-[#FFAD00] focus:outline-none focus:ring-2 text-white"
           disabled={isLoading}
         />
         <button
           type="submit"
-          className="ml-2 bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 disabled:opacity-50"
+          className="ml-2  text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2  focus:ring-[#FFAD00] focus:ring-opacity-75 disabled:opacity-50"
+          style={{ backgroundColor: "#FFAD00" }}
           disabled={isLoading}
           aria-label="Send query"
         >

@@ -106,7 +106,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent" />
 
-      <div className="relative z-20 max-w-4xl w-full py-16 flex flex-col gap-6">
+      <div className="relative max-w-4xl w-full flex flex-col gap-4">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight drop-shadow-lg">{title}</h1>
 
         <div className="flex flex-wrap items-center gap-4 text-lg font-semibold">

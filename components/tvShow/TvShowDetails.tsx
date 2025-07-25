@@ -33,7 +33,7 @@ export default function TvShowDetails({ id, locale }: TvShowDetailsProps) {
           (s: Season) => s.season_number !== 0
         );
         setSelectedSeason(firstValid || null);
-      } catch (err: any) {
+      } catch (err) {
         console.error("Failed to fetch TV show details:", err);
         setError(t("fetchError"));
       } finally {

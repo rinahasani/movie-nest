@@ -93,7 +93,7 @@ export default function Navbar() {
 
   const navLinks = [
     { name: t("home"), href: `/${locale}` },
-    { name: t("movies"), href: `/${locale}/movies` },
+    { name: t("collections"), href: `/${locale}/collections` },
     { name: t("tvShows"), href: `/${locale}/tv-shows` },
     { name: t("myFavorite"), href: `/${locale}/favoriteMovies` },
     { name: t("about"), href: `/${locale}/about` },

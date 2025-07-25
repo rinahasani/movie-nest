@@ -1,7 +1,7 @@
 {
   "navbar": {
     "home": "Accueil",
-    "movies": "Films",
+    "collections": "Collections",
     "tvShows": "Séries",
     "myFavorite": "Mes favoris",
     "about": "À propos",
@@ -192,5 +192,19 @@
     "chatTitle": "Recommandeur de films",
     "chatDesc": "Saisissez un titre de film, un acteur ou un genre pour obtenir des recommandations.",
     "recommendations": "Nous vous recommandons ces films: "
+  },
+  "collectionsPage": {
+    "title": "Parcourir les collections",
+    "loading": "Chargement...",
+    "seeMore": "Voir plus",
+    "noCollectionsFound": "Aucune collection trouvée pour le moment.",
+    "viewDetails": "Voir les détails"
+  },
+  "collectionsDetailsPage": {
+    "fetchError": "Collection non trouvée.",
+    "numberOfMovies": "Nombre de films",
+    "movies": "Films",
+    "noMovies": "Aucun film trouvé pour cette collection.",
+    "loading": "Chargement..."
   }
 }
