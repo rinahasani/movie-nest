@@ -3,8 +3,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { getAllTvShows } from "@/lib/tmdbCallsTvShow/getAllTvShows";
-import TvShowCard from "@/components/tvShow/TvShowCard";
 import { TvShow } from "@/constants/types/TvShow";
+import Card from "../Card";
 
 interface TvShowsListProps {
   locale: string;
@@ -27,14 +27,19 @@ export default function TvShowsList({ locale }: TvShowsListProps) {
         pageToFetch === 1 ? setIsLoading(true) : setIsFetchingMore(true);
         setError(null);
 
-        const { results, total_pages } = await getAllTvShows(pageToFetch, locale);
+        const { results, total_pages } = await getAllTvShows(
+          pageToFetch,
+          locale
+        );
 
         setTvShows((prev) =>
           pageToFetch === 1
             ? results
             : [
                 ...prev,
-                ...results.filter((tv: TvShow) => !prev.some((p) => p.id === tv.id)),
+                ...results.filter(
+                  (tv: TvShow) => !prev.some((p) => p.id === tv.id)
+                ),
               ]
         );
 
@@ -77,9 +82,9 @@ export default function TvShowsList({ locale }: TvShowsListProps) {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {tvShows.length > 0 ? (
             tvShows.map((tvShow: TvShow) => (
-              <TvShowCard
+              <Card
                 key={tvShow.id}
-                tvShow={tvShow}
+                data={tvShow}
                 isExpanded={tvShow.id === expandedCardId}
                 onClick={(id) =>
                   setExpandedCardId((prev) => (prev === id ? null : id))
@@ -89,6 +94,7 @@ export default function TvShowsList({ locale }: TvShowsListProps) {
                     setExpandedCardId(null);
                   }
                 }}
+                type={"tvShow"}
               />
             ))
           ) : (

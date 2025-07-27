@@ -3,7 +3,7 @@
 import { MovieCollections } from "@/constants/movieCollections";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
-import CollectionCard from "./CollectionCard";
+import Card from "../Card";
 
 export interface MovieCollection {
   adult: boolean;
@@ -106,9 +106,9 @@ export default function CollectionList() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {movieCollection.length > 0 ? (
             movieCollection.map((movieCollection: MovieCollection) => (
-              <CollectionCard
+              <Card
                 key={movieCollection.id}
-                collection={movieCollection}
+                data={movieCollection}
                 isExpanded={movieCollection.id === expandedCardId}
                 onClick={(id) =>
                   setExpandedCardId((prev) => (prev === id ? null : id))
@@ -118,6 +118,7 @@ export default function CollectionList() {
                     setExpandedCardId(null);
                   }
                 }}
+                type={"collection"}
               />
             ))
           ) : (
