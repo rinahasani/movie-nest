@@ -1,15 +1,15 @@
 "use client";
-import React, { useState, useEffect, useCallback, useTransition } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { GenreThumb } from "./GenreThumb";
 import { getMoviesByGenre } from "@/lib/tmdbCalls/getMoviesByGenre";
 import { GenreChildItem } from "./GenreChildItem";
 import Spinner from "../auth/Spinner";
 
 const GenreCarousel = (props) => {
-  const {options, genres } = props;
+  const { slides, options, genres } = props;
   const [moviesByGenre, setMoviesByGenre] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedMovie, setSelectedMovie] = useState(0);
@@ -25,7 +25,6 @@ const GenreCarousel = (props) => {
   });
   const router = useRouter();
   const locale = useLocale();
-  const t = useTranslations("errors")
   const onThumbClick = useCallback(
     (index) => {
       setIsLoading(true);
@@ -113,47 +112,33 @@ const GenreCarousel = (props) => {
         </div>
       </div>
       <div className="mt-8">
-         {isLoading && (
-          <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-75 rounded-lg">
+        {isLoading ? (
+          <div className="flex justify-center items-center h-50">
             <Spinner size={50} />
           </div>
-        )}
-        <div
-          className={`transition-opacity duration-1000 ease-out w-full ${
-            isLoading ? "opacity-0" : "opacity-100"
-          }`}
-          style={{ pointerEvents: isLoading ? "none" : "auto" }}
-        >
+        ) : (
           <div className="mt-[var(--thumbs-slide-spacing,0.8rem)]">
             <div className="overflow-hidden" ref={emblaMovieRef}>
               <div
                 className="flex flex-row w-full"
                 style={{ marginLeft: "calc(var(--thumbs-slide-spacing) * -1)" }}
               >
-                {movieRows.length > 0 ? (
-                  movieRows.map((row, i) => (
-                    <div key={i} className="flex flex-col mr-4">
-                      {row.map((movie, j) => (
-                        <GenreChildItem
-                          key={movie.id}
-                          movie={movie}
-                          onClick={() => onMovieClick(movie.id)}
-                          selected={selectedMovie === movie.id}
-                        />
-                      ))}
-                    </div>
-                  ))
-                ) : (
-                  !isLoading && (
-                    <p className="text-center text-gray-500 w-full">
-                     {t("noMoviesFound")}
-                    </p>
-                  )
-                )}
+                {movieRows.map((row, i) => (
+                  <div key={i} className="flex flex-col mr-4">
+                    {row.map((movie, j) => (
+                      <GenreChildItem
+                        key={movie.id}
+                        movie={movie}
+                        onClick={() => onMovieClick(movie.id)}
+                        selected={selectedMovie === movie.id}
+                      />
+                    ))}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

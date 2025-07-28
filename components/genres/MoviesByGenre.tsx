@@ -23,7 +23,7 @@ export default function MoviesByGenre() {
       }
     };
     fetchGenres();
-  });
+  }, []);
   const SLIDE_COUNT = genres ? genres.length : 0;
   const slides = Array.from({ length: SLIDE_COUNT }, (_, i) => i);
   const OPTIONS = { loop: true };
