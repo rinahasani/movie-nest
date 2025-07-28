@@ -2,8 +2,8 @@
 
 import { Part } from "@/constants/types/Collection";
 import { useState } from "react";
-import CollectionMovieCard from "./CollectionMovieCard";
 import { useTranslations } from "next-intl";
+import Card from "../Card";
 
 interface CollectionMoviesProps {
   parts: Part[];
@@ -19,9 +19,9 @@ const CollectionMovies: React.FC<CollectionMoviesProps> = ({ parts }) => {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {parts.length > 0 ? (
             parts.map((movieCollection: Part) => (
-              <CollectionMovieCard
+              <Card
                 key={movieCollection.id}
-                collection={movieCollection}
+                data={movieCollection}
                 isExpanded={movieCollection.id === expandedCardId}
                 onClick={(id) =>
                   setExpandedCardId((prev) => (prev === id ? null : id))
@@ -31,6 +31,7 @@ const CollectionMovies: React.FC<CollectionMoviesProps> = ({ parts }) => {
                     setExpandedCardId(null);
                   }
                 }}
+                type={"collectionMovie"}
               />
             ))
           ) : (
