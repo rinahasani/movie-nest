@@ -4,16 +4,17 @@ import Carousel from "@/components/carousel/Carousel";
 import { MovieInfo } from "@/constants/types/MovieInfo";
 import { useLocale, useTranslations } from "next-intl";
 import { getAllMovies } from "@/lib/tmdbCalls/getAllMovies";
+import Spinner from "./auth/Spinner";
 
 export default function SimilarCarousel() {
   const [movies, setMovies] = useState<MovieInfo[] | null>(null);
   const [loading, setLoading] = useState(true);
-  const locale = useLocale(); 
+  const locale = useLocale();
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         setLoading(true);
-        const fetchedMovies = await getAllMovies(1,locale);
+        const fetchedMovies = await getAllMovies(1, locale);
         setMovies(fetchedMovies);
       } catch (error) {
         console.error("Failed to fetch movies: ", error);
@@ -35,10 +36,14 @@ export default function SimilarCarousel() {
       <h1 className="text-3xl md:text-2xl font-extrabold leading-tight drop-shadow-lg m-6">
         {t("title")}
       </h1>
-      {hasMovies ? (
+      {loading ? (
+        <div className="flex justify-center items-center h-40">
+          <Spinner />
+        </div>
+      ) : hasMovies ? (
         <Carousel slides={slides} options={OPTIONS} movies={movies} />
       ) : (
-         <p>{t("noMovies")}</p>
+        <p>{t("noMovies")}</p>
       )}
     </main>
   );

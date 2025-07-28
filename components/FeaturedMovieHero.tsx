@@ -5,6 +5,7 @@ import { MovieInfo } from "@/constants/types/MovieInfo";
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
 import { getRandomMovie } from "@/lib/tmdbCalls/getRandomMovie";
+import Spinner from "./auth/Spinner";
 
 export default function FeaturedMovieHero() {
   const [movie, setMovie] = useState<MovieInfo | null>(null);
@@ -24,14 +25,14 @@ export default function FeaturedMovieHero() {
       }
     };
     fetchMovies();
-    intervalId = setInterval(fetchMovies, 20000); 
+    intervalId = setInterval(fetchMovies, 20000);
     return () => clearInterval(intervalId);
   }, [locale]);
 
   if (loading) {
     return (
-      <div className="w-full min-h-[60vh] flex items-center justify-center">
-        <span className="text-lg">Loading...</span>
+      <div className="flex justify-center items-center h-60">
+        <Spinner size={50} />
       </div>
     );
   }

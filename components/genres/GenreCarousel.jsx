@@ -6,12 +6,14 @@ import { useLocale } from "next-intl";
 import { GenreThumb } from "./GenreThumb";
 import { getMoviesByGenre } from "@/lib/tmdbCalls/getMoviesByGenre";
 import { GenreChildItem } from "./GenreChildItem";
+import Spinner from "../auth/Spinner";
 
 const GenreCarousel = (props) => {
   const { slides, options, genres } = props;
   const [moviesByGenre, setMoviesByGenre] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedMovie, setSelectedMovie] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
     containScroll: "keepSnaps",
@@ -25,6 +27,7 @@ const GenreCarousel = (props) => {
   const locale = useLocale();
   const onThumbClick = useCallback(
     (index) => {
+      setIsLoading(true);
       setSelectedIndex(index);
       if (!emblaMainApi || !emblaThumbsApi) return;
       emblaMainApi.scrollTo(index);
@@ -54,9 +57,11 @@ const GenreCarousel = (props) => {
     }
   }
   const fetchMoviesForSelectedGenre = useCallback(async () => {
+    setIsLoading(true);
     const currentGenre = genres[selectedIndex];
     if (!currentGenre) {
       setMoviesByGenre(null);
+      setIsLoading(true);
       return;
     }
     try {
@@ -68,6 +73,8 @@ const GenreCarousel = (props) => {
       setMoviesByGenre(fetchedMoviesByGenre);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   }, [genres, selectedIndex, locale]);
   useEffect(() => {
@@ -105,27 +112,33 @@ const GenreCarousel = (props) => {
         </div>
       </div>
       <div className="mt-8">
-        <div className="mt-[var(--thumbs-slide-spacing,0.8rem)]">
-          <div className="overflow-hidden" ref={emblaMovieRef}>
-            <div
-              className="flex flex-row w-full"
-              style={{ marginLeft: "calc(var(--thumbs-slide-spacing) * -1)" }}
-            >
-              {movieRows.map((row, i) => (
-                <div key={i} className="flex flex-col mr-4">
-                  {row.map((movie, j) => (
-                    <GenreChildItem
-                      key={movie.id}
-                      movie={movie}
-                      onClick={() => onMovieClick(movie.id)}
-                      selected={selectedMovie === movie.id}
-                    />
-                  ))}
-                </div>
-              ))}
+        {isLoading ? (
+          <div className="flex justify-center items-center h-50">
+            <Spinner size={50} />
+          </div>
+        ) : (
+          <div className="mt-[var(--thumbs-slide-spacing,0.8rem)]">
+            <div className="overflow-hidden" ref={emblaMovieRef}>
+              <div
+                className="flex flex-row w-full"
+                style={{ marginLeft: "calc(var(--thumbs-slide-spacing) * -1)" }}
+              >
+                {movieRows.map((row, i) => (
+                  <div key={i} className="flex flex-col mr-4">
+                    {row.map((movie, j) => (
+                      <GenreChildItem
+                        key={movie.id}
+                        movie={movie}
+                        onClick={() => onMovieClick(movie.id)}
+                        selected={selectedMovie === movie.id}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
