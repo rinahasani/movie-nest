@@ -2,7 +2,7 @@
 import MovieHero from "@/components/MovieHero";
 import convertOriginalImageUrl from "@/lib/utils/convertOriginalImage";
 import { MovieInfo } from "@/constants/types/MovieInfo";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocale } from "next-intl";
 import { getRandomMovie } from "@/lib/tmdbCalls/getRandomMovie";
 import Spinner from "./auth/Spinner";
@@ -10,24 +10,46 @@ import Spinner from "./auth/Spinner";
 export default function FeaturedMovieHero() {
   const [movie, setMovie] = useState<MovieInfo | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isFading, setIsFading] = useState(false);
   const locale = useLocale();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Fetch the initial movie
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-    const fetchMovies = async () => {
+    let isMounted = true;
+    const fetchInitialMovie = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
+        const fetchedMovie = await getRandomMovie(locale);
+        if (isMounted) setMovie(fetchedMovie);
+      } catch (error) {
+        console.error("Failed to fetch movies: ", error);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+    fetchInitialMovie();
+    return () => { isMounted = false; };
+  }, [locale]);
+
+  // Set up interval for changing movie
+  useEffect(() => {
+    if (!movie) return;
+    intervalRef.current = setInterval(async () => {
+      setIsFading(true); 
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      try {
         const fetchedMovie = await getRandomMovie(locale);
         setMovie(fetchedMovie);
       } catch (error) {
         console.error("Failed to fetch movies: ", error);
-      } finally {
-        setLoading(false);
       }
+      setIsFading(false);
+    }, 20000);
+    return () => {
+      clearInterval(intervalRef.current!);
     };
-    fetchMovies();
-    intervalId = setInterval(fetchMovies, 20000);
-    return () => clearInterval(intervalId);
-  }, [locale]);
+  }, [movie, locale]);
 
   if (loading) {
     return (
@@ -46,15 +68,19 @@ export default function FeaturedMovieHero() {
   }
 
   return (
-    <MovieHero
-      id={movie.id}
-      title={movie.title}
-      vote_average={movie.vote_average}
-      release_date={movie.release_date?.slice(0, 4) || ""}
-      overview={movie.overview}
-      backdrop_path={convertOriginalImageUrl(movie.backdrop_path)}
-      homepage={movie.homepage}
-      moreInfo={true}
-    />
+    <div
+      className={`transition-opacity duration-500 ${isFading ? 'opacity-0' : 'opacity-100'}`}
+    >
+      <MovieHero
+        id={movie.id}
+        title={movie.title}
+        vote_average={movie.vote_average}
+        release_date={movie.release_date?.slice(0, 4) || ""}
+        overview={movie.overview}
+        backdrop_path={convertOriginalImageUrl(movie.backdrop_path)}
+        homepage={movie.homepage}
+        moreInfo={true}
+      />
+    </div>
   );
 }
