@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { getAllGenres } from "@/lib/tmdbCalls/getGenres";
 import GenreCarousel from "./GenreCarousel";
 import { GenreList } from "@/constants/types/GenreList";
+import Spinner from "../auth/Spinner";
 
 export default function MoviesByGenre() {
   const [genres, setGenres] = useState<GenreList[] | null>(null);
@@ -30,11 +31,15 @@ export default function MoviesByGenre() {
   const t = useTranslations("movieGenres");
 
   return (
-    <main className="bg-black m-6">
-      <h1 className="text-3xl md:text-2xl font-extrabold leading-tight drop-shadow-lg m-6 mt-8">
+    <main className="bg-black mt-6 mb-8">
+      <h1 className="text-3xl md:text-2xl font-extrabold leading-tight drop-shadow-lg m-6">
         {t("title")}
       </h1>
-      {hasGenres ? (
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <Spinner size={50} />
+        </div>
+      ) : hasGenres ? (
         <GenreCarousel slides={slides} options={OPTIONS} genres={genres} />
       ) : (
         <p>{t("noGenres")}</p>

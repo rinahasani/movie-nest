@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
-import { FaStar, FaRegStar } from "react-icons/fa";
+import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import convertImageUrl from "@/lib/utils/imageUrlHelper";
 import { CardProps } from "@/constants/types/CardProps";
 
@@ -17,7 +17,8 @@ const Card: React.FC<CardProps> = ({
   const locale = useLocale();
   const t = useTranslations("tvShowDetailsPage");
   const [isHovered, setIsHovered] = useState(false);
-  const filledStars = Math.round((data.vote_average || 0) / 2);
+  const filledStars = Math.floor((data.vote_average || 0) / 2);
+  const hasHalfStar = (data.vote_average || 0) / 2 - filledStars >= 0.5;
 
   const mainButtonColor = "bg-[#FFAC00]";
   const hoverButtonColor = "hover:bg-[#CC8A00]";
@@ -28,7 +29,7 @@ const Card: React.FC<CardProps> = ({
     isExpanded || isHovered ? "scale-105 z-20" : "scale-100 z-10";
   const cardTransitionClass =
     "transition-transform duration-300 ease-in-out transform";
-    
+
   let link = "";
   if (type === "tvShow") {
     link = `/${locale}/tv-shows/${data.id}`;
@@ -70,16 +71,30 @@ const Card: React.FC<CardProps> = ({
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col justify-end p-3 transition-opacity duration-300 ease-in-out">
             <h3 className="text-base font-bold text-white mb-1">{data.name}</h3>
             <div className="flex items-center mb-1">
-              {[1, 2, 3, 4, 5].map((i) =>
-                i <= filledStars ? (
-                  <FaStar key={i} className="mr-0.5 text-yellow-400 text-xs" />
-                ) : (
-                  <FaRegStar
-                    key={i}
-                    className="mr-0.5 text-yellow-400 text-xs"
-                  />
-                )
-              )}
+              {[1, 2, 3, 4, 5].map((i) => {
+                if (i <= filledStars) {
+                  return (
+                    <FaStar
+                      key={i}
+                      className="mr-0.5 text-yellow-400 text-xs"
+                    />
+                  );
+                } else if (i === filledStars + 1 && hasHalfStar) {
+                  return (
+                    <FaStarHalfAlt
+                      key={i}
+                      className="mr-0.5 text-yellow-400 text-xs"
+                    />
+                  );
+                } else {
+                  return (
+                    <FaRegStar
+                      key={i}
+                      className="mr-0.5 text-yellow-400 text-xs"
+                    />
+                  );
+                }
+              })}
               <span className="ml-0.5 text-xs text-gray-300">
                 {data.vote_average?.toFixed(1)}
               </span>

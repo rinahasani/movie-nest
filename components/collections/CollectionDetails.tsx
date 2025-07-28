@@ -8,6 +8,7 @@ import convertOriginalImageUrl from "@/lib/utils/convertOriginalImage";
 import { Collection } from "@/constants/types/Collection";
 import { getCollections } from "@/lib/tmdbCalls/getCollections";
 import CollectionMovies from "./CollectionMovies";
+import Spinner from "../auth/Spinner";
 
 interface CollectionDetailsProps {
   id: string;
@@ -41,8 +42,8 @@ export default function CollectionDetails({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-black text-center text-white text-xl flex items-center justify-center">
-        {t("loading")}
+      <div className="flex justify-center items-center h-screen">
+        <Spinner size={50} />
       </div>
     );
   }

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { MovieInfo } from "@/constants/types/MovieInfo";
 import { useLocale, useTranslations } from "next-intl";
 import { getTrendingMovies } from "@/lib/tmdbCalls/getTrendingMovies";
+import Spinner from "./auth/Spinner";
 
 export default function PopularCarousel() {
   const [movies, setMovies] = useState<MovieInfo[] | null>(null);
@@ -34,7 +35,11 @@ export default function PopularCarousel() {
       <h1 className="text-3xl md:text-2xl font-extrabold leading-tight drop-shadow-lg m-6">
         {t("title")}
       </h1>
-      {hasMovies ? (
+      {loading ? (
+        <div className="flex justify-center items-center h-40">
+          <Spinner />
+        </div>
+      ) : hasMovies ? (
         <PopularMovies slides={slides} options={OPTIONS} movies={movies} />
       ) : (
         <p>{t("noMovies")}</p>
