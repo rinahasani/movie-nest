@@ -4,6 +4,7 @@ import { MovieCollections } from "@/constants/movieCollections";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import Card from "../Card";
+import Spinner from "../auth/Spinner";
 
 export interface MovieCollection {
   adult: boolean;
@@ -102,44 +103,50 @@ export default function CollectionList() {
   };
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="container mx-auto p-4 py-8">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {movieCollection.length > 0 ? (
-            movieCollection.map((movieCollection: MovieCollection) => (
-              <Card
-                key={movieCollection.id}
-                data={movieCollection}
-                isExpanded={movieCollection.id === expandedCardId}
-                onClick={(id) =>
-                  setExpandedCardId((prev) => (prev === id ? null : id))
-                }
-                onHover={(id) => {
-                  if (expandedCardId !== null && expandedCardId !== id) {
-                    setExpandedCardId(null);
+      {isLoading ? (
+        <div className="flex justify-center items-center h-screen">
+          <Spinner size={50} />
+        </div>
+      ) : (
+        <div className="container mx-auto p-4 py-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {movieCollection.length > 0 ? (
+              movieCollection.map((movieCollection: MovieCollection) => (
+                <Card
+                  key={movieCollection.id}
+                  data={movieCollection}
+                  isExpanded={movieCollection.id === expandedCardId}
+                  onClick={(id) =>
+                    setExpandedCardId((prev) => (prev === id ? null : id))
                   }
-                }}
-                type={"collection"}
-              />
-            ))
-          ) : (
-            <p className="text-center text-gray-400 col-span-full">
-              {t("noCollectionsFound")}
-            </p>
+                  onHover={(id) => {
+                    if (expandedCardId !== null && expandedCardId !== id) {
+                      setExpandedCardId(null);
+                    }
+                  }}
+                  type={"collection"}
+                />
+              ))
+            ) : (
+              <p className="text-center text-gray-400 col-span-full">
+                {t("noCollectionsFound")}
+              </p>
+            )}
+          </div>
+
+          {currentPage < totalPages && (
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={handleLoadMore}
+                disabled={isFetchingMore}
+                className="px-6 py-3 bg-[#FFAC00] text-black font-semibold rounded-md hover:bg-[#CC8A00] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isFetchingMore ? t("loading") : t("seeMore")}
+              </button>
+            </div>
           )}
         </div>
-
-        {currentPage < totalPages && (
-          <div className="flex justify-center mt-8">
-            <button
-              onClick={handleLoadMore}
-              disabled={isFetchingMore}
-              className="px-6 py-3 bg-[#FFAC00] text-black font-semibold rounded-md hover:bg-[#CC8A00] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isFetchingMore ? t("loading") : t("seeMore")}
-            </button>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 }

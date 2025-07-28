@@ -8,6 +8,7 @@ import { MovieInfo } from "@/constants/types/MovieInfo";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { getMovieDetails } from "@/lib/tmdbCalls/getMovieDetails";
+import Spinner from "./auth/Spinner";
 
 const MovieDetails = ({ id }: { id: string }) => {
   const [movieDetails, setMovieDetails] = useState<MovieInfo | null>(null);
@@ -31,7 +32,11 @@ const MovieDetails = ({ id }: { id: string }) => {
   return (
     <>
       <main>
-        {movieDetails ? (
+        {loading ? (
+          <div className="flex justify-center items-center h-screen">
+            <Spinner size={50}/>
+          </div>
+        ) : movieDetails ? (
           <div>
             <MovieHero
               id={movieDetails.id}

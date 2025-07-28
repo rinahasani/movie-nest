@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { getAllTvShows } from "@/lib/tmdbCallsTvShow/getAllTvShows";
 import { TvShow } from "@/constants/types/TvShow";
 import Card from "../Card";
+import Spinner from "../auth/Spinner";
 
 interface TvShowsListProps {
   locale: string;
@@ -63,7 +64,7 @@ export default function TvShowsList({ locale }: TvShowsListProps) {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-black text-center text-white text-xl flex items-center justify-center">
-        {t("loading")}
+        <Spinner size={50} />
       </div>
     );
   }
