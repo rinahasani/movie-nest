@@ -235,7 +235,9 @@
   "gemini": {
     "chatTitle": "Movie Recommender",
     "chatDesc": "Enter a movie title, actor, or genre to get recommendations.",
-    "recommendations": "We recommend you these movies: "
+    "recommendations": "Based on your input we recommend you these movies: ",
+    "findingMovies": "Finding movies..",
+    "placeholder": "Enter movie, actor, or genre..."
   },
     "collectionsPage": {
     "title": "Browse Collections",
