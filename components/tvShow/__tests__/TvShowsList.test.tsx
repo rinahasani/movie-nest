@@ -8,16 +8,16 @@ jest.mock("next-intl", () => ({
   useTranslations: () => (key: string) => key,
 }));
 
-// Mock TvShowCard
-jest.mock("../TvShowCard", () => (props: any) => {
+// Mock Card.tsx
+jest.mock("../../Card", () => (props: any) => {
   return (
     <div
-      data-testid={`tvshow-card-${props.tvShow.id}`}
-      onClick={() => props.onClick(props.tvShow.id)}
-      onMouseEnter={() => props.onHover(props.tvShow.id)}
+      data-testid={`tvshow-card-${props.data.id}`}
+      onClick={() => props.onClick(props.data.id)}
+      onMouseEnter={() => props.onHover(props.data.id)}
       onMouseLeave={() => props.onHover(null)}
     >
-      {props.tvShow.name} {props.isExpanded ? "(expanded)" : ""}
+      {props.data.name} {props.isExpanded ? "(expanded)" : ""}
     </div>
   );
 });
@@ -78,9 +78,11 @@ describe("TvShowsList", () => {
       () => new Promise(() => {})
     );
 
-    render(<TvShowsList locale="en" />);
+    const { container } = render(<TvShowsList locale="en" />);
 
-    expect(screen.getByText("loading")).toBeInTheDocument();
+    const spinner = container.querySelector("svg.animate-spin");
+
+    expect(spinner).toBeInTheDocument();
   });
 
   it("renders error state on fetch failure", async () => {
@@ -102,9 +104,11 @@ describe("TvShowsList", () => {
     render(<TvShowsList locale="en" />);
 
     for (const show of mockTvShowsPage1) {
-      await waitFor(() =>
-        expect(screen.getByText(show.name)).toBeInTheDocument()
-      );
+      await waitFor(() => {
+        expect(
+          screen.getByTestId(`tvshow-card-${show.id}`)
+        ).toBeInTheDocument();
+      });
     }
   });
 
