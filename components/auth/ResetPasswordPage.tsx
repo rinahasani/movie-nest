@@ -3,29 +3,28 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "@/lib/firebase";
 import Link from "next/link";
 import { AuthSlider } from "@/components/auth/AuthSlider";
 import Spinner from "./Spinner";
+import { useAuthActions } from "./useAuthAction";
 
 export default function ResetPasswordPage() {
   const t = useTranslations("resetPassword");
   const tErrors = useTranslations("errors");
   const { locale } = useParams() as { locale: string };
+  const { resetPassword } = useAuthActions();
+
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("sending");
     setError("");
 
     try {
-      await sendPasswordResetEmail(auth, email);
+      await resetPassword(email);
       setStatus("sent");
     } catch (err: any) {
       console.error(err);
@@ -67,35 +66,24 @@ export default function ResetPasswordPage() {
                   <Spinner size={20} color="text-white" />
                 </div>
               )}
-              <span
-                className={status === "sending" ? "opacity-0" : "opacity-100"}
-              >
+              <span className={status === "sending" ? "opacity-0" : "opacity-100"}>
                 {t("button")}
               </span>
             </button>
           </form>
 
-          {status === "sent" && (
-            <p className="text-green-400">{t("emailSentMessage")}</p>
-          )}
+          {status === "sent" && <p className="text-green-400">{t("emailSentMessage")}</p>}
           {status === "error" && <p className="text-red-400">{error}</p>}
 
           <p className="text-center text-gray-500">
-            <Link
-              href={`/${locale}/login`}
-              className="text-yellow-400 hover:underline"
-            >
+            <Link href={`/${locale}/login`} className="text-yellow-400 hover:underline">
               {t("backToLogin")}
             </Link>
           </p>
         </div>
       </div>
 
-      <AuthSlider
-        title={t("sliderTitle")}
-        subtitle={t("sliderSubtitle")}
-        emoji="🔒"
-      />
+      <AuthSlider title={t("sliderTitle")} subtitle={t("sliderSubtitle")} emoji="🔒" />
     </div>
   );
 }

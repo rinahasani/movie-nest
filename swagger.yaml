@@ -3,8 +3,13 @@ info:
   title: 🎬 MovieNest API
   version: 1.0.0
   description: |
-    Endpoint:
-    - POST /api/auth/login
+    Endpoints:
+    - POST /auth/login — Log in and receive a JWT token
+    - POST /auth/reset-password — Send password reset email
+    - POST /auth/signup — Create a new user account
+    - POST /chatbot/getMovieRecommendations — Get 5 movie recommendations based on query
+    - POST /favorites/add — Add a movie to user's favorites (requires JWT)
+    - POST /favorites/remove — Remove a movie from user's favorites (requires JWT)
 servers:
   - url: https://{host}/api
     variables:
