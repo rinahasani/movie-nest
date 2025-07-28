@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { X, Send } from "lucide-react";
 import { getMovieRecommendations } from "@/app/api/chatbot/getMovieRecommendations";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const ChatWindow = ({ onClose }) => {
   const [query, setQuery] = useState("");
@@ -14,6 +14,7 @@ const ChatWindow = ({ onClose }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   const t = useTranslations("gemini");
+  const locale = useLocale();
 
   useEffect(() => {
     scrollToBottom();
@@ -24,7 +25,7 @@ const ChatWindow = ({ onClose }) => {
     setRecommendations([]);
     setIsLoading(true);
     try {
-      const newRecommendations = await getMovieRecommendations(query);
+      const newRecommendations = await getMovieRecommendations(query, locale);
       setRecommendations(newRecommendations);
     } catch (err) {
       setError(err.message);
@@ -58,8 +59,13 @@ const ChatWindow = ({ onClose }) => {
         )}
         {isLoading && (
           <div className="flex justify-center items-center py-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <span className="ml-2 text-blue-600">Finding movies...</span>
+            <div
+              className="animate-spin rounded-full h-8 w-8 border-b-2"
+              style={{ borderBottomColor: "#CC8A00" }}
+            ></div>
+            <span className="ml-2" style={{ color: "#CC8A00" }}>
+              {t("findingMovies")}
+            </span>
           </div>
         )}
         {error && (
@@ -71,18 +77,18 @@ const ChatWindow = ({ onClose }) => {
             <span className="block sm:inline ml-2">{error}</span>
           </div>
         )}
-        {recommendations.length > 0 && (
+        {recommendations && recommendations.length > 0 && (
           <div
-            className=" p-3 rounded-lg shadow-sm"
+            className="p-3 rounded-lg shadow-sm"
             style={{ backgroundColor: "#1E1E1E" }}
           >
-            <h3 className="font-semibold text-white-800 mb-2">
+             <h3 className="font-semibold text-white-800 mb-2">
               {t("recommendations")}
             </h3>
             <ul className="list-disc pl-5 text-white-700">
-              {recommendations.map((rec, index) => (
+              {recommendations.map((title, index) => (
                 <li key={index} className="mb-1">
-                  {rec}
+                  {title}
                 </li>
               ))}
             </ul>
@@ -99,7 +105,7 @@ const ChatWindow = ({ onClose }) => {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Enter movie, actor, or genre..."
+          placeholder={t("placeholder")}
           className="flex-1 p-2 border border-gray-300 rounded-md  focus:ring-[#FFAD00] focus:outline-none focus:ring-2 text-white"
           disabled={isLoading}
         />

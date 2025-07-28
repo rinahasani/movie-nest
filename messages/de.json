@@ -190,7 +190,9 @@
   "gemini": {
     "chatTitle": "Film-Empfehlung",
     "chatDesc": "Geben Sie einen Filmtitel, Schauspieler oder ein Genre ein, um Empfehlungen zu erhalten.",
-    "recommendations": "Wir empfehlen Ihnen diese Filme: "
+    "recommendations": "Basierend auf Ihren Eingaben empfehlen wir Ihnen diese Filme: ",
+    "findingMovies": "Filme finden...",
+    "placeholder":"Geben Sie Film, Schauspieler oder Genre ein ..."
   },
   "collectionsPage": {
     "title": "Kollektionen durchsuchen",
